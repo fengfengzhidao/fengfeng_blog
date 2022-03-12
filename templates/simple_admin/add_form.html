@@ -1,0 +1,65 @@
+{% extends 'admin/change_form.html' %}
+
+{% block field_sets %}
+    <style>
+        #menu_result {
+            width: 500px;
+            height: 148px;
+            position: absolute;
+            border: 1px solid #f0eeee;
+            border-radius: 5px;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        #menu_result::after {
+            content: '图片预览区域';
+            position: absolute;
+            display: block;
+            right: 10px;
+            bottom: 10px;
+            color: #888;
+        }
+
+        #menu_result img {
+            height: 50px;
+            border-radius: 5px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+    <div id="menu_result">
+        <img :src="'/media/' + item" v-for="(item, index) in img_list" :key="index" alt="">
+    </div>
+    {% for fieldset in adminform %}
+        {% include "admin/includes/fieldset.html" %}
+    {% endfor %}
+
+    <script>
+        let option = $('#id_menu_url').offset()
+        let menu_in_weight = $('#id_menu_url').innerWidth()
+        option.left += menu_in_weight + 35
+        option.top += 24
+        $('#menu_result').css(option)
+
+        let menu_vue = new Vue({
+            el: '#menu_result',
+            data: {
+                img_list: [],
+            }
+        })
+
+        function imgPush() {
+            let img_list = []
+            let url_list = $('#id_menu_url option:selected')
+            for (const element of url_list) {
+                img_list.push(element.innerHTML)
+            }
+            menu_vue.img_list = img_list
+        }
+        imgPush()
+        $('#id_menu_url').change(imgPush)
+    </script>
+{% endblock %}

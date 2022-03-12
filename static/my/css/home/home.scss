@@ -1,0 +1,352 @@
+@font-face {
+  font-family: 'HuaGuangGangTieZhi';
+  src: url("../../font/HuaGuangGangTieZhi.ttf");
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f0eeee;
+}
+
+#app {
+  padding: 20px;
+  color: #525659;
+}
+
+.actions {
+  margin-top: 30px;
+  color: #777;
+
+  .item {
+    cursor: pointer;
+    margin-right: 10px;
+    padding: 10px 20px;
+    border-radius: 5px 5px 0 0;
+    background-color: #dae3e8;
+
+    &.active {
+      background-color: white;
+    }
+  }
+}
+
+main {
+  margin-top: 10px;
+  background-color: white;
+  padding: 30px 20px 20px 20px;
+  border-radius: 0 5px 5px 5px;
+}
+
+main.home {
+  > .title {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f0eeee;
+
+
+    .item {
+      display: flex;
+      align-items: center;
+
+      .left {
+        width: 70px;
+        height: 70px;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f0eeee;
+        border-radius: 5px;
+        font-size: 25px;
+      }
+
+      .right {
+        h3 {
+          font-size: 22px;
+        }
+
+        margin-left: 10px;
+      }
+
+
+      &.tea > .left {
+        background-color: #7165ba;
+      }
+
+      &.green > .left {
+        background-color: #009a61;
+      }
+
+      &.yellow > .left {
+        background-color: #d5cd3a;
+      }
+
+      &.blue > .left {
+        background-color: #20b6e7;
+      }
+
+      &.red > .left {
+        background-color: #ed4e46;
+      }
+
+    }
+  }
+
+  .content {
+    display: flex;
+    margin-top: 20px;
+    padding-bottom: 20px;
+    align-items: center;
+    border-bottom: 1px solid #f0eeee;
+
+    .charts {
+      width: 75%;
+      height: 250px;
+    }
+
+    .data_s {
+      width: 25%;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      padding: 0 20px;
+
+      .item {
+        width: 100%;
+        display: flex;
+        border-bottom: 1px solid #f0eeee;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+        position: relative;
+        align-items: center;
+
+        &:last-child {
+          margin-bottom: 0;
+          border-bottom: none;
+          padding-bottom: 0;
+        }
+
+        .left {
+          width: 40px;
+          height: 40px;
+          background-color: #e52e17;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 50%;
+
+          i {
+            color: white;
+          }
+        }
+
+        .right {
+          padding-left: 20px;
+
+          h4 {
+            font-size: 20px;
+          }
+        }
+
+        .new {
+          padding: 3px 8px;
+          position: absolute;
+          right: 0;
+          font-size: 14px;
+          top: 0;
+          border-radius: 5px;
+          background-color: #f0eeee;
+        }
+      }
+
+    }
+  }
+
+  .footer {
+    margin-top: 20px;
+
+    .title {
+      text-align: center;
+      font-size: 16px;
+    }
+
+    .body {
+      text-align: center;
+      margin: 10px 0;
+    }
+
+    .info {
+      text-align: center;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .in_word {
+      text-align: center;
+      margin-top: 10px;
+
+      button {
+        outline: none;
+        border: none;
+        padding: 3px 8px;
+        cursor: pointer;
+        color: white;
+        border-radius: 5px;
+        background-color: #00a3e8;
+      }
+
+      button.no_active {
+        cursor: no-drop;
+        background-color: #71ccf3;
+      }
+    }
+
+
+  }
+}
+
+main.version {
+  > .title {
+    justify-content: center;
+    display: flex;
+
+    span {
+      padding: 5px 10px;
+      font-family: 'HuaGuangGangTieZhi';
+      color: #009a61;
+      font-size: 25px;
+    }
+
+  }
+
+  .body {
+    margin-top: 5px;
+
+    .content {
+      margin-top: 5px;
+
+      .item {
+        margin-top: 15px;
+        display: flex;
+        width: 100%;
+
+        .left {
+          width: 30px;
+          justify-content: center;
+          display: flex;
+          align-items: start;
+          position: relative;
+
+          &::after {
+            width: 2px;
+            height: 100%;
+            background-image: linear-gradient(#f0eeee, rgba(#f0eeee, 0));;
+            content: '';
+            display: block;
+            position: absolute;
+            z-index: 0;
+
+          }
+
+          .max_circle {
+            position: absolute;
+            z-index: 1;
+            width: 15px;
+            height: 15px;
+            background-color: #f0eeee;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+          }
+
+          .circle {
+            width: 10px;
+            height: 10px;
+            background-color: #009a61;
+            border-radius: 50%;
+          }
+        }
+
+        .right {
+          width: calc(100% - 30px);
+          margin-left: 5px;
+          position: relative;
+
+          .date {
+            font-weight: 600;
+
+            span {
+              font-size: 14px;
+              color: #666;
+            }
+          }
+
+          .info {
+            padding-left: 20px;
+            margin-top: 5px;
+            font-size: 14px;
+            color: #555;
+
+            li {
+              line-height: 1.3rem;
+            }
+          }
+
+          .drawing {
+            margin-top: 10px;
+
+            img {
+              height: 100px;
+              border-radius: 5px;
+              margin-right: 10px;
+              box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+              cursor: zoom-in;
+              margin-bottom: 10px;
+            }
+          }
+
+          .v {
+            position: absolute;
+            padding: 2px 6px;
+            background-color: #f0eeee;
+            right: 0;
+            top: 0;
+            font-size: 14px;
+            border-radius: 3px;
+
+            &.big {
+              background-color: #ffbc00;
+              color: white;
+
+              &::after {
+                display: inline-block;
+                content: '重大更新';
+              }
+            }
+
+            &.new {
+              background-color: #009a61;
+              color: white;
+
+              &::after {
+                display: inline-block;
+                content: '最新更新';
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+

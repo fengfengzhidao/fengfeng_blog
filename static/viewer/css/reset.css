@@ -1,0 +1,92 @@
+   @charset "utf-8";
+   
+    * {   
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        outline: 0;
+    }
+    
+    body,div,span,h1,h2,h3,h4,h5,h6,p,em,img,strong,b,small,u,i,center,dl,dt,dd,ol,
+    ul,li,sub,sup,tt,var,del,dfn,ins,kbd,q,s,samp,strike,applet,object,iframe,fieldset,
+    form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,
+    embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,
+    blockquote,pre,a,abbr,acronym,address,big,cite,code,mark,audio,video,input,textarea,select{   
+        margin:0; padding:0;
+    }
+    
+    ol,ul {
+        list-style:none;
+    }
+                                    
+    a {
+        text-decoration:none;
+        outline:none;
+    }
+
+    img {
+        border: 0;
+    }
+    
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    
+    input[type='reset'],
+    input[type='button'],
+    input[type='submit'],
+    input[type='radio'] {
+        cursor: pointer;
+        outline: none;
+    }
+    
+    input[type='checkbox'],
+    input[type='radio'] { 
+        position: relative;
+        vertical-align: middle;
+        margin-top: -2px;
+        margin-bottom:1px;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    
+    textarea,
+    input[type='email'],
+    input[type='date'],
+    input[type='password'],
+    input[type='text']{   
+        padding: 0px;
+        color: #666;
+        outline: none;
+    }
+    
+    .f-l {
+        float: left;
+    }
+    .f-r {
+        float: right;
+    }
+    .clearfix:after {
+        clear: both;
+        height: 0;
+        content: "";
+        line-height: 0;
+        font-size: 0;
+        display: block;
+    }
+    
+    
+    /*图片垂直水平居中*/
+	.vcenter {
+	    position: absolute;
+	    top: 0;
+	    right: 0;
+	    bottom: 0;
+	    left: 0;
+	    max-width: 100%;
+	    max-height: 100%;
+	    display: block;
+	    vertical-align: middle;
+	    margin: auto;
+	}

@@ -1,0 +1,146 @@
+.main {
+
+  .news_content {
+    display: flex;
+    min-height: 800px;
+    background-color: var(--card_bg);
+    border-radius: 5px;
+
+    .left {
+      width: 20%;
+      border-right: 1px solid var(--bg_darken);
+
+      ul {
+        margin-top: 20px;
+
+        img {
+          height: 25px;
+          border-radius: 5px;
+          margin-right: 10px;
+        }
+
+        li {
+          color: var(--font_1);
+          height: 40px;
+          display: flex;
+          align-items: center;
+          padding-left: 30%;
+          transition: all 0.1s;
+        }
+
+        li.active {
+          background-color: var(--active);
+          color: white;
+        }
+
+        li:not(li.active) {
+          // 选中非active的
+          cursor: pointer;
+
+          &:hover {
+            color: #3a8ee6;
+          }
+
+        }
+      }
+    }
+
+    .right {
+      width: 80%;
+      padding: 20px;
+
+      .title {
+        display: flex;
+        align-items: center;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--bg_darken);
+
+        img {
+          width: 35px;
+          border-radius: 50%;
+          margin-right: 10px;
+        }
+
+        h2 {
+          font-size: 20px;
+        }
+      }
+
+      .body {
+        margin-top: 10px;
+
+        ul {
+          list-style: none;
+
+          li {
+            display: flex;
+            font-size: 14px;
+            margin-bottom: 10px;
+            align-items: start;
+
+            &:nth-child(1) {
+              .index {
+                background-color: #fe2d46;
+                color: white;
+              }
+            }
+
+            &:nth-child(2) {
+              .index {
+                background-color: #ff6600;
+                color: white;
+              }
+            }
+
+            &:nth-child(3) {
+              .index {
+                background-color: #faa90e;
+                color: white;
+              }
+            }
+
+            .index {
+              width: 20px;
+              height: 20px;
+              border-radius: 5px;
+              color: var(--font_1);
+              background-color: var(--bg_darken);
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              margin-right: 20px;
+            }
+
+            a {
+              width: 77%;
+              color: var(--font_1);
+              transition: all 0.2s;
+
+              &:hover {
+                color: #3a8ee6;
+              }
+            }
+
+            .num {
+              width: 20%;
+              display: flex;
+              justify-content: right;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .thank {
+    width: 100%;
+    display: flex;
+    margin-top: 10px;
+    justify-content: center;
+
+    a {
+      font-size: 14px;
+      color: var(--font_1);
+    }
+  }
+}

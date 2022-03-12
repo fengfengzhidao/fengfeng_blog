@@ -1,0 +1,182 @@
+.main {
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.main .search_box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+}
+.main .search_box > div {
+  margin-right: 10px;
+}
+.main .search_box > div:last-child {
+  margin-right: 0;
+}
+.main .search_box input {
+  width: 300px;
+  height: 40px;
+  outline: none;
+  border: 1px solid var(--bg_darken);
+  border-radius: 5px;
+  padding-left: 10px;
+  color: var(--font_2);
+  background-color: var(--ele_bg);
+}
+.main .search_box button {
+  width: 100px;
+  border-radius: 5px;
+  height: 40px;
+  background-color: var(--active);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+.main .search_criteria {
+  margin: 20px 0;
+  width: 100%;
+  font-size: 13px;
+}
+.main .search_criteria::before {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: var(--bg_darken);
+  content: "";
+  margin-bottom: 20px;
+}
+.main .search_criteria::after {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: var(--bg_darken);
+  content: "";
+  margin-top: 20px;
+}
+.main .search_criteria > ul {
+  display: flex;
+  list-style: none;
+  margin: 10px 0;
+  flex-wrap: wrap;
+}
+.main .search_criteria > ul > li {
+  padding: 3px 8px;
+  margin-right: 10px;
+}
+.main .search_criteria > ul > li:hover a {
+  color: var(--active);
+}
+.main .search_criteria > ul > li a {
+  color: var(--font_2);
+}
+.main .search_criteria > ul > li.active {
+  background-color: var(--active);
+  border-radius: 5px;
+}
+.main .search_criteria > ul > li.active a {
+  color: white;
+}
+.main .search_content {
+  width: 100%;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+}
+.main .search_content > li {
+  width: 190px;
+  height: 190px;
+  border: 1px solid var(--bg_darken);
+  border-radius: 5px;
+  overflow: hidden;
+  margin: 0 30px 30px 0;
+  transition: all 0.3s;
+}
+.main .search_content > li:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.main .search_content > li:hover .img img {
+  transform: scale(1.1);
+}
+.main .search_content > li:nth-child(5n) {
+  margin-right: 0;
+}
+.main .search_content > li .img {
+  display: block;
+  width: 100%;
+  height: 100px;
+  overflow: hidden;
+}
+.main .search_content > li .img img {
+  width: 100%;
+  height: 100%;
+  transition: all 0.3s;
+  object-fit: cover;
+}
+.main .search_content > li .info {
+  padding: 8px;
+  color: #777;
+}
+.main .search_content > li .info .title {
+  margin-bottom: 5px;
+  height: 43px;
+}
+.main .search_content > li .info a {
+  color: var(--font_2);
+  font-size: 14px;
+}
+.main .search_content > li .info .icon {
+  font-size: 13px;
+  display: flex;
+  justify-content: space-between;
+}
+.main .no_content {
+  width: 100%;
+  background: url("/static/my/img/search/no_content.png") no-repeat center center;
+  height: 300px;
+}
+
+.pager {
+  list-style: none;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.pager > li {
+  min-width: 30px;
+  height: 30px;
+  background-color: transparent;
+  border-radius: 5px;
+  border: 1px solid var(--bg_darken);
+  transition: all 0.3s;
+  margin-right: 10px;
+}
+.pager > li:last-child {
+  margin-right: 0;
+}
+.pager > li a {
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  display: inline-flex;
+  padding: 0 10px;
+  color: var(--font_2);
+}
+.pager > li:hover {
+  background-color: var(--active);
+}
+.pager > li:hover a {
+  color: white;
+}
+.pager > li.active {
+  background-color: var(--active);
+}
+.pager > li.active a {
+  color: white;
+}
+
+/*# sourceMappingURL=search.css.map */

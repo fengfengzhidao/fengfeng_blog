@@ -1,0 +1,44 @@
+{% extends 'backend/backend.html' %}
+{% load my_filter %}
+
+{% block css %}
+    <link rel="stylesheet" href="/static/viewer/css/viewer.css">
+    <link rel="stylesheet" href="/static/my/css/backend/avatar_list.css">
+{% endblock %}
+
+
+{% block content %}
+    <el-scrollbar style="margin-top: 20px">
+        <ul class="flex avatar_list">
+            {% for avatar in avatar_query %}
+                <li class="{{ avatar|to_calculate_avatar }}">
+                    <div class="delete_icon flex center item_center">
+                        <i @click="avatar_cover_delete('{{ avatar.nid }}', 'avatar', $event)"
+                           class="el-icon-delete-solid"></i>
+                    </div>
+
+                    <img src="{{ avatar.url.url }}" alt="">
+                </li>
+            {% endfor %}
+        </ul>
+    </el-scrollbar>
+    <el-upload
+            class="upload-demo"
+            action="/api/upload/avatar/"
+            multiple
+            :on-success="avatar_list_success"
+            :before-upload="avatar_list_upload"
+            :headers="avatar_list_headers"
+            list-type="picture">
+        <el-button size="small" type="primary">上传头像</el-button>
+        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过2M</div>
+    </el-upload>
+{% endblock %}
+
+
+{% block js %}
+    <script src="/static/viewer/js/viewer.js"></script>
+    <script>
+        $('.avatar_list').viewer();
+    </script>
+{% endblock %}

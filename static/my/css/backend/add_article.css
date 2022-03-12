@@ -1,0 +1,105 @@
+.el-drawer__body {
+  position: relative;
+}
+
+.add_el_drawer_content {
+  padding: 0 20px;
+}
+.add_el_drawer_content .category_tags .el-collapse-item__content {
+  display: flex;
+  justify-content: space-between;
+}
+.add_el_drawer_content .category_tags .el-collapse-item__content .category {
+  width: 40%;
+}
+.add_el_drawer_content .category_tags .el-collapse-item__content .tags {
+  width: 58%;
+}
+.add_el_drawer_content .article_cover .el-collapse-item__content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.add_el_drawer_content .article_cover .el-collapse-item__content .left {
+  width: 40%;
+}
+.add_el_drawer_content .article_cover .el-collapse-item__content .left img {
+  width: 100%;
+}
+.add_el_drawer_content .article_cover .el-collapse-item__content .right {
+  width: 58%;
+}
+.add_el_drawer_content .article_cover .el-collapse-item__content .right .el-select {
+  width: 100%;
+}
+.add_el_drawer_content .can_choose_ .el-collapse-item__content > div {
+  display: block;
+  margin-bottom: 10px;
+}
+.add_el_drawer_content .article_btn_list {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+
+#editor {
+  margin-top: 20px;
+}
+
+.select_cover .el-select-dropdown__list li {
+  height: 60px;
+  display: flex;
+  align-items: center;
+}
+.select_cover .el-select-dropdown__list li img {
+  height: 55px;
+  border-radius: 5px;
+}
+.select_cover .el-select-dropdown__list li.selected {
+  background-color: #7ccdda26;
+}
+
+.el-drawer {
+  background-color: var(--card_bg);
+}
+
+.el-collapse-item__header {
+  color: var(--font_1);
+  background-color: var(--card_bg);
+  border-bottom: 1px solid var(--bg);
+}
+
+.el-collapse {
+  border-top: 1px solid var(--bg);
+  border-bottom: 1px solid var(--bg);
+}
+
+.el-collapse-item__wrap {
+  background-color: var(--card_bg);
+  border-bottom: 1px solid var(--bg);
+}
+
+.el-textarea__inner {
+  color: var(--font_2);
+  background-color: var(--ele_bg);
+  border: 1px solid var(--bg_darken);
+}
+
+.el-dialog, .el-pager li {
+  background: var(--ele_bg);
+}
+
+.el-dialog__title {
+  color: var(--font_2);
+}
+
+.el-radio__inner {
+  border: 1px solid var(--bg_darken);
+  background-color: var(--ele_bg);
+}
+
+.el-switch__label {
+  color: var(--font_1);
+}
+
+/*# sourceMappingURL=add_article.css.map */

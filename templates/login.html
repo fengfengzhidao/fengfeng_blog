@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+        <title>枫枫知道个人博客|用户登录</title>
+    {% endblock %}
+    <!-- 引入样式 -->
+    <link rel="icon" sizes="any" href="/static/favicon.ico">
+    <link rel="stylesheet" href="/static/elementui/theme-chalk/index.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/static/my/css/reset.css">
+    <link rel="stylesheet" href="/static/my/css/login/login.css">
+    <link rel="stylesheet" href="/static/my/css/login/phone.css">
+</head>
+<body>
+<div id="app">
+    <main>
+        <div class="top">
+            <div class="title">
+                {% block main_title %}
+                    <a href="/login" class="active">登录</a> / <a href="/sign">注册</a> / <a href="/">去首页</a>
+                {% endblock %}
+
+            </div>
+            <div class="login_forms">
+                {% csrf_token %}
+                {% block form %}
+                    <input type="text" ref="login_form_name" v-model="login_form.name" placeholder="请输入用户名 / 邮箱">
+                    <input type="password" ref="login_form_pwd" v-model="login_form.pwd" placeholder="请输入密码">
+                    <div class="code">
+                        <input type="text" ref="login_form_code" v-model="login_form.code" placeholder="请输入验证码">
+                        <img @click="get_random_code" src="/static/my/img/login/code.png" alt="">
+                    </div>
+                    <button @click="login">登录</button>
+                {% endblock %}
+
+            </div>
+            <div class="other_login">
+                <p>其他登录方式</p>
+                <div>
+                    <img src="/static/my/img/footer/qq_icon.svg" @click="qq_login" alt="">
+                    <img src="/static/my/img/login/gitee.png" @click="gitee_login" alt="">
+                    <img src="/static/my/img/footer/wexin_icon.svg" @click="wechart_login" alt="">
+                    <img src="/static/my/img/footer/weibo_icon.svg" @click="weibo_login" alt="">
+                </div>
+            </div>
+
+        </div>
+        <div class="bottom">
+            <img src="/static/my/img/login/new_year_2022.svg" alt="">
+        </div>
+    </main>
+</div>
+<script src="/static/axios/axios.min.js"></script>
+<script src="/static/vue/vue.js"></script>
+<!-- 引入组件库 -->
+<script src="/static/elementui/index.js"></script>
+<script>
+    axios.interceptors.request.use(request => {
+        if (request.method === 'post') {
+            let csrftoken = document.querySelector('input[name="csrfmiddlewaretoken"]').value
+            request.headers['X-CSRFToken'] = csrftoken
+        }
+        return request
+    })
+    axios.interceptors.response.use(response => {
+        return response.data
+    })
+
+    function parseSearchArgs(url) {
+        let rst = {};
+        if (url.indexOf("?") !== -1) {
+            let str = url.substr(1);
+            let parts = str.split("&");
+            for (let i = 0; i < parts.length; i++) {
+                rst[parts[i].split("=")[0]] = decodeURI(parts[i].split("=")[1]);
+            }
+        }
+        return rst;
+    }
+
+    function go_back(res) {
+        if (res.code) {
+            // 登录失败
+            alert(res.msg)
+        } else {
+            location.href = '/'
+        }
+    }
+
+    new Vue({
+        el: '#app',
+        data: {
+            login_form: {
+                name: '',
+                pwd: '',
+                code: '',
+            },
+            sign_form: {
+                name: '',
+                pwd: '',
+                re_pwd: '',
+                code: '',
+            }
+        },
+        methods: {
+            login() {
+                axios.post('/api/login/', this.login_form).then(res => {
+                    if (res.code) {
+                        // 验证失败
+                        this.$message.error(res.msg)
+                        this.$refs[`login_form_${res.self}`].focus()
+                        return
+                    }
+                    this.$message.success(res.msg)
+                    setTimeout(() => {
+                        location.href = '/'
+                    }, 1000)
+                })
+            },
+
+            sign() {
+                axios.post('/api/sign/', this.sign_form).then(res => {
+                    if (res.code) {
+                        // 验证失败
+                        this.$message.error(res.msg)
+                        this.$refs[`sign_form_${res.self}`].focus()
+                        return
+                    }
+                    this.$message.success(res.msg)
+                    setTimeout(() => {
+                        location.href = '/'
+                    }, 1000)
+                })
+            },
+
+            get_random_code(e) {
+                let date = new Date().getTime()
+                e.target.src = '/login/random_code/?timestamp=' + date
+            },
+
+            qq_login() {
+                window.open('https://graph.qq.com/oauth2.0/show?which=Login&display=pc&response_type=code&client_id=101974593&redirect_uri=http://www.fengfengzhidao.com/login?flag=qq', name = 'self');
+            },
+            gitee_login() {
+                window.open('https://gitee.com/oauth/authorize?client_id=adec8e0ff928a424939be43963c67a0db5da94b1085580c0df342401b287bc99&redirect_uri=http://www.fengfengzhidao.com/login/?flag=gitee&response_type=code', name = 'self');
+            },
+            wechart_login() {
+                this.$message.warning('暂未开通')
+            },
+            weibo_login() {
+                this.$message.warning('暂未开通')
+            }
+        }
+    })
+</script>
+</body>
+</html>

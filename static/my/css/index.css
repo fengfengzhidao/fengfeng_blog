@@ -1,0 +1,497 @@
+@charset "UTF-8";
+.pager {
+  list-style: none;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.pager > li {
+  min-width: 30px;
+  height: 30px;
+  background-color: var(--card_bg);
+  border-radius: 5px;
+  transition: all 0.3s;
+  margin-right: 10px;
+}
+.pager > li:last-child {
+  margin-right: 0;
+}
+.pager > li a {
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  display: inline-flex;
+  padding: 0 10px;
+}
+.pager > li:hover {
+  background-color: var(--active);
+}
+.pager > li:hover a {
+  color: white;
+}
+.pager > li.active {
+  background-color: var(--active);
+}
+.pager > li.active a {
+  color: var(--card_bg);
+}
+
+a {
+  color: var(--font_2);
+}
+
+.card .title {
+  border-radius: 5px 5px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--bg);
+  padding: 20px 20px 10px 20px;
+  background-color: var(--card_bg);
+}
+.card .title h2 {
+  font-size: 20px;
+}
+.card .title > div a {
+  font-size: 14px;
+}
+.card .body {
+  padding: 10px 20px 20px 20px;
+  background-color: var(--card_bg);
+  border-radius: 0 0 5px 5px;
+}
+
+.main {
+  display: flex;
+  justify-content: space-between;
+}
+.main > div > div {
+  margin-bottom: 20px;
+}
+.main .left {
+  width: 65%;
+}
+.main .left .boutique_article > .title .switch_article_category span {
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+.main .left .boutique_article > .title .switch_article_category span:hover {
+  color: var(--active);
+}
+.main .left .boutique_article > .title .switch_article_category span[active] {
+  color: var(--active);
+}
+.main .left .boutique_article > .body {
+  padding: 0 20px;
+}
+.main .left .boutique_article > .body > ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+.main .left .boutique_article > .body > ul > li {
+  width: 50%;
+  box-sizing: border-box;
+  display: flex;
+  padding: 10px 0;
+}
+.main .left .boutique_article > .body > ul > li:nth-child(1), .main .left .boutique_article > .body > ul > li:nth-child(3), .main .left .boutique_article > .body > ul > li:nth-child(5) {
+  border-right: 1px solid var(--bg);
+  padding: 10px 10px 10px 0;
+}
+.main .left .boutique_article > .body > ul > li:nth-child(2), .main .left .boutique_article > .body > ul > li:nth-child(4), .main .left .boutique_article > .body > ul > li:nth-child(6) {
+  padding: 10px;
+}
+.main .left .boutique_article > .body > ul > li:nth-child(1), .main .left .boutique_article > .body > ul > li:nth-child(2), .main .left .boutique_article > .body > ul > li:nth-child(3), .main .left .boutique_article > .body > ul > li:nth-child(4) {
+  border-bottom: 1px solid var(--bg);
+}
+.main .left .boutique_article > .body > ul > li .left {
+  width: 40%;
+}
+.main .left .boutique_article > .body > ul > li .left > div {
+  width: 100%;
+  overflow: hidden;
+  height: 90px;
+}
+.main .left .boutique_article > .body > ul > li .left img {
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.3s;
+}
+.main .left .boutique_article > .body > ul > li .left img:hover {
+  transform: scale(1.1);
+}
+.main .left .boutique_article > .body > ul > li .right {
+  width: 60%;
+  box-sizing: border-box;
+  padding-left: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.main .left .boutique_article > .body > ul > li .right h2 {
+  font-size: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.main .left .boutique_article > .body > ul > li .right p {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.main .left .boutique_article > .body > ul > li .right span {
+  font-size: 14px;
+  color: var(--font_2);
+}
+.main .left .hotList > .body > div {
+  display: flex;
+  font-size: 14px;
+}
+.main .left .hotList > .body > div .index {
+  width: 20px;
+  border-radius: 5px;
+  color: #333333;
+  display: flex;
+  margin-right: 20px;
+}
+.main .left .hotList > .body > div a {
+  width: 77%;
+  color: var(--active);
+}
+.main .left .hotList > .body > div .num {
+  width: 20%;
+  display: flex;
+  justify-content: right;
+}
+.main .left .all_article > .body {
+  background-color: transparent;
+  padding: 0;
+}
+.main .left .all_article > .body > .article_content {
+  width: 100%;
+}
+.main .left .all_article > .body > .article_content > li {
+  width: 100%;
+  display: flex;
+  background-color: var(--card_bg);
+  margin-bottom: 20px;
+  border-radius: 5px;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.main .left .all_article > .body > .article_content > li:first-child {
+  border-radius: 0 0 5px 5px;
+}
+.main .left .all_article > .body > .article_content > li:first-child .left {
+  padding: 10px 10px 20px 20px;
+}
+.main .left .all_article > .body > .article_content > li:first-child .right {
+  padding: 10px 20px 20px 10px;
+}
+.main .left .all_article > .body > .article_content > li:not(.main .left .all_article > .body > .article_content > li:first-child):hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.main .left .all_article > .body > .article_content > li .left {
+  width: 30%;
+  box-sizing: border-box;
+  padding: 20px 10px 20px 20px;
+}
+.main .left .all_article > .body > .article_content > li .left > div {
+  width: 100%;
+  border-radius: 5px;
+  height: 110px;
+  overflow: hidden;
+}
+.main .left .all_article > .body > .article_content > li .left img {
+  width: 100%;
+  transition: all 0.3s;
+  display: block;
+}
+.main .left .all_article > .body > .article_content > li .left img:hover {
+  transform: scale(1.1);
+}
+.main .left .all_article > .body > .article_content > li .right {
+  width: 70%;
+  padding: 20px 20px 20px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.main .left .all_article > .body > .article_content > li .right > h2 {
+  font-size: 23px;
+  margin-bottom: 5px;
+}
+.main .left .all_article > .body > .article_content > li .right p {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 10px;
+}
+.main .left .all_article > .body > .article_content > li .right .article_info {
+  font-size: 14px;
+  color: var(--font_2);
+}
+.main .left .all_article > .body > .article_content > li .right .article_info > span {
+  margin-right: 10px;
+}
+.main .left .all_article > .body > .article_content > li .right .article_info > span i {
+  margin-right: 5px;
+}
+.main .left .all_article > .body > .article_content > li .right .article_info > span i.show {
+  color: var(--active);
+}
+.main .left .all_article > .body > .article_content > li .category_flag {
+  position: absolute;
+  color: white;
+  top: 9px;
+  right: -79px;
+  width: 200px;
+  height: 20px;
+  font-size: 14px;
+  background-color: var(--font_del);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: rotate(45deg);
+}
+.main .left .all_article > .body > .article_content > li .category_flag[type=前端] {
+  background-color: var(--active);
+}
+.main .left .el-image {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.main .left .el-image .image-slot i {
+  font-size: 50px;
+  color: var(--font_3);
+}
+.main .right {
+  width: 33%;
+  flex-shrink: 0;
+}
+.main .right .my_card {
+  padding: 20px;
+  width: 100%;
+  background-color: var(--card_bg);
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+.main .right .my_card .title {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.main .right .my_card .title h3 {
+  color: var(--font_del);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  margin-bottom: 10px;
+}
+.main .right .my_card .title h4 {
+  color: var(--md_tag, #e0bb53);
+  text-transform: uppercase;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: 0.2em;
+}
+.main .right .my_card .title img {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 90px;
+  width: 90px;
+}
+.main .right .my_card .jieqi {
+  width: 100%;
+  height: 215px;
+  border-radius: 5px;
+  margin: 10px 0;
+  overflow: hidden;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.main .right .my_card .jieqi img {
+  width: 100%;
+}
+.main .right .my_card .jieqi:hover {
+  transform: scale(1.03);
+}
+.main .right .my_card .footer p {
+  margin-bottom: 5px;
+  color: var(--font_del);
+}
+.main .right .my_card .footer p span {
+  color: var(--font_2);
+}
+.main .right .my_card .footer p a {
+  color: var(--active);
+}
+.main .right .advertisement > .body {
+  padding: 10px 20px 20px 20px;
+  height: 240px;
+}
+.main .right .advertisement > .body .adv_img_list img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.main .right .tags > .body {
+  position: relative;
+}
+.main .right .tags > .body ul {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  width: 100%;
+}
+@keyframes move_box {
+  0% {
+    left: 0;
+    top: 0;
+  }
+  25% {
+    left: calc(100% - 20px);
+    top: 0;
+  }
+  50% {
+    top: calc(100% - 20px);
+    left: calc(100% - 20px);
+  }
+  75% {
+    left: 0;
+    top: calc(100% - 20px);
+  }
+  100% {
+    left: 0;
+    top: 0;
+  }
+}
+.main .right .tags > .body ul::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 20px;
+  height: 20px;
+  content: "";
+  background-color: var(--active);
+  -webkit-animation-name: move_box;
+  animation-name: move_box;
+  -webkit-animation-duration: 5s;
+  animation-duration: 5s;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+}
+.main .right .tags > .body ul li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 33.33%;
+  height: 40px;
+  box-sizing: border-box;
+}
+.main .right .tags > .body ul li:nth-child(6n+1), .main .right .tags > .body ul li:nth-child(6n+2), .main .right .tags > .body ul li:nth-child(6n+3) {
+  background-color: var(--bg);
+}
+.main .right .tags > .body ul li:nth-child(3n+1), .main .right .tags > .body ul li:nth-child(3n+2) {
+  border-right: 1px solid var(--bg_darken);
+}
+.main .right .tags > .body ul li i {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  font-size: 10px;
+  color: var(--card_bg);
+  background-color: var(--active);
+  border-radius: 50%;
+  margin-left: 5px;
+}
+.main .right .site_info > .body .item {
+  margin-bottom: 10px;
+}
+.main .right .site_info > .body .images {
+  display: flex;
+  margin-top: 10px;
+}
+.main .right .site_info > .body .images > div {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.main .right .site_info > .body .images img {
+  height: 100px;
+  border-radius: 5px;
+}
+.main .right .feedback > .body .el-input, .main .right .feedback > .body .el-textarea {
+  margin-bottom: 10px;
+}
+.main .right .feedback > .body .el-button {
+  width: 100%;
+}
+.main .right .links > .body ul {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.main .right .links > .body ul li {
+  display: flex;
+  align-items: center;
+  width: 50%;
+  height: 40px;
+}
+
+.dialog_content > div {
+  margin-bottom: 10px;
+}
+.dialog_content > div > label {
+  display: block;
+  margin-bottom: 5px;
+}
+.dialog_content > div .icon_href {
+  width: 70%;
+}
+.dialog_content > div .icon_img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+}
+.dialog_content > div .icon_img img {
+  height: 40px;
+}
+.dialog_content > div .el-select {
+  width: 100%;
+}
+
+.el-select-dropdown__list li {
+  height: 60px;
+  display: flex;
+  align-items: center;
+}
+.el-select-dropdown__list li img {
+  height: 55px;
+  border-radius: 5px;
+}
+.el-select-dropdown__list li.selected {
+  background-color: var(--bg);
+}
+
+/*# sourceMappingURL=index.css.map */

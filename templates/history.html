@@ -1,0 +1,113 @@
+{% extends 'index.html' %}
+{% load my_tag my_filter %}
+
+{% block banner %}
+    {% banner 'history' %}
+{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="/static/viewer/css/viewer.css">
+    <link rel="stylesheet" href="/static/my/css/history.css">
+{% endblock %}
+{% block main %}
+    <div class="main">
+        <el-dialog
+                :title="history_edit_add ? '事件编辑' : '事件添加'"
+                :visible.sync="history_dialogVisible"
+                :before-close="history_edit_add ? history_handleClose : null"
+                :width="max_dialog_width">
+            <div class="dialog_content">
+                <div>
+                    <label for="">事件标题</label>
+                    <el-input v-model="history.title" placeholder="请输入事件标题"></el-input>
+                </div>
+                <div>
+                    <label for="">事件日期</label>
+                    <el-date-picker
+                            v-model="history.create_date"
+                            type="date"
+                            value-format="yyyy-MM-dd"
+                            :picker-options="history_pickerOptions"
+                            placeholder="选择日期">
+                    </el-date-picker>
+                </div>
+                <div>
+                    <label for="">事件内容</label>
+                    <el-input
+                            type="textarea"
+                            :rows="4"
+                            placeholder="请输入事件内容"
+                            resize="none"
+                            v-model="history.content">
+                    </el-input>
+                </div>
+                <div>
+                    <label for="">事件配图</label>
+                    <textarea
+                            rows="10"
+                            class="drawing"
+                            placeholder="请输入事件配图"
+                            @paste="paste_upload"
+                            v-model="history.drawing">
+                    </textarea>
+                </div>
+                <div class="drawing_show">
+                    <img :src="url" alt="" v-for="(url, index) in history_show_drawing" :key="index">
+                </div>
+            </div>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="history_dialogVisible = false">取 消</el-button>
+                <el-button type="primary" @click="history_add_method(history_edit_add)">确 定</el-button>
+            </span>
+        </el-dialog>
+        {% if request.user.is_superuser %}
+            <h2 class="title cursor" @click="history_dialogVisible=true">枫枫知道建站回忆录</h2>
+        {% else %}
+            <h2 class="title">枫枫知道建站回忆录</h2>
+        {% endif %}
+        <ul class="timeline-wrapper">
+            {% for history in history_list %}
+                <li class="timeline-item">
+                    <div class="timeline-box">
+                        <div class="out-circle">
+                            {% if request.user.is_superuser %}
+                                <div class="in-circle cursor super"
+                                     @click="history_remove('{{ history.nid }}', $event)"></div>
+                            {% else %}
+                                <div class="in-circle"></div>
+                            {% endif %}
+                        </div>
+                        <div class="long-line"></div>
+                    </div>
+                    <div class="timeline-content">
+                        {% if request.user.is_superuser %}
+                            <div content="{{ history.content }}" drawing="{{ history.drawing }}"
+                                 @click="history_edit_show($event, '{{ history.nid }}', '{{ history.title }}', '{{ history.create_date|date:'Y-m-d' }}')"
+                                 class="timeline-date cursor">{{ history.create_date|date:'Y-m-d' }}</div>
+                        {% else %}
+                            <div class="timeline-date">{{ history.create_date|date:'Y-m-d' }}</div>
+                        {% endif %}
+
+
+                        <div class="timeline-title">{{ history.title }}</div>
+                        <ul class="timeline-desc">
+                            {% generate_li history.content %}
+                        </ul>
+                        <div class="peitu">
+                            <div>
+                                {% generate_drawing history.drawing %}
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+
+        </ul>
+    </div>
+{% endblock %}
+
+{% block article_js %}
+    <script src="/static/viewer/js/viewer.js"></script>
+    <script>
+        $('.peitu>div').viewer();
+    </script>
+{% endblock %}

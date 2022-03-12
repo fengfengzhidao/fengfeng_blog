@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load my_filter %}
+<head>
+    <meta charset="UTF-8">
+    <title>后台界面</title>
+    <link rel="icon" sizes="any" href="/static/favicon.ico">
+    <link rel="stylesheet" href="/static/my/css/reset.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="/static/elementui/theme-chalk/index.css">
+    <link rel="stylesheet" href="/static/my/css/backend/backend_base.css">
+    {% block css %}
+
+    {% endblock %}
+    <link rel="stylesheet" href="/static/my/css/backend/notebook.css">
+</head>
+<body>
+
+<div id="app">
+    <link rel="stylesheet" :href="'/static/my/css/theme/' + theme + '.css'">
+    <aside>
+        <div class="slogan">
+            <img src="/static/my/img/backend/slogan.png" alt="">
+        </div>
+        <div id="dynamic_menu">
+            <a href="/">首页</a>
+            <a href="/backend/">个人中心</a>
+            <a href="/backend/edit_avatar/">修改头像</a>
+            {% if request.user.is_superuser %}
+                <a href="/backend/add_article/">添加文章</a>
+                <a href="/backend/avatar_list/">头像列表</a>
+                <a href="/backend/cover_list/">文章封面</a>
+                <a href="/admin/">后台系统</a>
+            {% endif %}
+            <a href="/logout/">注销退出</a>
+        </div>
+
+    </aside>
+    <div class="aside_bg"></div>
+    <main>
+        {% csrf_token %}
+        {% block main %}
+            <div class="user_info">
+                <div class="left">
+                    <div class="avatar avatar_aside_method">
+                        <i class="{{ request.user|get_login }}" @click="reset_avatar('{{ request.user.sign_status }}')">重置头像</i>
+                        <img src="{{ request.user|get_avatar }}" alt="">
+                    </div>
+
+                </div>
+                <div class="right">
+                    <div class="item">
+                        <span><b>用户名：</b>{{ request.user.nick_name }}</span>
+                    </div>
+                    <div class="item">
+                        <span><b>注册时间：</b>{{ request.user.date_joined }}</span>
+                    </div>
+                    <div class="item">
+                        <span><b>上次登录时间：</b>{{ request.user.last_login|date_humaniz }}</span>
+                    </div>
+                    <div class="item">
+                        <span><b>来源渠道：</b>{{ request.user.get_sign_status_display }}</span>
+                    </div>
+                    <div class="item">
+                        <span><b>账号状态：</b>{{ request.user.get_account_status_display }}</span>
+                    </div>
+                    <div class="item">
+                        <span><b>邮箱：</b>
+                            {% if request.user.email %}
+                                {{ request.user.email }}
+                            {% else %}
+                                <a href="javascript:void (0);" @click="perfect_information_dialogVisible=true">绑定邮箱</a>
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+                <div class="theme">
+                    <img v-show="theme === 'light'" src="/static/my/img/nav/light.svg" @click="setTheme('dark')" alt="">
+                    <img v-show="theme === 'dark'" src="/static/my/img/nav/dark.svg" @click="setTheme('light')" alt="">
+                </div>
+            </div>
+            <div class="actions">
+                <el-dialog
+                        title="完善信息"
+                        :width="min_dialog_width"
+                        :visible.sync="perfect_information_dialogVisible">
+                    <div class="edit_info">
+                        <div>
+                            <label for="">邮箱</label>
+                            <el-input id="" v-model="perfect_information.email"
+                                      placeholder="请输入邮箱"></el-input>
+                        </div>
+                        <div>
+                            <label for="">请输入验证码</label>
+                            <div class="flex send_email">
+                                <el-input id="" v-model="perfect_information.code"
+                                          placeholder="请输入验证码"></el-input>
+                                <el-button @click="send_email" :disabled="perfect_information_email_disable">发送邮箱验证码
+                                </el-button>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="">请输入密码</label>
+                            <el-input id="" type="password" v-model="perfect_information.pwd"
+                                      placeholder="请输入密码"></el-input>
+                        </div>
+                        <p>
+                            绑定邮箱之后可使用邮箱+密码登录
+                        </p>
+                    </div>
+                    <span slot="footer" class="dialog-footer">
+                        <el-button @click="perfect_information_dialogVisible = false">取 消</el-button>
+                        <el-button :disabled="perfect_information_method_disable" @click="perfect_information_method"
+                                   type="primary">确 定</el-button>
+                      </span>
+                </el-dialog>
+                {% block action_btn %}
+
+                {% endblock %}
+                <div class="item">
+                    <el-button @click="perfect_information_dialogVisible=true">完善信息</el-button>
+                </div>
+                <div class="item">
+                    <el-button type="success"><a href="/backend/edit_avatar/">修改头像</a></el-button>
+                </div>
+                <el-dialog
+                        title="修改密码"
+                        :width="min_dialog_width"
+                        :visible.sync="edit_password_dialogVisible">
+                    <div class="edit_info">
+                        <div>
+                            <label for="edit_password_old_pwd">之前的密码</label>
+                            <el-input id="edit_password_old_pwd" type="password" v-model="edit_password.old_pwd"
+                                      placeholder="请输入之前的密码"></el-input>
+                        </div>
+                        <div>
+                            <label for="edit_password_pwd">新密码</label>
+                            <el-input id="edit_password_pwd" type="password" v-model="edit_password.pwd"
+                                      placeholder="请输入新密码"></el-input>
+                        </div>
+                        <div>
+                            <label for="edit_password_re_pwd">再次输入新密码</label>
+                            <el-input id="edit_password_re_pwd" type="password" v-model="edit_password.re_pwd"
+                                      placeholder="请再次输入新密码"></el-input>
+                        </div>
+                    </div>
+                    <span slot="footer" class="dialog-footer">
+                        <el-button @click="dialogVisible = false">取 消</el-button>
+                        <el-button type="primary" @click="edit_password_method">确 定</el-button>
+                      </span>
+                </el-dialog>
+                <div class="item">
+                    <el-button @click="edit_password_dialogVisible=true" type="warning">修改密码</el-button>
+                </div>
+                <div class="item">
+                    <el-button type="danger"><a href="/logout/">注销退出</a></el-button>
+                </div>
+            </div>
+
+            {% block content %}
+                {% if collects_query.count %}
+                    <form method="post" action="/api/cancel_collection/" class="collection_article_all">
+                        {% csrf_token %}
+                        <p>共收藏文章{{ collects_query.count }}篇，选择[[ select_list.length ]]篇</p>
+                        <table class="collection_table">
+                            <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" @click="select_all" data="{{ collects_query|get_coll_nid }}">
+                                </th>
+                                <th>标题</th>
+                                <th>分类</th>
+                                <th>标签</th>
+                                <th>阅读</th>
+                                <th>收藏</th>
+                                <th>发布时间</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for col in collects_query %}
+                                <tr>
+                                    <td class="select"><input v-model="select_list" type="checkbox" name="nid"
+                                                              value="{{ col.nid }}"></td>
+                                    <td><a href="/article/{{ col.nid }}/" target="_blank">{{ col.title }}</a></td>
+                                    <td>{{ col.get_category_display }}</td>
+                                    <td class="tags">{{ col.tag.all|get_tags }}</td>
+                                    <td>{{ col.look_count }}</td>
+                                    <td>{{ col.collects_count }}</td>
+                                    <td>{{ col.create_date|date:'Y-m-d' }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        <input v-show="select_list.length" type="submit" class="cancel_btn" value="取消收藏">
+                    </form>
+                {% else %}
+                    <p class="no_article">还没有收藏文章，快去收藏吧！</p>
+                {% endif %}
+
+            {% endblock %}
+
+        {% endblock %}
+
+    </main>
+</div>
+
+
+<script src="/static/axios/axios.min.js"></script>
+<script src="/static/vue/vue.js"></script>
+<script src="/static/jquery/jquery.min.js"></script>
+<script src="/static/elementui/index.js"></script>
+
+<script>
+    axios.interceptors.request.use(request => {
+        if (request.method !== 'get') {
+            let csrftoken = document.querySelector('input[name="csrfmiddlewaretoken"]').value
+            request.headers['X-CSRFToken'] = csrftoken
+        }
+        return request
+    })
+    axios.interceptors.response.use(response => {
+        return response.data
+    })
+
+    var vue = new Vue({
+        el: '#app',
+        delimiters: ["[[", "]]"],
+        data: {
+            main_aside_show: true,
+            // 弹窗宽度
+            max_dialog_width: '50%',
+            min_dialog_width: '30%',
+            theme: 'light',  // 默认的主题
+            // 是否展开添加文章的侧边栏
+            add_drawer: false,
+            // 选中的
+            add_article_activeNames: ['1'],
+            // 文章分类的id
+            category_id: '',
+            // 文章分类
+            category_options: [
+                {value: 0, label: '前端'},
+                {value: 1, label: '后端'},
+                {value: 2, label: '项目相关'},
+            ],
+            // 选中的文章标签
+            tags: [],
+            // 是否上推荐
+            recommend: true,
+            // 是否需要密码查看
+            pwd_active: false,
+            // 文章密码
+            pwd: '',
+            // 文章封面id
+            cover_id: '',
+            // 文章标题
+            title: '',
+            // 文章简介
+            abstract: '',
+
+            edit_password_dialogVisible: false, // 修改密码的弹窗
+
+            // 修改密码
+            edit_password: {
+                old_pwd: '',
+                pwd: '',
+                re_pwd: '',
+            },
+
+            edit_avatar_id: '',
+
+            avatar_list_headers: {},
+
+            perfect_information_dialogVisible: false,
+            perfect_information: {
+                email: '',
+                pwd: '',
+                code: '',
+            },
+            perfect_information_email_disable: false,
+            perfect_information_method_disable: true,
+
+            select_list: [],
+
+
+        },
+        created() {
+
+            this.init_dialog_width()
+            this.init_theme()
+            let img = document.getElementById('cover_img')
+
+            let path_dict = {
+                "add_article": this.init_add_article,
+                "edit_article": this.init_edit_article,
+                "edit_avatar": this.init_edit_avatar,
+                "cover_list": this.init_cover_list,
+                "avatar_list": this.init_cover_list,
+            }
+            let path = location.pathname
+            for (const key in path_dict) {
+                let index = path.indexOf(key)
+                if (index !== -1) {
+                    path_dict[key](img)
+                    break
+                }
+            }
+
+
+        },
+        mounted() {
+            // 动态导航，给要实现动态导航的a标签，父级添加一个ref="dynamic_menu"
+            let dynamic_menu = document.getElementById('dynamic_menu')
+            let a_list = dynamic_menu.querySelectorAll('a')
+            let path = location.pathname
+            for (const a of a_list) {
+                let a_href = a.getAttribute('href')
+                if (a_href === path || a_href + '/' === path) {
+                    a.classList.add('active')
+                }
+            }
+        },
+        methods: {
+            // 初始化弹窗大小
+            init_dialog_width() {
+                let w = $(document).width()
+                if (w <= 850) {
+                    setTimeout(() => {
+                        $('.avatar_aside_method').click((e) => {
+                            let flag = this.main_aside_show
+                            if (flag) {
+                                // 铺全屏
+                                $('aside').addClass('show')
+                                $('main').addClass('show')
+                            } else {
+                                $('aside').removeClass('show')
+                                $('main').removeClass('show')
+                            }
+                            this.main_aside_show = !flag
+                            e.stopPropagation();
+
+                        })
+                        $('.aside_bg').unbind().click((e) => {
+                            let flag = this.main_aside_show
+                            if (!flag) {
+                                // 铺全屏
+                                $('aside').removeClass('show')
+                                $('main').removeClass('show')
+                                this.main_aside_show = !flag
+                            }
+                        })
+                        $('aside').click(e => {
+                            e.stopPropagation();
+                        })
+                    }, 500)
+
+
+                }
+                if (w > 850) {
+
+                } else if (w > 550) {
+                    this.max_dialog_width = '70%'
+                    this.min_dialog_width = '50%'
+                } else if (w > 400) {
+                    this.max_dialog_width = '90%'
+                    this.min_dialog_width = '70%'
+                } else {
+                    this.max_dialog_width = '100%'
+                    this.min_dialog_width = '90%'
+                }
+            },
+            // 初始化主题
+            init_theme() {
+                // 读取存储的主题信息
+                let theme = localStorage.getItem('theme')
+                if (theme) {
+                    this.theme = theme
+                }
+            },
+
+            // 设置主题
+            setTheme(themeName) {
+                this.theme = themeName
+                // 持久化存储
+                localStorage.setItem('theme', themeName)
+            },
+            add_handleClose(done) {
+                // 添加文章侧边栏关闭之前的函数
+                done()
+            },
+
+            // 添加文章和编辑文章
+            add_edit_article() {
+                let data = {
+                    title: this.title,
+                    cover_id: this.cover_id,
+                    pwd: this.pwd,
+                    recommend: this.recommend,
+                    tags: this.tags,
+
+                    category: this.category_id,
+                    abstract: this.abstract,
+                    content: editor.querySelector('.editormd-markdown-textarea').value
+                }
+
+                return data
+            },
+            // 添加文章编辑文章的回调
+            add_edit_article_callback(res) {
+                if (res.code) {
+                    this.$message.error(res.msg)
+                    return
+                }
+                this.$message.success(res.msg)
+                setTimeout(() => {
+                    location.href = `/article/${res.data}/`
+                }, 1000)
+            },
+
+            // 添加文章的函数
+            add_article() {
+                let data = this.add_edit_article()
+                axios.post('/api/article/', data).then(res => {
+                    this.add_edit_article_callback(res)
+                })
+            },
+
+            // 添加文章的初始化
+            init_add_article(img) {
+                let cover_list = eval(img.getAttribute('data'))
+                let item = cover_list[Math.floor(Math.random() * cover_list.length)]
+                img.setAttribute('src', item.url)
+                this.cover_id = item.nid.toString()
+            },
+
+            // 选择图片
+            select_cover(val) {
+                setTimeout(() => {
+                    let v = document.querySelector('.article_cover input').value
+                    let cover = document.getElementById('cover_img')
+                    cover.src = v
+                }, 1)
+            },
+
+
+            // 编辑文章
+            edit_article(nid) {
+                let data = this.add_edit_article()
+                axios.put(`/api/article/${nid}/`, data).then(res => {
+                    this.add_edit_article_callback(res)
+                })
+            },
+
+            // 编辑文章的初始化
+            init_edit_article(img) {
+                let box = document.getElementById('edit_info')
+                this.title = box.getAttribute('data_title')
+                this.abstract = box.getAttribute('data_abstract')
+                this.cover_id = box.getAttribute('data_cover_id')
+
+                let recommend = box.getAttribute('data_recommend')
+
+                if (recommend === 'True') {
+                    this.recommend = true
+                } else {
+                    this.recommend = false
+                }
+
+                let cover_url = box.getAttribute('data_cover_url')
+                img.setAttribute('src', cover_url)
+                let category_id = box.getAttribute('data_category')
+                if (category_id !== 'None') {
+                    this.category_id = category_id
+                }
+
+                this.tags = eval(box.getAttribute('data_tags'))
+
+                let pwd = box.getAttribute('data_pwd')
+                if (pwd !== 'None') {
+                    this.pwd = pwd
+                    this.pwd_active = true
+                }
+            },
+
+            // 修改密码
+            edit_password_method() {
+                axios.post('/api/edit_password/', this.edit_password).then(res => {
+                    if (res.code) {
+                        this.$message.error(res.msg)
+                        $(`#edit_password_${res.self}`)[0].focus()
+                        return
+                    }
+                    this.$message.success(res.msg)
+                })
+            },
+
+            // 修改头像
+            edit_avatar_method() {
+                console.log(this.edit_avatar_id)
+                axios.put('/api/edit_avatar/', {
+                    avatar_id: this.edit_avatar_id,
+                }).then(res => {
+                    if (res.code) {
+                        this.$message.error(res.msg)
+                        return
+                    }
+                    this.$message.success(res.msg)
+                    $('.user_info img').attr('src', res.data)
+                })
+            },
+
+            // 初始化修改头像
+            init_edit_avatar(img) {
+                let nid = eval($('.avatar_list').attr('avatar_nid'))
+                this.edit_avatar_id = nid
+            },
+
+            avatar_list_upload(file) {
+                let csrftoken = document.querySelector('input[name="csrfmiddlewaretoken"]').value
+                this.avatar_list_headers['X-CSRFToken'] = csrftoken
+            },
+            avatar_list_success(res) {
+                if (!res.code) {
+                    return
+                }
+                this.$message.error(res.msg)
+            },
+            avatar_cover_delete(nid, url, e) {
+                this.$confirm('此操作将永久删除该图片, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    axios.delete(`/api/upload/${url}/${nid}/`).then(res => {
+                        if (res.code) {
+                            this.$message.error(res.msg)
+                            return
+                        }
+                        this.$message.success(res.msg)
+                        $(e.target).parent().parent().remove()
+
+                    })
+
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            },
+
+            init_cover_list(img) {
+
+                setTimeout(() => {
+                    let h = document.querySelector('.avatar_list').offsetHeight
+                    if (h > 360) {
+                        h = 360
+                    }
+                    document.querySelector('.el-scrollbar').style.height = h + 'px'
+                }, 1)
+
+            },
+
+            send_email() {
+                axios.post('/api/send_email/', this.perfect_information).then(res => {
+                    if (res.code) {
+                        this.$message.error(res.msg)
+                        return
+                    }
+                    this.$message.success(res.msg)
+                    let num = 60
+                    let span = document.querySelector('.send_email .el-button span')
+                    this.perfect_information_email_disable = true
+                    this.perfect_information_method_disable = false
+                    let timer = null
+                    timer = setInterval(() => {
+                        span.innerHTML = num
+                        if (num === 1) {
+                            span.innerHTML = '发送邮箱验证码'
+                            this.perfect_information_email_disable = false
+                            clearInterval(timer)
+                        }
+                        num--
+
+                    }, 1000)
+
+                })
+            },
+            // 完善信息
+            perfect_information_method() {
+                axios.put('/api/perfect_information/', this.perfect_information).then(res => {
+                    if (res.code) {
+                        this.$message.error(res.msg)
+                        return
+                    }
+                    this.$message.success(res.msg)
+                    this.perfect_information_dialogVisible = false
+                })
+            },
+
+            select_all(e) {
+                if (this.select_all.flag) {
+                    // 取消
+                    this.select_list = []
+                    this.select_all.flag = false
+                    return
+                }
+                this.select_all.flag = true
+                let div = e.target.getAttribute('data')
+                this.select_list = eval(div)
+            },
+
+            reset_avatar(flag) {
+                if (flag === '1') {
+                    window.open('https://graph.qq.com/oauth2.0/show?which=Login&display=pc&response_type=code&client_id=101974593&redirect_uri=http://www.fengfengzhidao.com/backend?flag=qq', name = 'self');
+                } else if (flag === '2') {
+                    window.open('https://gitee.com/oauth/authorize?client_id=adec8e0ff928a424939be43963c67a0db5da94b1085580c0df342401b287bc99&redirect_uri=http://www.fengfengzhidao.com/backend/?flag=gitee&response_type=code', name = 'self');
+                }
+            }
+        }
+    })
+</script>
+{% block js %}
+
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,42 @@
+{% extends 'index.html' %}
+{% load my_tag %}
+{% block banner %}
+    {% banner 'news' %}
+{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="/static/my/css/news.css">
+{% endblock %}
+{% block main %}
+    <div class="main">
+        <div class="news_content">
+            {% csrf_token %}
+
+            <div class="left">
+                <ul>
+                    <li :class="item.name === news_active ? 'active' : ''" v-for="item in news_init" :key="item.id"
+                        @click="get_new_data(item.id, item.name, item.url, false, 0)"><img
+                            :src="item.url" alt="">[[ item.name ]]
+                    </li>
+                </ul>
+            </div>
+            <div class="right">
+                <div class="title">
+                    <img :src="news_active_url" alt="">
+                    <h2>[[ news_active ]] · 热搜榜</h2>
+                </div>
+                <div class="body">
+                    <ul>
+                        <li v-for="item in news_list" :key="item.index">
+                            <span class="index">[[ item.index ]]</span> <a
+                                :href="item.link"
+                                target="_blank">[[ item.title ]]</a>
+                            <span class="num">[[ item.hotValue ]]</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="thank"><a href="https://go.itab.link/">灵感与API来源于itab</a></div>
+
+    </div>
+{% endblock %}

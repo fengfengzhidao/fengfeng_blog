@@ -1,0 +1,74 @@
+{% extends 'index.html' %}
+{% load my_tag my_filter %}
+{% block banner %}
+
+{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="/static/my/css/search.css">
+{% endblock %}
+{% block main %}
+    <div class="main">
+        <form action="" class="search_box">
+            <div>
+                枫枫知道 | 搜索
+            </div>
+            <div>
+                <input name="key" class="search_key_input" type="text" placeholder="搜索你想要的内容" data="{{ search_key }}"
+                       v-model="search_key">
+            </div>
+            <div>
+                <button>
+                    <i class="fa fa-search"></i>
+                    搜索
+                </button>
+            </div>
+        </form>
+        <div class="search_criteria">
+            <ul>
+                {% generate_order_html request 'order' %}
+            </ul>
+            <ul>
+                 {% generate_order_html request 'word' %}
+            </ul>
+            <ul>
+                {% generate_order_html request 'tag' %}
+            </ul>
+        </div>
+        <ul class="{{ article_list|is_article_list }}">
+            {% for article in article_list %}
+                <li>
+                    <a href="/article/{{ article.nid }}/" target="_blank" class="img">
+                        <img src="{{ article.cover.url.url }}"
+                             alt="">
+                    </a>
+                    <div class="info">
+                        <div class="title">
+                            <a href="/article/{{ article.nid }}/" target="_blank">{{ article.title }}</a>
+                        </div>
+                        <div class="icon">
+                        <span>
+                            <!--判断是否显示对应的数字-->
+                            {% show_article_icon article order %}
+                        </span>
+                            <span>
+                            <i class="fa fa-clock"></i>
+                            {{ article.change_date|date:'Y-m-d' }}
+                        </span>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+        <ul class="pager">
+            {{ pager.page_html|safe }}
+        </ul>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+        // 固定导航条
+        let nav = document.querySelector('.nav_bg')
+        nav.classList.add('show')
+    </script>
+{% endblock %}

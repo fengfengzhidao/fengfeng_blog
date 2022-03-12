@@ -1,0 +1,69 @@
+.collection_article_all {
+
+  .collection_table {
+    border: 1px solid #222429;
+    color: #84878e;
+
+    thead {
+      tr {
+        color: #acacac;
+        background-color: #2a2e37;
+      }
+    }
+
+    tbody {
+      tr a {
+        color: #547b92;
+      }
+
+      .tags {
+        i {
+          color: white;
+        }
+
+        i:nth-child(4n) {
+          background-color: #ff9800;
+        }
+
+        i:nth-child(4n+1) {
+          background-color: #dd6161;
+        }
+
+        i:nth-child(4n+2) {
+          background-color: #26c6da;
+        }
+
+        i:nth-child(4n+3) {
+          background-color: #3a8ee6;
+        }
+
+      }
+
+      tr:nth-of-type(odd) {
+        background-color: #33373f;;
+
+        &:hover {
+          background-color: #303434;
+        }
+      }
+
+      tr:nth-of-type(even) {
+        background-color: #2a2e37;
+
+        &:hover {
+          background-color: #2a2a2f;
+        }
+      }
+    }
+
+  }
+
+  .cancel_btn {
+    border: 1px solid var(--bg);
+    color: var(--font_1);
+    background-color: #1a1a21;
+  }
+}
+
+
+

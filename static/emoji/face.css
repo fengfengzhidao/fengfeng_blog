@@ -1,0 +1,268 @@
+
+p, ul, li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.comment {
+    width: 100%;
+    height: auto;
+}
+
+.comment .head-face {
+    width: 10%;
+    height: 120px;
+    float: left;
+    text-align: center;
+}
+
+.comment .head-face img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.comment .head-face p {
+    font-size: 12px;
+}
+
+.comment .content {
+    width: 90%;
+    height: 120px;
+    float: right;
+}
+
+.cont-box {
+    width: 100%;
+    height: 80px;
+    border: 1px solid #99cc66;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    float: left;
+}
+
+.cont-box .text {
+    width: 96.6%;
+    height: 86.9%;
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: #999;
+    font-size: 12px;
+    resize: none;
+    border: none;
+    outline: none;
+    float: left;
+}
+
+.tools-box {
+    width: 100%;
+    height: 30px;
+    border: 1px solid #99cc66;
+    margin-top: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    float: left;
+}
+
+.tools-box .operator-box-btn {
+    width: 85%;
+    height: 30px;
+    float: left;
+}
+
+.tools-box .operator-box-btn .face-icon {
+    display: block;
+    float: left;
+    margin-top: -1px;
+    margin-left: 10px;
+    font-size: 22px;
+    color: #99cc66;
+    cursor: pointer;
+}
+
+.tools-box .operator-box-btn .img-icon {
+    display: block;
+    float: left;
+    margin-top: -11px;
+    margin-left: 10px;
+    font-size: 33px;
+    font-weight: lighter;
+    color: #99cc66;
+    cursor: pointer;
+}
+
+.tools-box .submit-btn {
+    width: 15%;
+    height: 30px;
+    float: right;
+}
+
+.tools-box .submit-btn input {
+    width: 100%;
+    height: 100%;
+    font-size: 14px;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background-color: #99cc66;
+}
+
+#info-show {
+    float: left;
+    width: 100%;
+    margin-top: 20px;
+}
+
+#info-show li {
+    width: 100%;
+    height: auto;
+    padding: 10px 0 20px 0;
+    border-bottom: 1px dashed #c0c0c0;
+    float: left;
+}
+
+#info-show .head-face {
+    width: 10%;
+    float: left;
+    text-align: center;
+}
+
+#info-show .head-face img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #c0c0c0;
+}
+
+#info-show .reply-cont {
+    width: 89%;
+    padding-right: 1%;
+    float: right;
+}
+
+#info-show .reply-cont p {
+    min-height: 20px;
+    line-height: 20px;
+    font-size: 14px;
+}
+
+#info-show .reply-cont .username {
+    color: #99cc66;
+    margin-bottom: 5px;
+}
+
+#info-show .reply-cont .comment-body {
+    color: #999;
+}
+
+#info-show .reply-cont .comment-footer {
+    font-size: 12px;
+    color: #c0c0c0;
+    margin-top: 10px;
+}
+
+#emotions {
+    left: 0;
+    width: 395px;
+    font-size: 12px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 8px gray;
+    padding: 10px 0;
+    position: absolute;
+    border: 1px solid #E8E8E8;
+}
+
+#emotions a {
+    color: #9ABBC8;
+    padding: 2px 7px;
+    text-decoration: none;
+}
+
+#emotions img {
+    border: 0;
+}
+
+#emotions div {
+    margin: 10px 5px 5px 10px;
+    padding: 1px;
+    overflow: hidden;
+}
+
+#emotions #prev,
+#emotions #next {
+    margin-left: 3px;
+    height: 22px;
+    display: block;
+    float: left;
+    background: #eee;
+}
+
+#emotions .categorys {
+    color: #ccc;
+    height: 26px;
+    color: #9ABBC8;
+    overflow: hidden;
+}
+
+#emotions .categorys a {
+    border: 2px solid #e8e8e8;
+    border-right: none;
+    display: inline-block;
+}
+
+#emotions .categorys a:hover {
+    text-decoration: underline;
+}
+
+#emotions .categorys a.current {
+    cursor: default;
+    border-bottom: none;
+    border-bottom: 2px solid #99cc66;
+    background: #F0F0F0;
+}
+
+#emotions .container {
+    padding: 1px;
+    overflow: hidden;
+    min-height: auto;
+    overflow-y: auto;
+    max-height: 180px;
+}
+
+#emotions .container a {
+    float: left;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 4px 2px;
+    margin: -1px 0 0 -1px;
+    border: 1px solid #e8e8e8;
+}
+
+#emotions .container a:hover {
+    z-index: 2;
+    position: relative;
+    border: 1px solid #0095cd;
+}
+
+#emotions .page {
+    text-align: right;
+}
+
+#emotions .page a.current {
+    color: #666;
+    background-color: #fff;
+}
+
+#emotions .page a {
+    margin-left: 3px;
+    color: #0078B6;
+    background-color: #f3f3f3;
+}
+
+#emotions .page a:hover {
+    background-color: #e7e7e7;
+}

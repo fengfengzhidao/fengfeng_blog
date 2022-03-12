@@ -1,0 +1,77 @@
+{% extends 'index.html' %}
+{% load my_tag %}
+{% block css %}
+    <link rel="stylesheet" href="/static/my/css/project.css">
+{% endblock %}
+{% block banner %}
+    {% banner 'project' %}
+{% endblock %}
+{% block main %}
+
+    <div class="main">
+        {% if request.user.is_superuser %}
+            <el-dialog
+                    :title="project_add_edit ? '编辑项目': '添加项目'"
+                    :visible.sync="project_dialog"
+                    :before-close="project_add_edit ? project_handleClose : null"
+                    :width="max_dialog_width">
+                <div class="dialog_content">
+                    <div>
+                        <label for="">项目分类名</label>
+                        <el-input id="" v-model="project.title"
+                                  placeholder="请输入项目分类标题"></el-input>
+                    </div>
+                    <div>
+                        <label for="">选择文章</label>
+                        <el-select v-model="project.article" multiple>
+                            {% for foo in article_query %}
+                                <el-option value="{{ foo.nid }}" label="{{ foo.title }}"></el-option>
+                            {% endfor %}
+                        </el-select>
+                    </div>
+                </div>
+                <span slot="footer" class="dialog-footer">
+                    <el-button @click="project_dialog = false">取 消</el-button>
+                    <el-button type="primary" @click="project_add(project_add_edit)">确 定</el-button>
+                  </span>
+            </el-dialog>
+            <el-button class="add_project" @click="project_dialog=true">添加项目</el-button>
+        {% endif %}
+
+        {% for project in project_list %}
+            <div class="project_list">
+                <h2 class="title">
+                    {{ project.title }}
+                    {% if request.user.is_superuser %}
+                        <i class="fa fa-plus-circle add_article"
+                           @click="project_edit_show({% get_article_query_nid project.article.all %}, '{{ project.title }}', '{{ project.nid }}')"></i>
+                    {% endif %}
+                </h2>
+                <ul class="article_list">
+                    {% for article in project.article.all %}
+                        <li>
+                            <div class="left">
+                                <el-image style="height: 100%" src="{{ article.cover.url.url }}" alt=""
+                                          scroll-container=".el-scrollbar__wrap" lazy>
+                                    <div slot="placeholder" class="image-slot">
+                                        <i class="el-icon-picture-outline"></i>
+                                    </div>
+                                    <div slot="error" class="image-slot">
+                                        <i class="el-icon-picture-outline"></i>
+                                    </div>
+                                </el-image>
+                            </div>
+                            <div class="right">
+                                <a class="title" href="/article/{{ article.nid }}/">{{ article.title }}</a>
+                                <p class="abstract">{{ article.abstract }}</p>
+                                <div class="info">
+                                    <span class="date">{{ article.create_date|date:'Y-m-d' }}</span>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,228 @@
+{% extends 'index.html' %}
+{% load my_tag my_filter %}
+{% block css %}
+    <link rel="stylesheet" href="/static/my/css/sites.css">
+{% endblock %}
+{% block banner %}
+    {% banner 'sites' %}
+{% endblock %}
+{% block main %}
+    <div class="main">
+        <el-dialog
+                :title="site_add_edit_tag ? '标签编辑' : '标签添加'"
+                :visible.sync="site_dialogVisible"
+                :before-close="site_add_edit_tag ? site_tag_handleClose : null"
+                :width="min_dialog_width">
+            <div class="dialog_content">
+                <div>
+                    <label for="">标签名</label>
+                    <el-input
+                            @keydown.enter.native="site_add_tag(site_add_edit_tag)"
+                            placeholder="请输入标签名"
+                            v-model="site_title.title">
+                    </el-input>
+                </div>
+            </div>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="site_dialogVisible = false">取 消</el-button>
+                <el-button type="primary" @click="site_add_tag(site_add_edit_tag)">确 定</el-button>
+              </span>
+        </el-dialog>
+        <el-dialog
+                :title="site_add_edit ? '网站编辑' : '添加网站'"
+                :visible.sync="site_add_dialogVisible"
+                :before-close="site_add_edit ? site_edit_close : null"
+                :width="max_dialog_width">
+            <div class="dialog_content">
+                <div>
+                    <label for="site_add__title">网站标题</label>
+                    <el-input
+                            id="site_add__title"
+                            placeholder="请输入网站标题"
+                            v-model="site.title">
+                    </el-input>
+                </div>
+                <div>
+                    <label for="site_add__href">网站链接</label>
+                    <el-input
+                            id="site_add__href"
+                            placeholder="请输入网站链接"
+                            v-model="site.href">
+                    </el-input>
+                </div>
+                <div>
+                    <label for="site_add__abstract">网站描述</label>
+                    <el-input
+                            id="site_add__abstract"
+                            placeholder="请输入网站描述"
+                            type="textarea"
+                            :rows="4"
+                            resize="none"
+                            v-model="site.abstract">
+                    </el-input>
+                </div>
+                <div>
+                    <label for="site_add__abstract">网站图片</label>
+                    <div class="flex">
+                        <el-input
+                                id="site_add__abstract"
+                                placeholder="请输入网站图标的在线链接"
+                                class="icon_href"
+                                v-model="site.icon_href">
+                        </el-input>
+                        <div class="icon_img">
+                            <img :src="site.icon_href" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label for="">网站标签</label>
+                    <el-select v-model="site.tag" multiple placeholder="请选择">
+                        {% for tag in tag_all %}
+                            <el-option
+                                    label="{{ tag.title }}"
+                                    :value="{{ tag.nid }}">
+                            </el-option>
+                        {% endfor %}
+
+                    </el-select>
+                </div>
+            </div>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="site_add_dialogVisible = false">取 消</el-button>
+                <el-button type="primary" @click="site_add(site_add_edit)">确 定</el-button>
+              </span>
+        </el-dialog>
+        <div class="actions actions_root">
+            <div class="actions_tag">
+                <div class="actions_all">
+                    <div @click="site_tag_tab_show('我的收藏')"
+                         class="tag_item"
+                         :flag="site_tab_tag === '我的收藏' ? 'show' : ''">收藏
+                    </div>
+                    {% for tag in tag_list %}
+                        {% if request.user.is_superuser %}
+                            <div @click="site_tag_tab_show('{{ tag.title }}')"
+                                 @contextmenu.ctrl.prevent="site_tag_remove($event, '{{ tag.nid }}')"
+                                 class="tag_item"
+                                 :flag="site_tab_tag === '{{ tag.title }}' ? 'show' : ''"
+                                 @click.ctrl="site_tag_edit_show('{{ tag.nid }}','{{ tag.title }}')">{{ tag.title }}</div>
+                        {% else %}
+                            <div @click="site_tag_tab_show('{{ tag.title }}')"
+                                 class="tag_item"
+                                 :flag="site_tab_tag === '{{ tag.title }}' ? 'show' : ''">{{ tag.title }}</div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+            </div>
+            {% if request.user.is_superuser %}
+                <div class="tag_item super" @click="site_dialogVisible=true">添加标签</div>
+            {% endif %}
+        </div>
+        <div class="now_action">
+            <h2>[[ site_tab_tag ]]</h2>
+            <div class="actions">
+                <span class="btn add" @click="site_add_dialogVisible=true">去添加</span>
+                <span class="btn"
+                      :flag="site_order === 'create_date'  ? 'show' : ''"
+                      @click="site_order_method('create_date')">最新</span>
+                <span class="btn"
+                      :flag="site_order === 'digg_count'  ? 'show' : ''"
+                      @click="site_order_method('digg_count')">最多点赞</span>
+                <span class="btn"
+                      :flag="site_order === 'collects_count' ? 'show' : ''"
+                      @click="site_order_method('collects_count')">最多收藏</span>
+            </div>
+        </div>
+        <ul class="site_list">
+            <li v-for="item in site_list" :key="item.nid">
+                <div class="top">
+                    {% if request.user.is_superuser %}
+                        <i class="fa fa-edit site_edit"
+                           @contextmenu.ctrl.prevent="site_remove($event, item.nid)"
+                           @click="site_edit_show(item)"></i>
+                    {% endif %}
+                    <div class="content">
+
+                        <a class="cover cursor" :href="item.href">
+                            <img :src="item.icon_href"
+                                 alt="">
+                        </a>
+                        <div class="right">
+                            <a class="title cursor" :href="item.href">
+                                [[ item.title ]]
+                            </a>
+                            <div class="abstract">
+                                [[ item.abstract ]]
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tags">
+                        <span :t="tag.title" v-for="tag in item.tags" :key="tag.nid">[[ tag.title ]]</span>
+                    </div>
+                </div>
+                <div class="bottom">
+
+                    <div class="item">
+                        <i @click="site_digg($event, item)" class="fa fa-heart cursor"></i>
+                        <span>[[ item.digg_count ]]</span>
+                    </div>
+
+
+                    <div :class="'item ' + item.is_coll">
+                        <i class="fa fa-star cursor" @click="site_coll($event, item)"></i>
+                        <span>[[ item.collects_count ]]</span>
+
+                    </div>
+
+                    <div class="item">
+                        <el-tooltip :open-delay="500" effect="dark" content="访问网站" placement="top-end">
+                            <a :href="item.href" target="_blank" class="cursor">
+                                <i class="fa fa-location-arrow"></i>
+                            </a>
+                        </el-tooltip>
+
+                    </div>
+
+                </div>
+            </li>
+        </ul>
+        <div class="notes" v-if="!site_list.length">
+            <img src="/static/my/img/sites/notes.svg" alt="">
+            <span>你还没有收藏的网站，快去收藏吧！</span>
+        </div>
+    </div>
+{% endblock %}
+
+{% block article_js %}
+    <script>
+        let box = document.querySelector('.actions_tag');
+        let listBox = document.querySelector('.actions_all'); //ul列表。主要是移动它的left值
+        let list = document.querySelectorAll('.actions_tag>div');//所有列表元素
+        let width = box.clientWidth / 2;  //为了判断是左滑还是右滑
+        let totalWidth = 0;
+        for (let i = 0; i < list.length; i++) {
+            totalWidth = totalWidth + list[i].offsetWidth; //所有列表元素的总宽度
+        }
+        for (let i = 0; i < list.length; i++) {
+            let _offset = totalWidth - box.clientWidth; //右边的偏移量
+            list[i].addEventListener('click', function (e) {
+
+                let offset = totalWidth - (Math.abs(listBox.offsetLeft) + box.clientWidth) + 100; //右边的偏移量 = 所有元素宽度之和 - （ul容器的左偏移量 + 父容器的宽度）
+                if (e.pageX > width && offset > 0) { //点击右侧并且右侧的偏移量大于0，左滑。
+                    listBox.style.left = (listBox.offsetLeft - 200) + 'px';
+                } else if (e.pageX > width && offset > 200) { //临界位置，，右侧滚动到末尾
+                    listBox.style.left = -_offset + 'px';
+                }
+                if (e.pageX < width && listBox.offsetLeft < -200) { //点击左侧并且左侧的偏移量小于0，左滑。
+                    listBox.style.left = (listBox.offsetLeft + 200) + 'px';
+
+                } else if (e.pageX < width && listBox.offsetLeft < 0) { //临界位置，左侧滚到开始的位置
+                    listBox.style.left = 0
+                }
+            });
+        }
+
+    </script>
+{% endblock %}

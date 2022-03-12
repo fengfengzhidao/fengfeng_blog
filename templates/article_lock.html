@@ -1,0 +1,67 @@
+{% extends 'article.html' %}
+
+{% block css %}
+    <style>
+        .article {
+            margin-top: 20px;
+            width: 400px;
+        }
+
+        .article > .title {
+            text-align: center;
+        }
+
+        .article > div {
+            margin-bottom: 10px;
+        }
+
+        .article > .el-button {
+            width: 100%;
+        }
+    </style>
+{% endblock %}
+{% block main %}
+    <div class="slide_or_actions" ref="slider">
+        <div class="slider_bar">
+            <div class="title">
+                <span>[[ slide_text ]]</span>
+                <el-switch
+                        v-model="isShowSlider"
+                        active-color="#13ce66"
+                        inactive-color="#9e9e9e"
+                        @change="sliderChange"
+                >
+                </el-switch>
+            </div>
+            <div class="body">
+                <el-scrollbar id="el_scrollbar">
+                    <p :tagName="item.tagName" @click="go_side_bar(item.pos, $event)"
+                       v-for="(item, index) in slide_list"
+                       :key="index">
+                        [[ item.c ]]
+                    </p>
+                </el-scrollbar>
+            </div>
+        </div>
+    </div>
+    <div class="article article_clock">
+        <div class="title">
+            该内容仅VIP可见，若要查看，请输入密码！
+        </div>
+        <el-input
+                id="article_pwd"
+                placeholder="请输入文章密码"
+                v-model="article_pwd">
+        </el-input>
+        <el-button type="primary" @click="article_pwd_show('{{ article_obj.nid }}')">查看</el-button>
+    </div>
+{% endblock %}
+
+{% block article_js %}
+    <script>
+        $('.slide_or_actions').css('display', 'none')
+        setTimeout(() => {
+            $('.slide_or_actions').remove()
+        }, 301)
+    </script>
+{% endblock %}

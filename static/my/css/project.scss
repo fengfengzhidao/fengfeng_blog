@@ -1,0 +1,120 @@
+.main {
+  width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .add_project {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .project_list {
+    width: 100%;
+
+
+    > .title {
+      font-size: 20px;
+      color: var(--font_1);
+
+      .add_article {
+        cursor: pointer;
+      }
+    }
+
+    > .article_list {
+      list-style: none;
+      justify-content: space-between;
+      display: flex;
+      margin-top: 10px;
+      flex-wrap: wrap;
+
+      li {
+        width: 32%;
+        margin-bottom: 20px;
+        height: 106px;
+        display: flex;
+        background-color: var(--card_bg);
+        justify-content: space-between;
+        border-radius: 5px;
+        overflow: hidden;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+
+        .left {
+          width: 40%;
+          overflow: hidden;
+
+          img {
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+
+        .right {
+          width: 60%;
+          padding: 10px;
+          font-size: 14px;
+
+          .title {
+            display: inline-block;
+            font-weight: 600;
+            font-size: 16px;
+            white-space: nowrap;
+            width: 100%;
+            color: var(--font_1);
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          .abstract {
+            margin-top: 5px;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          .info {
+            margin-top: 5px;
+            color: var(--font_2);
+          }
+        }
+      }
+
+      li:nth-child(3n+2):last-child {
+        position: relative;
+        left: -34%;
+      }
+    }
+  }
+}
+
+.dialog_content {
+  > div {
+    margin-bottom: 10px;
+
+    > label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .el-select {
+      width: 100%;
+    }
+  }
+}
+
+.el-image {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .image-slot {
+    i {
+      font-size: 50px;
+      color: var(--font_2);
+    }
+  }
+}

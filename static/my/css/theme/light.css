@@ -1,0 +1,21 @@
+:root {
+    /*主背景*/
+    --bg: #f0eeee;
+    --bg_darken: #e2e2e2;
+    /*模块背景*/
+    --card_bg: white;
+    /*链接的颜色*/
+    --active: #409eff;
+    /*字体颜色的不同等级*/
+    --font_1: #333;
+    --font_2: #555;
+    --font_3: #777;
+    --font_del: #dd6161;
+
+    /*element*/
+    --ele_bg: var(--card_bg);
+    --ele_placeholder: #c0c9db;
+    --ele_btn_bg: white;
+
+
+}

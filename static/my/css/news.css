@@ -1,0 +1,114 @@
+.main .news_content {
+  display: flex;
+  min-height: 800px;
+  background-color: var(--card_bg);
+  border-radius: 5px;
+}
+.main .news_content .left {
+  width: 20%;
+  border-right: 1px solid var(--bg_darken);
+}
+.main .news_content .left ul {
+  margin-top: 20px;
+}
+.main .news_content .left ul img {
+  height: 25px;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+.main .news_content .left ul li {
+  color: var(--font_1);
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding-left: 30%;
+  transition: all 0.1s;
+}
+.main .news_content .left ul li.active {
+  background-color: var(--active);
+  color: white;
+}
+.main .news_content .left ul li:not(li.active) {
+  cursor: pointer;
+}
+.main .news_content .left ul li:not(li.active):hover {
+  color: #3a8ee6;
+}
+.main .news_content .right {
+  width: 80%;
+  padding: 20px;
+}
+.main .news_content .right .title {
+  display: flex;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--bg_darken);
+}
+.main .news_content .right .title img {
+  width: 35px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.main .news_content .right .title h2 {
+  font-size: 20px;
+}
+.main .news_content .right .body {
+  margin-top: 10px;
+}
+.main .news_content .right .body ul {
+  list-style: none;
+}
+.main .news_content .right .body ul li {
+  display: flex;
+  font-size: 14px;
+  margin-bottom: 10px;
+  align-items: start;
+}
+.main .news_content .right .body ul li:nth-child(1) .index {
+  background-color: #fe2d46;
+  color: white;
+}
+.main .news_content .right .body ul li:nth-child(2) .index {
+  background-color: #ff6600;
+  color: white;
+}
+.main .news_content .right .body ul li:nth-child(3) .index {
+  background-color: #faa90e;
+  color: white;
+}
+.main .news_content .right .body ul li .index {
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  color: var(--font_1);
+  background-color: var(--bg_darken);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20px;
+}
+.main .news_content .right .body ul li a {
+  width: 77%;
+  color: var(--font_1);
+  transition: all 0.2s;
+}
+.main .news_content .right .body ul li a:hover {
+  color: #3a8ee6;
+}
+.main .news_content .right .body ul li .num {
+  width: 20%;
+  display: flex;
+  justify-content: right;
+}
+.main .thank {
+  width: 100%;
+  display: flex;
+  margin-top: 10px;
+  justify-content: center;
+}
+.main .thank a {
+  font-size: 14px;
+  color: var(--font_1);
+}
+
+/*# sourceMappingURL=news.css.map */

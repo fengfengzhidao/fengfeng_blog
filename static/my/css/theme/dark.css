@@ -1,0 +1,45 @@
+@import "editor_md_dark.css";
+@import "../backend/backend_dark.css";
+
+:root {
+    /*主背景*/
+    --bg: #071418;
+    --bg_darken: #0c1e23;
+    /*模块背景*/
+    --card_bg: #222429;
+    /*链接的颜色*/
+    --active: #409eff;
+    /*字体颜色的不同等级*/
+    --font_1: #5a5a5a;
+    --font_2: #707070;
+    --font_3: #777;
+    --font_del: #dd6161;
+
+    /*element*/
+    --ele_bg: var(--bg);
+    --ele_placeholder: #676971;
+    --ele_btn_bg: var(--card_bg);
+    --ele_btn_hover: #22222b;
+
+}
+
+/*黑夜模式下的 el-button*/
+.el-button--default {
+    background-color: #1a1a21;
+    border: 1px solid #3c3c46;
+    color: #8c8b8b;
+}
+
+.el-button--default:hover {
+    background-color: #26262f;
+    border: 1px solid #4b4b57;
+    color: #a19d9d;
+}
+
+.el-button--default:focus {
+    background-color: #363640;
+    border: 1px solid #5a5a65;
+    color: #b6b3b3;
+}
+
+

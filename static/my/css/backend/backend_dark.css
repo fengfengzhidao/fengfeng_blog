@@ -1,0 +1,45 @@
+.collection_article_all .collection_table {
+  border: 1px solid #222429;
+  color: #84878e;
+}
+.collection_article_all .collection_table thead tr {
+  color: #acacac;
+  background-color: #2a2e37;
+}
+.collection_article_all .collection_table tbody tr a {
+  color: #547b92;
+}
+.collection_article_all .collection_table tbody .tags i {
+  color: white;
+}
+.collection_article_all .collection_table tbody .tags i:nth-child(4n) {
+  background-color: #ff9800;
+}
+.collection_article_all .collection_table tbody .tags i:nth-child(4n+1) {
+  background-color: #dd6161;
+}
+.collection_article_all .collection_table tbody .tags i:nth-child(4n+2) {
+  background-color: #26c6da;
+}
+.collection_article_all .collection_table tbody .tags i:nth-child(4n+3) {
+  background-color: #3a8ee6;
+}
+.collection_article_all .collection_table tbody tr:nth-of-type(odd) {
+  background-color: #33373f;
+}
+.collection_article_all .collection_table tbody tr:nth-of-type(odd):hover {
+  background-color: #303434;
+}
+.collection_article_all .collection_table tbody tr:nth-of-type(even) {
+  background-color: #2a2e37;
+}
+.collection_article_all .collection_table tbody tr:nth-of-type(even):hover {
+  background-color: #2a2a2f;
+}
+.collection_article_all .cancel_btn {
+  border: 1px solid var(--bg);
+  color: var(--font_1);
+  background-color: #1a1a21;
+}
+
+/*# sourceMappingURL=backend_dark.css.map */

@@ -1,0 +1,20 @@
+{% extends 'login.html' %}
+
+{% block title %}
+<title>枫枫知道个人博客|用户注册</title>
+{% endblock %}
+
+{% block main_title %}
+    <a href="/login">登录</a> / <a href="/sign" class="active">注册</a> / <a href="/">去首页</a>
+{% endblock %}
+
+{% block form %}
+    <input type="text" v-model="sign_form.name" ref="sign_form_name" placeholder="请输入用户名" class="sign_input">
+    <input type="password" v-model="sign_form.pwd" ref="sign_form_pwd" placeholder="请输入密码" class="sign_input">
+    <input type="password" v-model="sign_form.re_pwd" ref="sign_form_re_pwd" placeholder="请输入确认密码" class="sign_input">
+    <div class="code">
+        <input type="text" v-model="sign_form.code" ref="sign_form_code" placeholder="请输入验证码" class="sign_input">
+        <img @click="get_random_code" src="/static/my/img/login/code.png" alt="">
+    </div>
+    <button @click="sign">注册</button>
+{% endblock %}

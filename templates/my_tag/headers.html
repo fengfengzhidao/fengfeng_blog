@@ -1,0 +1,11 @@
+<header class="my_header">
+    <div id="banner_box" class="title" banner_time="{{ menu_time }}">
+        <h1>{{ title }}</h1>
+        <p id="banner_slogan" slogan_time="{{ slogan_time }}" lis="{{ slogan_list }}">{{ slogan_list.0 }}</p>
+    </div>
+    {% for img in img_list %}
+        <div class="dynamic_shuffl">
+            <img src="{{ img }}" alt="">
+        </div>
+    {% endfor %}
+</header>

@@ -1,0 +1,42 @@
+@media screen and (max-width: 700px) {
+  main {
+    width: 90%;
+  }
+  main .top .other_login::before, main .top .other_login::after {
+    width: 38%;
+  }
+}
+@media screen and (max-width: 550px) {
+  main .top .login_forms .code input {
+    width: 50%;
+  }
+}
+@media screen and (max-width: 450px) {
+  main {
+    background-color: transparent;
+    box-shadow: none;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    width: 90%;
+    height: 100vh;
+  }
+  main .top {
+    padding: 0;
+    position: absolute;
+    margin-top: 80%;
+    transform: translateY(-50%);
+  }
+  main .top .other_login::before, main .top .other_login::after {
+    display: none;
+  }
+  main .top .login_forms .code input {
+    width: 46%;
+  }
+  main .bottom img {
+    position: absolute;
+    height: 226px;
+  }
+}
+
+/*# sourceMappingURL=phone.css.map */

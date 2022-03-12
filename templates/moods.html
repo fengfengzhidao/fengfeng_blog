@@ -1,0 +1,165 @@
+{% extends 'index.html' %}
+{% load my_tag my_filter %}
+{% block banner %}
+    {% banner 'moods' %}
+{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="/static/viewer/css/viewer.css">
+    <link rel="stylesheet" href="/static/my/css/moods.css">
+{% endblock %}
+{% block search %}
+    <div class="search">
+        <input type="text" @keydown.enter="search('', '_self')" v-model="search_key" class="search_box"
+               placeholder="搜索你想要的内容">
+        <button @click="search('', '_self')"><i class="fa fa-search"></i></button>
+    </div>
+{% endblock %}
+{% block main %}
+    <div class="main">
+        <el-dialog
+                title="发布心情"
+                :visible.sync="mood_dialogVisible"
+                :width='max_dialog_width'>
+            <div class="add_mood_content body">
+                <div>
+                    <label for="mood_add_name">用户名</label>
+                    <el-input ref="mood_add__name" id="mood_add_name" v-model="mood_add.name"
+                              placeholder="请输入用户名"></el-input>
+                </div>
+                <div>
+                    <label for="">头像</label>
+                    <ul class="flex avatar_list">
+                        {% for avatar in avatar_list %}
+                            <li>
+                                <el-radio v-model="mood_add.avatar_id" :label="{{ avatar.nid }}">
+                                    <img src="{{ avatar.url.url }}" alt="">
+                                </el-radio>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div>
+                    <label for="mood_add_content">心情内容</label>
+                    <el-input ref="mood_add__content" id="mood_add_content" v-model="mood_add.content" resize="none"
+                              type="textarea" :rows="4"
+                              placeholder="请输入心情内容"></el-input>
+                </div>
+                <div>
+                    <label for="mood_add_drawing">配图</label>
+                    <el-input id="mood_add_drawing" v-model="mood_add.drawing" resize="none" type="textarea" :rows="4"
+                              placeholder="请输入配图，多个图片使用；隔开"></el-input>
+                </div>
+                <div class="show_drawing" v-show="mood_show_drawing">
+                    <img v-for="(item, index) in mood_show_drawing" :src="item" :key="index" alt="">
+                </div>
+            </div>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="mood_dialogVisible = false">取 消</el-button>
+                <el-button type="primary" @click="mood_add_method">确 定</el-button>
+              </span>
+        </el-dialog>
+        <el-dialog
+                title="心情回复"
+                :visible.sync="mood_comment_dialogVisible"
+                :width="min_dialog_width">
+            <div class="add_mood_content add_mood_comment">
+                <div>
+                    <label for="mood_comment_add_name">用户名</label>
+                    <el-input ref="mood_comment_add__name" id="mood_comment_add_name" v-model="mood_add_comment.name"
+                              placeholder="请输入用户名"></el-input>
+                </div>
+                <div>
+                    <label for="mood_comment_add_content">心情内容</label>
+                    <el-input ref="mood_comment_add__content" id="mood_comment_add_content"
+                              v-model="mood_add_comment.content" resize="none"
+                              type="textarea" :rows="4"
+                              placeholder="请输入心情内容"></el-input>
+                </div>
+
+            </div>
+            <span slot="footer" class="dialog-footer">
+    <el-button @click="mood_comment_dialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="mood_comment_add_method">确 定</el-button>
+  </span>
+        </el-dialog>
+        <el-button id="pos" @click="mood_dialogVisible = true" class="add_mood">发布心情</el-button>
+        {% for mood in mood_list %}
+            <div class="mood flex">
+                <div class="left">
+                    <el-image src="{{ mood.avatar.url.url }}" scroll-container=".el-scrollbar__wrap" lazy
+                              alt=""></el-image>
+                </div>
+                <div class="right">
+                    <h3 class="name">{{ mood.name }}</h3>
+                    <p class="content">{{ mood.content }}</p>
+                    <div class="drawing">
+                        {% generate_drawing mood.drawing %}
+                    </div>
+                    <div class="info flex">
+                    <span class="date">
+                        {{ mood.create_date|date_humaniz }}
+                        <img class="addr" src="/static/my/img/moods/addr.svg" alt="">
+                        <i class="addr_info">{{ mood.addr.prov }} · {{ mood.addr.city }}</i>
+
+                    </span>
+                        <span class="three">
+                        <span @click="mood_digg('moods', '{{ mood.nid }}', $event)">点赞（{{ mood.digg_count }}）</span>
+                        <span @click="mood_show_comment_list($event)"
+                              class="mood_comment_num">评论（{{ mood.comment_count }}）</span>
+                            {% if request.user.is_superuser %}
+                                <span @click="mood_delete('{{ mood.nid }}', $event)" class="delete">删除</span>
+                            {% endif %}
+                    </span>
+                    </div>
+                    <ul class="sub_comment_list">
+                        {% for comment in mood.moodcomment_set.all %}
+                            <li class="flex">
+                                <div class="left">
+                                    <el-image scroll-container=".el-scrollbar__wrap" lazy
+                                              src="{{ comment.avatar.url.url }}" alt=""></el-image>
+                                </div>
+                                <div class="right">
+                                    <h4 class="name">
+                                        {{ comment.name }}
+                                    </h4>
+                                    <p class="content">{{ comment.content }}</p>
+                                    <div class="info flex">
+                                        <span class="date">{{ comment.create_date|date_humaniz }}
+                                        <i class="addr_info sub_info">（{{ mood.addr.prov }} · {{ mood.addr.city }}）</i>
+                                        </span>
+                                        <span class="three">
+                                    <span @click="mood_digg('mood_comments', '{{ comment.nid }}', $event)">点赞（{{ comment.digg_count }}）</span>
+                                            {% if request.user.is_superuser %}
+                                                <span @click="mood_sub_comment_delete('{{ comment.nid }}', '{{ mood.nid }}', $event)"
+                                                      class="delete">删除</span>
+                                            {% endif %}
+                                </span>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+
+
+                        <el-button type="primary" @click="mood_comment_dialogVisible_show('{{ mood.nid }}')"
+                                   class="rep_mood" plain>
+                            回复这条心情
+                        </el-button>
+                    </ul>
+
+                </div>
+            </div>
+        {% endfor %}
+
+        <ul class="pager">
+            {{ pager.page_html|safe }}
+        </ul>
+
+
+    </div>
+{% endblock %}
+{% block article_js %}
+    <script src="/static/viewer/js/viewer.js"></script>
+    <script>
+        $('.drawing').viewer();
+    </script>
+{% endblock %}

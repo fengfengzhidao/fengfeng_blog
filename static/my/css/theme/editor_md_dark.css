@@ -1,0 +1,68 @@
+.markdown-body {
+    background-color: #222429;
+    color: #888;
+}
+
+.editormd-html-preview code {
+    border: 1px solid #434141;
+    background: #1f1818;
+}
+
+.editormd-html-preview pre{
+    background-color: #101111;
+}
+li.L1, li.L3, li.L5, li.L7, li.L9 {
+    background: #1c1d1d;
+}
+
+.editormd-html-preview hr {
+        border-top: 1px solid #343333;
+}
+
+.editormd-html-preview h1 {
+    border-bottom: 1px solid #353535;
+}
+
+.editormd-html-preview h2 {
+    border-bottom: 1px solid #353535;
+}
+
+
+blockquote {
+    background-color: #1c1c1d;
+}
+
+.editormd-html-preview blockquote {
+    color: #666;
+    border-left: 4px solid #1a82b3;
+}
+
+.editormd-html-preview p {
+    line-height: 1.8rem;
+}
+
+.markdown-body table tr {
+    background-color: #1b1b1b;
+    border-top: 1px solid #212123;
+}
+
+.editormd-html-preview table thead tr {
+    background-color: #3380d0;
+    color: white;
+}
+
+.markdown-body table tr:nth-child(2n) {
+    background-color: #232323;
+}
+
+.markdown-body table tbody tr:nth-child(2n+1):hover {
+    background-color: #343333;
+}
+
+.markdown-body table tbody tr:nth-child(2n):hover {
+    background-color: #424141;
+}
+
+.markdown-body table th, .markdown-body table td {
+    border: 1px solid #444447;
+}

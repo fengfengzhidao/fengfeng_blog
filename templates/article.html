@@ -1,0 +1,240 @@
+{% extends 'index.html' %}
+{% load my_tag my_filter %}
+{% block css %}
+    <link rel="stylesheet" href="/static/viewer/css/viewer.css">
+    <link rel="stylesheet" href="/static/editor-md/css/editormd.css"/>
+    <link rel="stylesheet" href="/static/my/css/article.css">
+    <style>
+        img[alt="pay_code"] {
+            width: 150px;
+            height: 150px;
+        }
+    </style>
+{% endblock %}
+
+{% block banner %}
+    {% banner 'article' article_obj %}
+{% endblock %}
+
+{% block main %}
+    <div class="slide_or_actions" ref="slider">
+        <div class="slider_bar">
+            <div class="title">
+                <span>[[ slide_text ]]</span>
+                <el-switch
+                        v-model="isShowSlider"
+                        active-color="#13ce66"
+                        inactive-color="#9e9e9e"
+                        @change="sliderChange"
+                >
+                </el-switch>
+            </div>
+            <div class="body">
+                <el-scrollbar id="el_scrollbar">
+                    <p :tagName="item.tagName" @click="go_side_bar(item.pos, $event)"
+                       v-for="(item, index) in slide_list"
+                       :key="index">
+                        [[ item.c ]]
+                    </p>
+                </el-scrollbar>
+            </div>
+        </div>
+        <div class="article_actions">
+            <div class="item" title="文章点赞">
+                <i class="fas fa-thumbs-up" @click="article_digg($event, '{{ article_obj.nid }}')"></i>
+                <span>{{ article_obj.digg_count }}</span>
+            </div>
+            <div class="item" title="文章收藏">
+                <i class="fas fa-star {{ article_obj|is_user_collects:request }}"
+                   @click="article_collects($event, '{{ article_obj.nid }}')"></i>
+                <span>{{ article_obj.collects_count }}</span>
+            </div>
+            <div class="item" title="回到顶部">
+                <i class="fa fa-angle-double-up" @click="go_to_top"></i>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="article">
+        <div class="article_title">
+            <h2>{{ article_obj.title }}
+                {% if request.user.is_superuser %}
+                    <a href="/backend/edit_article/{{ article_obj.nid }}/"><i class="fas fa-edit"></i></a>
+                {% endif %}
+            </h2>
+            <p>
+                <span>发布时间：<i>{{ article_obj.create_date|date:'Y-m-d' }}</i></span>
+                <span>作者：<i>{{ article_obj.author }}</i></span>
+                <span>来源：<i>{{ article_obj.source }}</i></span>
+            </p>
+
+            <div>
+                {% if article_obj.tag.all %}
+                    <i title="文章标签" class="fas fa-tags"></i>
+                    {% for tag in article_obj.tag.all %}
+                        <i>{{ tag.title }}</i>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+
+        </div>
+        <div class="article_content" id="article_content">
+            <textarea style="display:none;">{{ article_obj.content }}</textarea>
+        </div>
+        <div class="article_bottom">
+            <div class="item" title="文章点赞">
+                <i class="fas fa-thumbs-up" @click="article_digg($event, '{{ article_obj.nid }}')"></i>
+                <span>{{ article_obj.digg_count }}</span>
+
+            </div>
+            <div class="item" title="文章收藏">
+                <i class="fas fa-star {{ article_obj|is_user_collects:request }}"
+                   @click="article_collects($event, '{{ article_obj.nid }}')"></i>
+                <span>{{ article_obj.collects_count }}</span>
+            </div>
+            <div class="item" title="回到顶部">
+                <i class="fa fa-angle-double-up" @click="go_to_top"></i>
+            </div>
+        </div>
+        {% block prev_next %}
+            <div class="prev_next_article">
+                <div class="pn_content">
+                    {% generate_p_n article_obj %}
+                </div>
+            </div>
+        {% endblock %}
+
+        <div class="comment_submit">
+            <div class="title">
+                你觉得文章怎么样
+            </div>
+            {% csrf_token %}
+            <div class="body">
+                <textarea
+                        @keydown.enter.ctrl="add_comment({{ article_obj.nid }})"
+                        ref="comment_content" rows="10"
+                        v-model="comment_content"
+                        class="add_comment"
+                        placeholder="写下你想说的话，开始我们的对话 (支持markdown语法)"></textarea>
+                <i class="face_icon">
+                    <img src="/static/emoji/img.png" style="width: 25px; height: 25px; cursor: pointer" alt="">
+                </i>
+                <button class="submit_comment" @click="add_comment({{ article_obj.nid }})">
+                    发布评论
+                </button>
+            </div>
+            <div class="footer">
+                <p><span>{{ article_obj.look_count }}</span> 人参与，<span>{{ article_obj.comment_count }}</span> 条评论</p>
+            </div>
+        </div>
+        <div class="comment_list" comment_list="{{ comment_list|get_coll_nid }}">
+            <ul>
+                {% for comment in comment_list %}
+                    <li>
+                        <div class="left">
+                            <img src="{{ comment.user|get_avatar }}"
+                                 alt="">
+                        </div>
+                        <div class="right">
+                            <h4>{{ comment.user.nick_name }}</h4>
+                            <div id="comment_show__{{ comment.nid }}">
+                                <textarea style="display:none;">{{ comment.content }}</textarea>
+                            </div>
+                            <div class="comment_info">
+                                <span>{{ comment.create_time|date_humaniz }}</span>
+                                <div>
+                                    <span @click="comment_digg($event, '{{ comment.nid }}')">点赞（{{ comment.digg_count }}）</span>
+                                    <span @click="show_sub_comment_list($event, '{{ comment.user.nick_name }}', '{{ comment.nid }}')">回复（{{ comment.comment_count }}）</span>
+                                    {% if comment.user == request.user or request.user.is_superuser %}
+                                        <span class="delete"
+                                              @click="delete_sub_comment('{{ comment.nid }}', '{{ article_obj.nid }}', null)">
+                                        删除
+                                    </span>
+                                    {% endif %}
+
+                                </div>
+                            </div>
+
+                            <div class="sub_comment_list">
+                                {% for sub in comment.sub_comment %}
+                                    <div class="sub_comment_item">
+                                        <div class="left">
+                                            <img src="{{ sub.user|get_avatar }}"
+                                                 alt="">
+                                        </div>
+                                        <div class="right">
+                                            <h4>{{ sub.user.nick_name }} @ {{ sub.parent_comment.user.nick_name }}</h4>
+                                            <div class="sub_comment_content">
+                                                {{ sub.content }}
+                                            </div>
+                                            <div class="sub_comment_info">
+                                                <span>{{ sub.create_time|date_humaniz }}</span>
+                                                <div>
+                                                    <span @click="comment_digg($event, '{{ sub.nid }}')">点赞（{{ sub.digg_count }}）</span>
+                                                    <span @click="sub_comment_set_placeholder($event, '{{ sub.user.nick_name }}', '{{ sub.nid }}')">回复</span>
+                                                    {% if sub.user == request.user or request.user.is_superuser %}
+                                                        <span class="delete"
+                                                              @click="delete_sub_comment('{{ sub.nid }}', '{{ article_obj.nid }}', '{{ comment.nid }}')">删除</span>
+                                                    {% endif %}
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                {% endfor %}
+
+                                <div class="sub_comment_textarea">
+                                    <textarea name="" id="" cols="30" ref="sub_comment_content" rows="10"
+                                              placeholder="@fengfeng"></textarea>
+                                    <button @click="add_sub_comment($event, '{{ article_obj.nid }}')">回复</button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+
+{% block article_js %}
+    <script src="/static/editor-md/lib/marked.min.js"></script>
+    <script src="/static/editor-md/lib/prettify.min.js"></script>
+    <script src="/static/jquery/jquery.min.js"></script>
+    <script src="/static/editor-md/editormd.min.js"></script>
+    <script src="/static/viewer/js/viewer.js"></script>
+    <script src="/static/emoji/sina.js"></script>
+    <script type="text/javascript">
+
+        $(function () {
+            let editor = editormd.markdownToHTML("article_content", {
+                width: "100%",
+                height: "100%",
+                path: "/static/editor-md/lib/",
+            });
+
+            let comment_list = document.querySelector('.comment_list')
+            let lis = eval(comment_list.getAttribute('comment_list'))
+
+            for (const li of lis) {
+                editormd.markdownToHTML(`comment_show__${li}`, {
+                    width: "100%",
+                    height: "100%",
+                    path: "/static/editor-md/lib/",
+                });
+            }
+
+
+            $('#article_content').viewer();
+            // 绑定表情
+            $('.face_icon').SinaEmotion($('.add_comment'), vue, 'comment_content');
+            $('.comment_list .editormd-html-preview').viewer();
+
+
+        });
+    </script>
+{% endblock %}
