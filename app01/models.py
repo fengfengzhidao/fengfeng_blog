@@ -14,7 +14,7 @@ class UserInfo(AbstractUser):
     integral = models.IntegerField(default=20, verbose_name='用户积分')
     token = models.CharField(verbose_name='id', help_text='其他平台的唯一登录id', max_length=64, null=True, blank=True)
     ip = models.GenericIPAddressField(verbose_name='ip地址', default='120.228.2.238')
-    addr = models.JSONField(verbose_name='用户地址信息', null=True, blank=True)
+    addr = models.TextField(verbose_name='用户地址信息', null=True, blank=True)
     sign_choice = (
         (0, '用户名注册'),
         (1, 'QQ注册'),
@@ -205,7 +205,7 @@ class Moods(models.Model):
     nid = models.AutoField(primary_key=True)
     name = models.CharField(verbose_name='发布人', max_length=16)
     ip = models.GenericIPAddressField(verbose_name='ip地址', default='120.228.2.238')
-    addr = models.JSONField(verbose_name='用户地址信息', null=True)
+    addr = models.TextField(verbose_name='用户地址信息', null=True)
     create_date = models.DateTimeField(verbose_name='发布时间', auto_now=True)
     content = models.TextField(verbose_name='心情内容')
     drawing = models.TextField(verbose_name='配图组，以;隔开', null=True, blank=True)
@@ -240,7 +240,7 @@ class MoodComment(models.Model):
     content = models.TextField(verbose_name='评论内容')
     digg_count = models.IntegerField(verbose_name='点赞数', default=0)
     ip = models.GenericIPAddressField(verbose_name='ip地址', default='120.228.2.238')
-    addr = models.JSONField(verbose_name='用户地址信息', null=True)
+    addr = models.TextField(verbose_name='用户地址信息', null=True)
     mood = models.ForeignKey(
         to='Moods',
         to_field='nid',

@@ -81,6 +81,10 @@ def get_avatar(user: UserInfo):
         return user.avatar.url.url
     return ''
 
+@register.filter
+def get_addr(addr: str):
+    addr = eval(addr)
+    return f"{addr['prov']} · {addr['city']}"
 
 @register.filter
 def generate_advert(adv_list):

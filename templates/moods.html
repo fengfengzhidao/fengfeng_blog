@@ -99,7 +99,7 @@
                     <span class="date">
                         {{ mood.create_date|date_humaniz }}
                         <img class="addr" src="/static/my/img/moods/addr.svg" alt="">
-                        <i class="addr_info">{{ mood.addr.prov }} · {{ mood.addr.city }}</i>
+                        <i class="addr_info">{{ mood.addr|get_addr }}</i>
 
                     </span>
                         <span class="three">
@@ -125,7 +125,7 @@
                                     <p class="content">{{ comment.content }}</p>
                                     <div class="info flex">
                                         <span class="date">{{ comment.create_date|date_humaniz }}
-                                        <i class="addr_info sub_info">（{{ mood.addr.prov }} · {{ mood.addr.city }}）</i>
+                                        <i class="addr_info sub_info">（{{ mood.addr|get_addr }}）</i>
                                         </span>
                                         <span class="three">
                                     <span @click="mood_digg('mood_comments', '{{ comment.nid }}', $event)">点赞（{{ comment.digg_count }}）</span>
