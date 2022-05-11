@@ -138,3 +138,17 @@ mysqldump -u root -p blog > blog.sql
 <div>    
 <a href="https://www.jetbrains.com/?from=DjangoBlog"><img src="https://resource.lylinux.net/image/2020/07/01/logo.png" width="150" height="150"></a>
 </div>
+
+## 更新历史
+
+### 2022年5月11日
+1. 项目配置优化
+2. 网站关于优化
+3. 取消中间件中encoding的代码
+4. editormd的标题bug修复
+5. 文章悬浮目录首次加载异常bug修复
+
+### 2022年3月12日
+1. 完成项目录制工作
+2. 源码上传（未开源）
+

@@ -47,7 +47,8 @@
         <nav class="nav_bg">
             <div class="left" id="dynamic_nav">
                 {% dynamic_navigation request %}
-                <a @click="nav_drawer=true" class="nav_slide" href="javascript:void(0);"><i class="fa fa-align-justify"></i></a>
+                <a @click="nav_drawer=true" class="nav_slide" href="javascript:void(0);"><i
+                        class="fa fa-align-justify"></i></a>
                 {% block search %}
                     <div class="search">
                         <input type="text" @keydown.enter="search()" v-model="search_key" class="search_box"
@@ -1010,6 +1011,11 @@
                     this.$nextTick(() => {
                         this.sliderChange(flag)
                     })
+                } else {
+                    this.isShowSlider = false
+                    this.$nextTick(() => {
+                        this.sliderChange(false)
+                    })
                 }
             },
             // 悬浮目录是否显示
@@ -1143,6 +1149,7 @@
                 axios.post('https://api.codelife.cc/api/top/list', data, {
                     headers: {
                         version: '1.2.21',
+                        signaturekey: 'U2FsdGVkX1+dLG5uzJVejoCoKTPQWX26HVKu1loLkJ0='
                     }
                 }).then(res => {
                     this.news_list = res.data

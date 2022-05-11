@@ -27,7 +27,7 @@ class Md1(MiddlewareMixin):
     # 请求中间件
     def process_request(self, request):
         if request.method != 'GET' and request.META.get('CONTENT_TYPE') == 'application/json':
-            data = json.loads(request.body, encoding='utf8')
+            data = json.loads(request.body)
             request.data = data
 
     # 响应中间件

@@ -87,7 +87,7 @@ WSGI_APPLICATION = 'Fengfengblog.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'v4_blog',
+        'NAME': 'test_blog',
         'USER': 'root',
         'PASSWORD': 'root',
         'HOST': '127.0.0.1',
@@ -176,7 +176,6 @@ SIMPLEUI_HOME_PAGE = '/admin_home/'
 SIMPLEUI_HOME_TITLE = '首页'
 SIMPLEUI_HOME_ICON = 'fa fa-user'
 
-
 # 发送邮箱配置
 EMAIL_HOST = 'smtp.qq.com'
 EMAIL_PORT = 465
@@ -191,8 +190,16 @@ QINIU_ACCESS_KEY = '七牛云AK'
 QINIU_SECRET_KEY = '七牛云SK'
 
 # QQ登录
+QQ_APPID = '你的QQ appid'
 QQ_KEY = '你的QQ_KEY'
+QQ_REDIRECT = 'QQ登录之后的回调地址'
 
 # gitee登录
 GITEE_ID = 'GiteeID'
 GITEE_SECRET = 'GiteeSECRET'
+GITEE_REDIRECT = 'gitee登录之后的回调地址'
+
+try:
+    from .local_settings import *
+except:
+    pass

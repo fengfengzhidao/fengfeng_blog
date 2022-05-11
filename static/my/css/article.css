@@ -47,6 +47,9 @@ main {
   background-color: var(--card_bg);
   width: 100%;
 }
+.article .article_content ol, .article .article_content li, .article .article_content ul {
+  list-style: inherit;
+}
 .article .article_bottom {
   display: none;
 }

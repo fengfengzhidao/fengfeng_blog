@@ -5,9 +5,9 @@ from django.conf import settings
 
 
 class QQLogin:
-    __app_id = '101974593'
+    __app_id = settings.QQ_APPID
     __app_key = settings.QQ_KEY
-    __redirect_url = 'http://qq.fengfengzhidao.com/login/index.html?state=qq'
+    __redirect_url = settings.QQ_REDIRECT
 
     def __init__(self, code):
         self._code = code
@@ -53,7 +53,7 @@ class QQLogin:
 
 class GiteeLogin:
     __client_id = settings.GITEE_ID
-    __redirect_uri = "http://www.fengfengzhidao.com/login/?flag=gitee"
+    __redirect_uri = settings.GITEE_REDIRECT
     __client_secret = settings.GITEE_SECRET
 
     def __init__(self, code):
@@ -72,9 +72,6 @@ class GiteeLogin:
             'client_secret': self.__client_secret,
         }
         res = requests.post(url='https://gitee.com/oauth/token', data=data).json()
-        if res.get('error') == 'invalid_grant':
-            data['redirect_uri'] = 'http://www.fengfengzhidao.com/backend/?flag=gitee'
-            res = requests.post(url='https://gitee.com/oauth/token', data=data).json()
         return res['access_token']
 
     @property

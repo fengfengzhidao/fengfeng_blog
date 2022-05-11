@@ -208,3 +208,17 @@ def get_article_query_nid(article_query):
         lis.append(str(i.nid))
 
     return lis
+
+
+# 根据配置生成对应的登录链接
+@register.simple_tag
+def gen_setting_login_url(name):
+    from django.conf import settings
+    if name == 'qq':
+        return mark_safe(
+            f'https://graph.qq.com/oauth2.0/show?which=Login&display=pc&response_type=code&client_id={settings.QQ_APPID}&redirect_uri={settings.QQ_REDIRECT}')
+    elif name == 'gitee':
+        return mark_safe(
+            f'https://gitee.com/oauth/authorize?client_id={settings.GITEE_ID}&redirect_uri={settings.GITEE_REDIRECT}'
+        )
+    return ''

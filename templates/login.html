@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load my_tag %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -141,10 +142,10 @@
             },
 
             qq_login() {
-                window.open('https://graph.qq.com/oauth2.0/show?which=Login&display=pc&response_type=code&client_id=101974593&redirect_uri=http://www.fengfengzhidao.com/login?flag=qq', name = 'self');
+                window.open('{% gen_setting_login_url 'qq' %}', name = 'self');
             },
             gitee_login() {
-                window.open('https://gitee.com/oauth/authorize?client_id=adec8e0ff928a424939be43963c67a0db5da94b1085580c0df342401b287bc99&redirect_uri=http://www.fengfengzhidao.com/login/?flag=gitee&response_type=code', name = 'self');
+                window.open('{% gen_setting_login_url 'gitee' %}', name = 'self');
             },
             wechart_login() {
                 this.$message.warning('暂未开通')

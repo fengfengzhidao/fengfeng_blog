@@ -55,6 +55,10 @@ main {
     min-height: 200px;
     background-color: var(--card_bg);
     width: 100%;
+
+    ol, li, ul {
+      list-style: inherit;
+    }
   }
 
   .article_bottom {
