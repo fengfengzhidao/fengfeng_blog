@@ -124,7 +124,7 @@ mysqldump -u root -p blog > blog.sql
 
 ### 支付宝：
 <div>    
-<img src="./doc/play/zhifubao_pay.jpg" width="150" height="150" />
+<img src="https://python.fengfengzhidao.com/pic/zhifubao_pay.jpg" width="150" height="150" />
 </div>  
 
 ### 微信：
