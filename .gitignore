@@ -4,3 +4,5 @@
 */测试
 */评论测试
 local_settings.py
+__pycache__
+.vscode
