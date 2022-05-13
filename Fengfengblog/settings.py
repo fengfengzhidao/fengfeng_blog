@@ -199,6 +199,9 @@ GITEE_ID = 'GiteeID'
 GITEE_SECRET = 'GiteeSECRET'
 GITEE_REDIRECT = 'gitee登录之后的回调地址'
 
+# 网站版本从这里获取
+VERSION = '5.0.2'
+
 try:
     from .local_settings import *
 except:

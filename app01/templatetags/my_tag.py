@@ -222,3 +222,10 @@ def gen_setting_login_url(name):
             f'https://gitee.com/oauth/authorize?client_id={settings.GITEE_ID}&redirect_uri={settings.GITEE_REDIRECT}'
         )
     return ''
+
+
+# 获取某一个配置
+@register.simple_tag
+def get_config(name):
+    from django.conf import settings
+    return getattr(settings, name)
