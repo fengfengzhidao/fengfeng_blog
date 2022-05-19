@@ -20,6 +20,103 @@
 - 集成了简单的图床功能。
 - 网站异常邮件提醒，若有未捕捉到的异常会自动发送提醒邮件。
 
+## 项目目录
+
+```text
++---Fengfengblog  项目同名目录
+|      +---__init__.py
+|      +---asgi.py  asgi部署使用
+|      +---wsgi.py  wsgi部署使用
+|      +---settings.py  配置文件，重要
+|      +---urls.py  项目路由，重要
+|
++---api  api相关的app
+|      +---migrations  数据库迁移文件
+|      +---utils  一些插件
+|      |     +---api_qiniu.py  七牛云相关
+|      |     +---find_root_comment.py  评论查询
+|      |     +---get_user_info.py  获取用户信息
+|      |     +---permissions_control.py  权限相关
+|      |     +---qq_get_user.py  qq登录的用户信息
+|      |    
+|      +---views  视图目录
+|      |     +---admin_data.py  后台的一些数据接口  
+|      |     +---api_email.py  邮件发送接口
+|      |     +---article.py  文章接口
+|      |     +---comment.py  评论接口
+|      |     +---file.py  文件上传接口
+|      |     +---history.py  回忆录接口
+|      |     +---login.py  登录注册接口
+|      |     +---mood.py  心情接口
+|      |     +---sites.py  网站导航接口
+|      |     +---user.py  修改密码接口
+|      |
+|      +---__init__.py
+|      +---admin.py
+|      +---models.py  表结构
+|      +---tests.py
+|      +---urls.py  api分发的路由
++---app01 与页面相关的app
+|      +---migrations
+|      +---templatetags  自定义标签和过滤器
+|      |      +---my_filter.py  自定义过滤器
+|      |      +---my_tag.py  自定义标签
+|      |      
+|      +---utils  插件
+|      |      +---font  字体目录
+|      |      +---pagination.py  分页器生成
+|      |      +---random_code.py  生成验证码
+|      |      +---search.py  文章搜索的html生成
+|      |      +---sub_comment.py  生成评论相关
+|      |     
+|      +---valid  验证相关
+|      |      +---auth  重写django的authenticate方法
+|      |
+|      +---views  视图目录
+|      +---__init__.py  app01的初始化文件
+|      +---admin.py  admin结构
+|      +---middleware_decode.py  用于转换axios数据的中间件
+|      +---models.py  表结构
+|      +---tests.py
+|      
++---media  用户上传文件的目录
++---static  静态文件
++---templates  模板文件
+|      +---backend  后台相关的模板
+|      |      +---add_article.html  添加文章
+|      |      +---avatar_list.html  头像列表
+|      |      +---backend.html  个人中心
+|      |      +---cover_list.html  文章封面列表
+|      |      +---edit_article.html  编辑文章
+|      |      +---edit_avatar.html  修改头像
+|      |      
+|      +---my_tag   自定义
+|      |      +---headers.html  banner轮播图
+|      |
+|      +---simple_admin
+|      |      +---add_form.html  后台选择封面的模板修改
+|      |
+|      +---about.html  网站关于
+|      +---admin_home.html  后台的首页
+|      +---article.html  文章详情页
+|      +---article_lock.html  加锁的文章详情页
+|      +---blog.html  博客项目
+|      +---history.html  建站回忆录
+|      +---index.html  首页
+|      +---login.html  登录
+|      +---moods.html  心情页面
+|      +---news.html  新闻
+|      +---search.html  搜索
+|      +---sign.html  注册
+|      +---sites.html  网址导航
+|
++---.gitignore  git忽略文件
++---README.md  说明文档
++---blog.sql  项目的数据库文件
++---manage.py  启动文件
++---requirements.txt  第三方模块
+```
+
 ## 安装
 
 1. git 拉取代码

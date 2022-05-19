@@ -1,3 +1,9 @@
+# @Auth:fengfeng
+# @Time:2022/01/02 19:27
+
+"""
+网站前台的视图函数
+"""
 from django.shortcuts import render, HttpResponse, redirect
 from app01.utils.random_code import random_code
 from django.contrib import auth
@@ -10,6 +16,9 @@ from app01.utils.pagination import Pagination
 # Create your views here.
 # 首页
 def index(request):
+    """
+    首页
+    """
     article_list = Articles.objects.filter(status=1, category__in=[1, 2]).order_by('-change_date')
     frontend_list = article_list.filter(category=1)[:6]
     backend_list = article_list.filter(category=2)[:6]
@@ -40,6 +49,9 @@ def index(request):
 
 # 搜索
 def search(request):
+    """
+
+    """
     search_key = request.GET.get('key', '')
     order = request.GET.get('order', '')
     tag = request.GET.get('tag', '')
@@ -81,6 +93,9 @@ def search(request):
 
 # 文章详情页
 def article(request, nid):
+    """
+
+    """
     article_query = Articles.objects.filter(nid=nid)
 
     article_query.update(look_count=F('look_count') + 1)
@@ -103,6 +118,9 @@ def article(request, nid):
 
 # 新闻页
 def news(request):
+    """
+    新闻页，在页面中，注意itab的接口，需要改一下请求头
+    """
     return render(request, 'news.html')
 
 

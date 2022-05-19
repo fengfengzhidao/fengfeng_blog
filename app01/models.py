@@ -1,3 +1,12 @@
+# @Auth:fengfeng
+# @Time:2021/12/31 19:51
+
+"""
+主体表结构
+UserInfo
+Avatars
+...
+"""
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.html import format_html
@@ -7,6 +16,20 @@ from django.dispatch.dispatcher import receiver  # 删除文件
 
 # 用户表
 class UserInfo(AbstractUser):
+    """
+    nick:昵称
+    avatar_url:用户头像
+    tel:手机号
+    integral：用户积分
+    token:第三方登录的ID
+    ip:IP地址
+    addr:用户的地址
+    sign_status:注册来源
+    account_status:账号的状态
+    avatar：头像表
+    collects：收藏的文章
+    navs:用户收藏的网站
+    """
     nid = models.AutoField(primary_key=True)
     nick_name = models.CharField(max_length=16, verbose_name='昵称', null=True, blank=True)
     avatar_url = models.URLField(verbose_name='用户头像', help_text='可能是其他平台的头像', null=True, blank=True)
