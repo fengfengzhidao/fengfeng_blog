@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-hy&u3h8i&3#a9y4qvz*^80zak#l-3t1=+%k)hz9u3)#i2dcnu5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -87,9 +87,9 @@ WSGI_APPLICATION = 'Fengfengblog.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'v5_blog1',
-        'USER': 'v5_blog1',
-        'PASSWORD': 'XGbxJEJtpxyWFeKL',
+        'NAME': 'test_blog',
+        'USER': 'root',
+        'PASSWORD': 'root',
         'HOST': '127.0.0.1',
         'PORT': 3306
     }
