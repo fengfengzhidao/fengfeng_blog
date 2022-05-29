@@ -87,9 +87,9 @@ WSGI_APPLICATION = 'Fengfengblog.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'test_blog',
-        'USER': 'root',
-        'PASSWORD': 'root',
+        'NAME': 'v5_blog1',
+        'USER': 'v5_blog1',
+        'PASSWORD': 'XGbxJEJtpxyWFeKL',
         'HOST': '127.0.0.1',
         'PORT': 3306
     }
