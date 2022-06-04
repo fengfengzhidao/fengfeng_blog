@@ -87,7 +87,7 @@ WSGI_APPLICATION = 'Fengfengblog.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'test_blog',
+        'NAME': 'fengfeng_blog',
         'USER': 'root',
         'PASSWORD': 'root',
         'HOST': '127.0.0.1',
