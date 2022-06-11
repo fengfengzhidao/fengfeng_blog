@@ -502,6 +502,7 @@
 <!-- 引入组件库 -->
 <script src="/static/elementui/index.js"></script>
 <script src="/static/axios/axios.min.js"></script>
+<script src="/static/itab/signaturekey.js"></script>
 <script>
     axios.interceptors.request.use(request => {
         if (request.method !== 'get') {
@@ -710,7 +711,7 @@
             if (path.indexOf('news') !== -1) {
                 this.news_init_method(0)
             }
-            if (path.indexOf('/') !== -1) {
+            if (path === '/') {
                 this.news_init_method(1)
             }
             if (path.indexOf('sites') !== -1) {
@@ -1146,10 +1147,9 @@
                     data.size = size
                 }
 
-                axios.post('https://api.codelife.cc/api/top/list', data, {
+                axios.post('/api/news/', data, {
                     headers: {
-                        version: '1.2.21',
-                        signaturekey: 'U2FsdGVkX1+dLG5uzJVejoCoKTPQWX26HVKu1loLkJ0='
+                        signaturekey: Lm(),
                     }
                 }).then(res => {
                     this.news_list = res.data

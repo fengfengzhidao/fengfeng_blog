@@ -1,7 +1,7 @@
 from django.urls import path, re_path
 from api.views import login, \
     article, comment, mood, user, \
-    file, api_email, history, sites, admin_data
+    file, api_email, history, sites, admin_data, news
 
 urlpatterns = [
     path('login/', login.LoginView.as_view()),  # 登录
@@ -54,5 +54,7 @@ urlpatterns = [
     path('reset_avatar/', user.ResetAvatarView.as_view()),  # 重置头像  qq  gitee
 
     path('feedback/', user.FeedBackView.as_view()),  # 意见反馈
+
+    path('news/', news.NewsView.as_view()),  # 新闻
 
 ]
