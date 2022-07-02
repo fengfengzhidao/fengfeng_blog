@@ -6,8 +6,8 @@ from app01.models import avatar_delete, cover_delete
 from django.core.handlers.wsgi import WSGIRequest
 from django.db.models import Q
 import base64
-from api.utils.api_qiniu import upload_data
-from api.utils.permissions_control import is_super_method
+from lib.api_qiniu import upload_data
+from lib.permissions_control import is_super_method
 
 
 # 头像

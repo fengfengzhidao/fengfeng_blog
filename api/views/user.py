@@ -7,7 +7,7 @@ from django.contrib import auth
 from app01.models import Avatars, UserInfo, Feedback
 from django.core.handlers.wsgi import WSGIRequest
 from django.shortcuts import redirect
-from api.utils.qq_get_user import QQLogin
+from lib.qq_get_user import QQLogin
 
 
 # 修改密码的字段验证

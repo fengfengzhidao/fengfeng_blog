@@ -1,5 +1,5 @@
 from django import template
-from app01.utils.search import Search
+from lib.search import Search
 from django.utils.safestring import mark_safe
 from app01.models import Tags, Avatars, Menu, Articles
 import re

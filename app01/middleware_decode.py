@@ -1,6 +1,6 @@
 from django.utils.deprecation import MiddlewareMixin
 import json
-from api.utils.get_user_info import get_ip
+from lib.get_user_info import get_ip
 from django.core.cache import cache
 
 

@@ -3,7 +3,7 @@ import datetime
 from django.shortcuts import render, redirect
 from app01.models import *
 from django.contrib import auth
-from api.utils.permissions_control import is_super_fun
+from lib.permissions_control import is_super_fun
 from api.models import *
 
 
@@ -23,7 +23,7 @@ def backend(request):
     code = data.get('code')
     if not flag or not code:
         return redirect('/login/')
-    from api.utils.qq_get_user import QQLogin, GiteeLogin
+    from lib.qq_get_user import QQLogin, GiteeLogin
     from django.db.models import Q
     # 登录源
     sign_status = 1

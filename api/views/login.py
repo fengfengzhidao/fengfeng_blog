@@ -4,7 +4,7 @@ from app01.models import UserInfo, Avatars
 from django.views import View
 from django.http import JsonResponse
 import random
-from api.utils.qq_get_user import QQLogin
+from lib.qq_get_user import QQLogin
 from django.db.models import Q
 
 

@@ -5,12 +5,12 @@
 网站前台的视图函数
 """
 from django.shortcuts import render, HttpResponse, redirect
-from app01.utils.random_code import random_code
+from lib.random_code import random_code
 from django.contrib import auth
 from app01.models import *
-from app01.utils.sub_comment import sub_comment_list
+from lib.sub_comment import sub_comment_list
 from django.db.models import F
-from app01.utils.pagination import Pagination
+from lib.pagination import Pagination
 
 
 # Create your views here.
@@ -198,7 +198,7 @@ def login(request):
     code = data.get('code')
     if not flag or not code:
         return redirect('/login/')
-    from api.utils.qq_get_user import QQLogin, GiteeLogin
+    from lib.qq_get_user import QQLogin, GiteeLogin
     from django.db.models import Q
     # 登录源
     sign_status = 1

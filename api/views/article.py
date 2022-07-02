@@ -7,7 +7,7 @@ from django import forms
 from api.views.login import clean_form
 import random
 from django.db.models import F
-from api.utils.permissions_control import is_super_method
+from lib.permissions_control import is_super_method
 
 
 # 添加文章或 编辑文章的验证

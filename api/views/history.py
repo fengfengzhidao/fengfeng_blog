@@ -4,7 +4,7 @@ from app01.models import Avatars, Cover, UserInfo, History
 from django import forms
 from api.views.login import clean_form
 import datetime
-from api.utils.permissions_control import is_super_method
+from lib.permissions_control import is_super_method
 
 
 class HistoryForm(forms.Form):

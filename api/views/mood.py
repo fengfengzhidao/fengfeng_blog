@@ -5,11 +5,11 @@ from django.db.models import F
 from django import forms
 from app01.models import Avatars, Moods, MoodComment
 import random
-from api.utils.get_user_info import get_ip, get_addr_info
-from api.utils.permissions_control import is_super_method
+from lib.get_user_info import get_ip, get_addr_info
+from lib.permissions_control import is_super_method
 
 
-# 添加文章或 编辑文章的验证
+# 添加心情或 编辑心情的验证
 class AddMoodsForm(forms.Form):
     name = forms.CharField(error_messages={'required': '请输入用户名'})
     content = forms.CharField(error_messages={'required': '请输入心情内容'})

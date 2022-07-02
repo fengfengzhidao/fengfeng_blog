@@ -163,8 +163,10 @@ EMAIL_USER_TLS = False
 
 ```python
 # 七牛云配置
-QINIU_ACCESS_KEY = '你的AK'
-QINIU_SECRET_KEY = '你的SK'
+QINIU_ACCESS_KEY = '七牛云AK'
+QINIU_SECRET_KEY = '七牛云SK'
+QINIU_BUCKET_NAME = '七牛云存储空间'
+QINIU_DOMAIN = 'xxx.xxx.xxx'  # 访问的域名，按照这样的格式
 ```
 
 - 第三方登录

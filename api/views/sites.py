@@ -6,7 +6,7 @@ from api.views.login import clean_form
 import datetime
 from django.db.models import F
 import time
-from api.utils.permissions_control import is_super_method
+from lib.permissions_control import is_super_method
 
 
 class NavTagsView(View):
