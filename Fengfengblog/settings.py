@@ -49,8 +49,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'app01.middleware_decode.Md1',
-    'app01.middleware_decode.Statistical',
+    'app01.MyMiddleware.DecodeBodyDataMiddleware',  # 解析body的中间件
+    'app01.MyMiddleware.StatisticalMiddleware',  # 在线人数统计的中间件
 ]
 
 ROOT_URLCONF = 'Fengfengblog.urls'
@@ -77,13 +77,6 @@ WSGI_APPLICATION = 'Fengfengblog.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -94,6 +87,7 @@ DATABASES = {
         'PORT': 3306
     }
 }
+# 缓存配置，使用的是内存缓存
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
@@ -202,7 +196,7 @@ GITEE_SECRET = 'GiteeSECRET'
 GITEE_REDIRECT = 'gitee登录之后的回调地址'
 
 # 网站版本从这里获取
-VERSION = '5.0.2'
+VERSION = '5.0.3'
 
 try:
     from .local_settings import *

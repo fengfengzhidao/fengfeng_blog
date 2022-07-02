@@ -1,9 +1,5 @@
 # @Auth:fengfeng
 # @Time:2022/01/02 19:27
-
-"""
-网站前台的视图函数
-"""
 from django.shortcuts import render, HttpResponse, redirect
 from lib.random_code import random_code
 from django.contrib import auth

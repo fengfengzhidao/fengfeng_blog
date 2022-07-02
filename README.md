@@ -32,13 +32,6 @@
 |
 +---api  api相关的app
 |      +---migrations  数据库迁移文件
-|      +---utils  一些插件
-|      |     +---api_qiniu.py  七牛云相关
-|      |     +---find_root_comment.py  评论查询
-|      |     +---get_user_info.py  获取用户信息
-|      |     +---permissions_control.py  权限相关
-|      |     +---qq_get_user.py  qq登录的用户信息
-|      |    
 |      +---views  视图目录
 |      |     +---admin_data.py  后台的一些数据接口  
 |      |     +---api_email.py  邮件发送接口
@@ -61,13 +54,6 @@
 |      +---templatetags  自定义标签和过滤器
 |      |      +---my_filter.py  自定义过滤器
 |      |      +---my_tag.py  自定义标签
-|      |      
-|      +---utils  插件
-|      |      +---font  字体目录
-|      |      +---pagination.py  分页器生成
-|      |      +---random_code.py  生成验证码
-|      |      +---search.py  文章搜索的html生成
-|      |      +---sub_comment.py  生成评论相关
 |      |     
 |      +---valid  验证相关
 |      |      +---auth  重写django的authenticate方法
@@ -254,6 +240,10 @@ mysqldump -u root -p blog > blog.sql
 </div>
 
 ## 更新历史
+
+### 2022年7月02日
+
+1. 优化目录结构
 
 ### 2022年5月13日
 

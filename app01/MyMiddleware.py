@@ -4,7 +4,7 @@ from lib.get_user_info import get_ip
 from django.core.cache import cache
 
 
-class Statistical(MiddlewareMixin):
+class StatisticalMiddleware(MiddlewareMixin):
     def process_request(self, request):
         ip = get_ip(request)
         online_ips = list(cache.get("online_ips", []))
@@ -23,7 +23,7 @@ class Statistical(MiddlewareMixin):
 
 
 # 解析post请求的数据
-class Md1(MiddlewareMixin):
+class DecodeBodyDataMiddleware(MiddlewareMixin):
     # 请求中间件
     def process_request(self, request):
         if request.method != 'GET' and request.META.get('CONTENT_TYPE') == 'application/json':
