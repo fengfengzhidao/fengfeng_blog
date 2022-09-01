@@ -1116,10 +1116,14 @@
                 let box = document.querySelector('.search')
 
                 if (!box.classList.contains('show_search')) {
+                    // 搜索框展开
                     box.classList.add('show_search')
+                    // 需要给input添加焦点
+                    box.querySelector('input').focus()
                     return
                 }
                 if (!this.search_key) {
+                    // 没有搜索词的时候点搜索按钮
                     box.classList.remove('show_search')
                     return;
                 }
@@ -1134,41 +1138,41 @@
             },
 
             // 获取热搜数据
-        get_new_data(id, name, url, flag, size) {
-            if (name === this.news_active && !flag) {
-                return
-            }
-            this.news_active = name
-            this.news_active_url = url
-
-            let data = {
-                id,
-            }
-            if (size) {
-                data.size = size
-            }
-
-            let headers = this.news_headers
-
-            axios.post('/api/news/', data, {headers}).then(res => {
-                this.news_list = res.data
-            })
-        },
-
-        news_init_method(size) {
-            setTimeout(() => {
-                let e = new Date;
-                e.toUTCString();
-                const t = e.getTime().toString();
-                let signaturekey = $.OM.AES.encrypt(t, "itab1314").toString()
-                this.news_headers = {
-                    signaturekey,
+            get_new_data(id, name, url, flag, size) {
+                if (name === this.news_active && !flag) {
+                    return
                 }
-                this.get_new_data('KqndgxeLl9', '微博', '/static/my/img/news/weibo.png', true, size)
-            }, 100)
+                this.news_active = name
+                this.news_active_url = url
+
+                let data = {
+                    id,
+                }
+                if (size) {
+                    data.size = size
+                }
+
+                let headers = this.news_headers
+
+                axios.post('/api/news/', data, {headers}).then(res => {
+                    this.news_list = res.data
+                })
+            },
+            // 初始化新闻，获取加密头
+            news_init_method(size) {
+                setTimeout(() => {
+                    let e = new Date;
+                    e.toUTCString();
+                    const t = e.getTime().toString();
+                    let signaturekey = $.OM.AES.encrypt(t, "itab1314").toString()
+                    this.news_headers = {
+                        signaturekey,
+                    }
+                    this.get_new_data('KqndgxeLl9', '微博', '/static/my/img/news/weibo.png', true, size)
+                }, 100)
 
 
-        },
+            },
 
             mood_show_comment_list(e) {
                 let div = $(e.target).parent().parent().next()
