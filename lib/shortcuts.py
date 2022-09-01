@@ -1,7 +1,8 @@
 import os
-from django.template import Template, Context
-from django.conf import settings
 from hashlib import md5
+
+from django.conf import settings
+from django.template import Template, Context
 
 
 def my_render(template_name, context):

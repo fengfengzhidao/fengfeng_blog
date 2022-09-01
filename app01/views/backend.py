@@ -1,10 +1,10 @@
 import datetime
 
 from django.shortcuts import render, redirect
-from app01.models import *
-from django.contrib import auth
-from lib.permissions_control import is_super_fun
+
 from api.models import *
+from app01.models import *
+from lib.permissions_control import is_super_fun
 
 
 # 后台

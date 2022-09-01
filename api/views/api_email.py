@@ -1,15 +1,17 @@
-from django.views import View
-from django.http import JsonResponse
-from api.views.login import clean_form
-from django import forms
-from django.core.mail import send_mail
 import random
-from django.conf import settings
-from django.core.handlers.wsgi import WSGIRequest
 import time
 from threading import Thread
-from app01.models import UserInfo
+
+from django import forms
+from django.conf import settings
+from django.core.handlers.wsgi import WSGIRequest
+from django.core.mail import send_mail
+from django.http import JsonResponse
+from django.views import View
+
 from api.models import Email
+from api.views.login import clean_form
+from app01.models import UserInfo
 
 
 class EmailForm(forms.Form):

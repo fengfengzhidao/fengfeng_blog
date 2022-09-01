@@ -1,8 +1,10 @@
 import datetime
+
 import pendulum
-from app01.models import Avatars, Cover, UserInfo, Advert
 from django import template
 from django.utils.safestring import mark_safe
+
+from app01.models import Avatars, Cover, UserInfo
 
 # 注册
 register = template.Library()
@@ -60,10 +62,10 @@ def get_tags(tag_list):
     return mark_safe(''.join([f"<i>{i.title}</i>" for i in tag_list]))
 
 
+# 用户收藏的文章id列表
 @register.filter
 def get_coll_nid(lis):
     return [i.nid for i in lis]
-
 
 
 @register.filter
@@ -73,6 +75,7 @@ def get_login(user):
     return ''
 
 
+# 获取用户头像
 @register.filter
 def get_avatar(user: UserInfo):
     if user.sign_status in [1, 2]:
@@ -81,10 +84,13 @@ def get_avatar(user: UserInfo):
         return user.avatar.url.url
     return ''
 
+
+# 获取用户地址信息
 @register.filter
 def get_addr(addr: str):
     addr = eval(addr)
     return f"{addr['prov']} · {addr['city']}"
+
 
 @register.filter
 def generate_advert(adv_list):

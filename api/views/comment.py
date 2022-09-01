@@ -1,10 +1,11 @@
-from django.views import View
-from django.http import JsonResponse
-from app01.models import Comment, Articles
 from django.db.models import F
+from django.http import JsonResponse
+from django.views import View
+
+from app01.models import Comment, Articles
+from lib.permissions_control import is_super_method
 from lib.sub_comment import find_root_comment
 from lib.sub_comment import find_root_sub_comment
-from lib.permissions_control import is_super_method
 
 
 class CommentView(View):

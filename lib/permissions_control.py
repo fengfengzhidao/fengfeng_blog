@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect
 from django.http import JsonResponse
+from django.shortcuts import redirect
 
 
 # 视图函数权限验证

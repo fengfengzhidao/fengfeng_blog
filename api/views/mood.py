@@ -1,10 +1,12 @@
-from django.views import View
-from django.http import JsonResponse
-from api.views.login import clean_form
-from django.db.models import F
-from django import forms
-from app01.models import Avatars, Moods, MoodComment
 import random
+
+from django import forms
+from django.db.models import F
+from django.http import JsonResponse
+from django.views import View
+
+from api.views.login import clean_form
+from app01.models import Avatars, Moods, MoodComment
 from lib.get_user_info import get_ip, get_addr_info
 from lib.permissions_control import is_super_method
 

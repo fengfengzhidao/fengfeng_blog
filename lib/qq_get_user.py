@@ -1,6 +1,7 @@
-from urllib.parse import urlencode, parse_qs
-import requests
 import json
+from urllib.parse import urlencode, parse_qs
+
+import requests
 from django.conf import settings
 
 

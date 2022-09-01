@@ -1,8 +1,10 @@
-from django import template
-from lib.search import Search
-from django.utils.safestring import mark_safe
-from app01.models import Tags, Avatars, Menu, Articles
 import re
+
+from django import template
+from django.utils.safestring import mark_safe
+
+from app01.models import Tags, Menu, Articles
+from lib.search import Search
 
 # 注册
 register = template.Library()

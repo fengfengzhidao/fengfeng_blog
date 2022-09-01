@@ -1,10 +1,6 @@
-import time
-
-from django.views import View
-from django.http import JsonResponse
 import requests
-# from lib.work_wechat import work
-from lib.get_user_info import get_ip, get_addr_info
+from django.http import JsonResponse
+from django.views import View
 
 url = "https://api.codelife.cc/api/top/list"
 

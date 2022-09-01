@@ -1,7 +1,9 @@
-from django.utils.deprecation import MiddlewareMixin
 import json
-from lib.get_user_info import get_ip
+
 from django.core.cache import cache
+from django.utils.deprecation import MiddlewareMixin
+
+from lib.get_user_info import get_ip
 
 
 class StatisticalMiddleware(MiddlewareMixin):

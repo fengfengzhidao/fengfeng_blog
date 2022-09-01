@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 # flake8: noqa
 
-from qiniu import Auth, put_file, put_data
 import time
+
 from django.conf import settings
+from qiniu import Auth, put_file, put_data
 
 # pip install qiniu
 

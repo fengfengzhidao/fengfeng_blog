@@ -7,11 +7,11 @@ UserInfo
 Avatars
 ...
 """
-from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.utils.html import format_html
+from django.db import models
 from django.db.models.signals import pre_delete  # 删除文件
 from django.dispatch.dispatcher import receiver  # 删除文件
+from django.utils.html import format_html
 
 
 # 用户表

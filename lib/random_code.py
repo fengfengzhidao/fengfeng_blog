@@ -1,11 +1,12 @@
 # PIL
 # pip install pillow
 
-from PIL import Image, ImageDraw, ImageFont
-import string
-import random
-from io import BytesIO
 import os
+import random
+import string
+from io import BytesIO
+
+from PIL import Image, ImageDraw, ImageFont
 
 
 # 随机颜色

@@ -1,11 +1,13 @@
-from django.views import View
-from django.http import JsonResponse
-from app01.models import Avatars, Cover, UserInfo
+import base64
+
 from django.core.files.uploadedfile import InMemoryUploadedFile
-from app01.models import avatar_delete, cover_delete
 from django.core.handlers.wsgi import WSGIRequest
 from django.db.models import Q
-import base64
+from django.http import JsonResponse
+from django.views import View
+
+from app01.models import Avatars, Cover, UserInfo
+from app01.models import avatar_delete, cover_delete
 from lib.api_qiniu import upload_data
 from lib.permissions_control import is_super_method
 

@@ -1,5 +1,3 @@
-import requests
-import re
 from qqwry import QQwry
 
 headers = {

@@ -120,9 +120,6 @@ AUTHENTICATION_BACKENDS = (
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-# LANGUAGE_CODE = 'en-us'
-#
-# TIME_ZONE = 'UTC'
 
 LANGUAGE_CODE = 'zh-hans'
 
@@ -150,9 +147,6 @@ MEDIA_URL = '/media/'
 
 # 请求最大
 DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880  # 默认设置为5M
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -196,7 +190,10 @@ GITEE_SECRET = 'GiteeSECRET'
 GITEE_REDIRECT = 'gitee登录之后的回调地址'
 
 # 网站版本从这里获取
-VERSION = '5.0.3'
+VERSION = '5.0.4'
+
+# 是否显示广告位
+IS_ADVERTIS = False
 
 try:
     from .local_settings import *

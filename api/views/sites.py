@@ -1,11 +1,12 @@
-from django.views import View
-from django.http import JsonResponse
-from app01.models import NavTags, Navs
-from django import forms
-from api.views.login import clean_form
-import datetime
-from django.db.models import F
 import time
+
+from django import forms
+from django.db.models import F
+from django.http import JsonResponse
+from django.views import View
+
+from api.views.login import clean_form
+from app01.models import NavTags, Navs
 from lib.permissions_control import is_super_method
 
 

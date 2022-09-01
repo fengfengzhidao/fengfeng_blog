@@ -1,11 +1,11 @@
+import random
+
 from django import forms
 from django.contrib import auth
-from app01.models import UserInfo, Avatars
-from django.views import View
 from django.http import JsonResponse
-import random
-from lib.qq_get_user import QQLogin
-from django.db.models import Q
+from django.views import View
+
+from app01.models import UserInfo, Avatars
 
 
 # CBV  class

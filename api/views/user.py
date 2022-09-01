@@ -1,12 +1,14 @@
 import time
-from django.views import View
-from django.http import JsonResponse
-from api.views.login import clean_form
+
 from django import forms
 from django.contrib import auth
-from app01.models import Avatars, UserInfo, Feedback
 from django.core.handlers.wsgi import WSGIRequest
+from django.http import JsonResponse
 from django.shortcuts import redirect
+from django.views import View
+
+from api.views.login import clean_form
+from app01.models import Avatars, UserInfo, Feedback
 from lib.qq_get_user import QQLogin
 
 
