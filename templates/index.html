@@ -503,6 +503,7 @@
 <script src="/static/elementui/index.js"></script>
 <script src="/static/axios/axios.min.js"></script>
 <script src="/static/itab/signaturekey.js"></script>
+<script src="/static/my/js/vendor.js"></script>
 <script>
     axios.interceptors.request.use(request => {
         if (request.method !== 'get') {
@@ -581,7 +582,7 @@
                 {
                     name: '微博',
                     id: 'KqndgxeLl9',
-                    url: 'https://file.ipadown.com/tophub/assets/images/media/s.weibo.com.png_50x50.png'
+                    url: '/static/my/img/news/weibo.png'
                 },
                 {
                     name: '知乎',
@@ -1133,32 +1134,41 @@
             },
 
             // 获取热搜数据
-            get_new_data(id, name, url, flag, size) {
-                if (name === this.news_active && !flag) {
-                    return
-                }
-                this.news_active = name
-                this.news_active_url = url
+        get_new_data(id, name, url, flag, size) {
+            if (name === this.news_active && !flag) {
+                return
+            }
+            this.news_active = name
+            this.news_active_url = url
 
-                let data = {
-                    id,
-                }
-                if (size) {
-                    data.size = size
-                }
+            let data = {
+                id,
+            }
+            if (size) {
+                data.size = size
+            }
 
-                axios.post('/api/news/', data, {
-                    headers: {
-                        signaturekey: Lm(),
-                    }
-                }).then(res => {
-                    this.news_list = res.data
-                })
-            },
+            let headers = this.news_headers
 
-            news_init_method(size) {
-                this.get_new_data('KqndgxeLl9', '微博', 'https://file.ipadown.com/tophub/assets/images/media/s.weibo.com.png_50x50.png', true, size)
-            },
+            axios.post('/api/news/', data, {headers}).then(res => {
+                this.news_list = res.data
+            })
+        },
+
+        news_init_method(size) {
+            setTimeout(() => {
+                let e = new Date;
+                e.toUTCString();
+                const t = e.getTime().toString();
+                let signaturekey = $.OM.AES.encrypt(t, "itab1314").toString()
+                this.news_headers = {
+                    signaturekey,
+                }
+                this.get_new_data('KqndgxeLl9', '微博', '/static/my/img/news/weibo.png', true, size)
+            }, 100)
+
+
+        },
 
             mood_show_comment_list(e) {
                 let div = $(e.target).parent().parent().next()
