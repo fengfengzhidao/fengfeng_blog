@@ -27,6 +27,7 @@ class EmailForm(forms.Form):
 
 class ApiEmail(View):
     def post(self, request: WSGIRequest):
+        # TODO: 状态码肯定是要重新设计的，让开发人员一看码就知道对应的错误信息
         res = {
             'code': 333,
             "msg": '验证码获取成功！',

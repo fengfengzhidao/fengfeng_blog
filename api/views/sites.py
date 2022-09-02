@@ -7,9 +7,11 @@ from django.views import View
 
 from api.views.login import clean_form
 from app01.models import NavTags, Navs
+from lib.cache import frequency_limit_decorator
 from lib.permissions_control import is_super_method
 
 
+# 标签视图
 class NavTagsView(View):
     @is_super_method
     def post(self, request, **kwargs):
@@ -59,6 +61,7 @@ class NavTagsView(View):
         return JsonResponse(res)
 
 
+# 添加网站的验证
 class NavForm(forms.Form):
     title = forms.CharField(min_length=4, max_length=32,
                             error_messages={'required': '请输入网站标题', 'min_length': '网站标题小于4字符', 'max_length': '标题超过32字符'})
@@ -92,6 +95,7 @@ class NavForm(forms.Form):
         return status
 
 
+# 网站的视图
 class NavView(View):
     def get(self, request):
 
@@ -202,28 +206,21 @@ class NavView(View):
         return JsonResponse(res)
 
 
+# 点赞
 class NavDiggView(View):
+    @frequency_limit_decorator()
     def post(self, request, nid):
         res = {
             'msg': '点赞+1！',
             'code': 442,
         }
 
-        before_time = request.session.get(f'site_{nid}', 0)
-
-        now = int(time.time())
-
-        if (now - before_time) < 3:
-            res['msg'] = '点赞过于频繁'
-            return JsonResponse(res)
-
-        request.session[f'site_{nid}'] = now
-
         Navs.objects.filter(nid=nid).update(digg_count=F("digg_count") + 1)
         res['code'] = 0
         return JsonResponse(res)
 
 
+# 收藏
 class NavCollectsView(View):
     def post(self, request, nid):
         # 判断登录

@@ -10,6 +10,7 @@ from pyquery import PyQuery
 from api.views.login import clean_form
 from app01.models import Tags, Articles, Cover, Project
 from lib.permissions_control import is_super_method
+from lib.cache import frequency_limit_decorator
 
 
 # 添加文章或 编辑文章的验证
@@ -129,8 +130,11 @@ class ArticleView(View):
 
 # 文章点赞
 class ArticleDiggView(View):
+
+    @frequency_limit_decorator()
     def post(self, request, nid):
-        # nid  评论id
+        # 后台肯定要做一个点赞的频率限制
+        # nid  文章id
         res = {
             'msg': '点赞成功！',
             'code': 412,
@@ -140,7 +144,7 @@ class ArticleDiggView(View):
         comment_query.update(digg_count=F('digg_count') + 1)
 
         digg_count = comment_query.first().digg_count
-
+        # 把新的点赞数返回
         res['code'] = 0
         res['data'] = digg_count
         return JsonResponse(res)

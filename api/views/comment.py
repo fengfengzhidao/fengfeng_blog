@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.views import View
 
 from app01.models import Comment, Articles
+from lib.cache import frequency_limit_decorator
 from lib.permissions_control import is_super_method
 from lib.sub_comment import find_root_comment
 from lib.sub_comment import find_root_sub_comment
@@ -10,6 +11,7 @@ from lib.sub_comment import find_root_sub_comment
 
 class CommentView(View):
     # 发布评论
+    @frequency_limit_decorator(timeout=5, msg='评论过于频繁，请{}秒后重试！')
     def post(self, request, nid):
         res = {
             'msg': '文章评论成功！',
@@ -94,6 +96,8 @@ class CommentView(View):
 
 
 class CommentDiggView(View):
+
+    @frequency_limit_decorator()
     def post(self, request, nid):
         # nid  评论id
         res = {

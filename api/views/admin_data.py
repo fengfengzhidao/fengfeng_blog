@@ -5,11 +5,14 @@ from django.http import JsonResponse
 from app01.models import UserInfo
 
 
+# 获取在线人数
 def get_online(request):
     return JsonResponse({'data': len(request.online_list)})
 
 
+# 获取七日内数据
 def get_seven_data(request):
+    # TODO:这里应该是有个问题的，同一个人，后面登录的时间会把上次登录的时间覆盖，造成统计不准
     today = datetime.date.today()
     seven_data = {
         'date': [],

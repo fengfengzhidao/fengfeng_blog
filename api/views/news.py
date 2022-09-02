@@ -9,10 +9,10 @@ class NewsView(View):
     def post(self, request):
 
         headers = request.headers
-        Signaturekey: str = headers.get('Signaturekey')
+        encryption_key: str = headers.get('Signaturekey')
         try:
             res = requests.post(url, data=request.data, headers={
-                "signaturekey": Signaturekey,
+                "signaturekey": encryption_key,
                 "version": '1.2.34',
                 "origin": 'https://go.itab.link',
                 'User-Agent': headers['User-Agent']

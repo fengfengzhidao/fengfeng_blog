@@ -6,6 +6,7 @@ from django.http import JsonResponse
 from django.views import View
 
 from api.views.login import clean_form
+from lib.cache import frequency_limit_decorator
 from app01.models import Avatars, Moods, MoodComment
 from lib.get_user_info import get_ip, get_addr_info
 from lib.permissions_control import is_super_method
@@ -41,6 +42,7 @@ def mood_digg(model_obj, nid):
 
 
 class MoodsView(View):
+    @frequency_limit_decorator(msg='心情发布过于频繁，请{}秒后重试！')
     def post(self, request):
         res = {
             'msg': '心情发布成功！',
@@ -84,11 +86,14 @@ class MoodsView(View):
         return JsonResponse(res)
 
     # 点赞
+    @frequency_limit_decorator()
     def put(self, request, nid):
         return mood_digg(Moods, nid)
 
 
 class MoodCommentsView(View):
+
+    @frequency_limit_decorator(msg='心情评论过于频繁，请{}秒后重试！')
     def post(self, request, nid):
         res = {
             'msg': '心情评论成功！',
@@ -136,5 +141,6 @@ class MoodCommentsView(View):
         return JsonResponse(res)
 
     # 点赞
+    @frequency_limit_decorator()
     def put(self, request, nid):
         return mood_digg(MoodComment, nid)

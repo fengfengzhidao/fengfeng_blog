@@ -8,6 +8,10 @@ from api.views.login import clean_form
 from app01.models import History
 from lib.permissions_control import is_super_method
 
+"""
+在实际的体验中，回忆录的功能挺弱的，考虑不把它放入导航中
+"""
+
 
 class HistoryForm(forms.Form):
     title = forms.CharField(error_messages={'required': '请输入事件标题'})

@@ -25,8 +25,9 @@ class AvatarView(View):
             return JsonResponse(res)
         file: InMemoryUploadedFile = request.FILES.get('file')
         name: str = file.name
+        # 使用白名单的方式，如果不在白名单就是不合法的文件
         white_file_type = [
-            'jpg', 'jpeg', 'png'
+            'jpg', 'jpeg', 'png', 'webp'
         ]
         if name.split('.')[-1] not in white_file_type:
             return JsonResponse(res)
@@ -57,8 +58,8 @@ class AvatarView(View):
         # 判断图片是不是有人在使用
         obj: Avatars = avatar_query.first()
 
-        userquery = UserInfo.objects.filter(Q(sign_status=1) | Q(sign_status=2))
-        for user in userquery:
+        user_query = UserInfo.objects.filter(Q(sign_status=1) | Q(sign_status=2))
+        for user in user_query:
             if obj.url.url == user.avatar_url:
                 res['msg'] = '该图片有人使用！'
                 return JsonResponse(res)
