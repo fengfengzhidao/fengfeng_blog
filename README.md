@@ -5,9 +5,7 @@
 
 基于`python3.6.8`和`Django3.2.10`的博客。
 
-![image](https://img.shields.io/badge/blog-5.0.1-yellow.svg)
-[![image](https://img.shields.io/badge/fengfengblog-枫枫知道-orange.svg)](http://www.fengfengzhidao.com/)
-![image](https://img.shields.io/badge/license-Mysql5.7.26-blue.svg)
+![image](https://img.shields.io/badge/blog-5.0.1-yellow.svg) [![image](https://img.shields.io/badge/fengfengblog-枫枫知道-orange.svg)](http://www.fengfengzhidao.com/) ![image](https://img.shields.io/badge/license-Mysql5.7.26-blue.svg)
 
 ## 主要功能：
 
@@ -19,6 +17,16 @@
 - 支持Oauth登陆，现已有QQ登录，gitee登录。
 - 集成了七牛云的图床功能。
 - 网站异常邮件提醒，若有未捕捉到的异常会自动发送提醒邮件。
+
+## 适用人群
+1. 没有python-web开发经验的大学生
+2. 想要拥有一款个人博客的人群
+
+## 课程链接
+
+[第一部分 1-200](https://www.bilibili.com/video/BV1yu411276D)
+[第二部分 201-324](https://www.bilibili.com/video/BV1sL411T735)
+
 
 ## 项目目录
 
@@ -190,7 +198,7 @@ source  blog.sql
 执行： `python manage.py runserver`
 
 浏览器打开: http://127.0.0.1:8000/  就可以看到效果了。
-
+   
 ### 默认管理员
 
 ```python
@@ -223,6 +231,10 @@ mysqldump -u root -p blog > blog.sql
 ![](http://python.fengfengzhidao.com/pic/20220902080954.png)
 
 ![](http://python.fengfengzhidao.com/pic/20220902081050.png)
+
+![](http://python.fengfengzhidao.com/pic/20220902100521.png)
+
+![](http://python.fengfengzhidao.com/pic/20220902100616.png)
 
 ## 问题相关
 
