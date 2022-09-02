@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from api.models import *
 from app01.models import *
 from lib.permissions_control import is_super_fun
+from app01.models import UserInfo
 
 
 # 后台
@@ -13,44 +14,9 @@ def backend(request):
         # 没有登录
         return redirect('/')
 
-    data = request.GET
-    if len(data) != 2:
-        user = request.user
-        collects_query = user.collects.all()
-        return render(request, 'backend/backend.html', locals())
-    # 第三方登陆
-    flag = data.get('flag')
-    code = data.get('code')
-    if not flag or not code:
-        return redirect('/login/')
-    from lib.qq_get_user import QQLogin, GiteeLogin
-    from django.db.models import Q
-    # 登录源
-    sign_status = 1
-    # 根据不同的三方登录去做相同的事情 拿到用户名和头像 唯一id
-    try:
-        if flag == 'qq':
-            other = QQLogin(code)
-        elif flag == 'gitee':
-            sign_status = 1
-            other = GiteeLogin(code)
-    except Exception as e:
-        return redirect('/login/')
-    # 用户名和头像
-    user_info = other.get_user_info
-    # 唯一id
-    open_id = other.open_id
-    # 先查询是否有这个用户
-    user = UserInfo.objects.filter(Q(username=open_id) | Q(token=open_id))
-    if not user:
-        # 没有这个用户
-        return redirect('/login/')
-    # 修改头像
-    user.update(
-        avatar_url=user_info[1],
-        nick_name=user_info[0],
-    )
-    return redirect('/backend/')
+    user: UserInfo = request.user
+    collects_query = user.collects.all()
+    return render(request, 'backend/backend.html', locals())
 
 
 # 添加文章

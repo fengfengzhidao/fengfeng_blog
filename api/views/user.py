@@ -176,7 +176,7 @@ class ResetAvatarView(View):
         code = request.GET.get('code')
         if user.sign_status == 1:
             qq = QQLogin(code)
-            if user.a_unique_id != qq.open_id:
+            if user.token != qq.open_id:
                 res['msg'] = '用户不一致'
                 return JsonResponse(res)
             user_info = qq.get_user_info

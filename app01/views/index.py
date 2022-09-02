@@ -187,6 +187,7 @@ def project(request):
 
 # 登录
 def login(request):
+    # TODO：这里不太对了，不应该回调到登录页面了，而是 固定的一个地址，不然一个函数要处理很多逻辑
     data = request.GET
     if len(data) != 2:
         return render(request, 'login.html')
@@ -221,7 +222,7 @@ def login(request):
     # 注册用户
     user = UserInfo.objects.create_user(
         username=other.open_id,
-        password='123456',  # 生成密码
+        password='123456',  # 生成密码， 这里生成密码也无所谓，反正别人也不知道open_id
         nick_name=user_info[0],
         avatar_url=user_info[1],
         token=open_id,

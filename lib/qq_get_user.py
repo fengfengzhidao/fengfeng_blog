@@ -5,37 +5,17 @@ import requests
 from django.conf import settings
 
 
-# 获取qq的昵称
-def get_qq_nick_name(qq):
-    # 在生成之前，判断是否是qq邮箱，是否是纯数字
-    qq = qq.split('@')[0]
-    if qq.isdigit():
-        url = f'https://api.usuuu.com/qq/{qq}'
-        data = requests.get(url=url).json()['data']
-        return data['name'], data['avatar']
-
-
-# 下载头像
-def download_url(url, flie):
-    import requests
-    data = requests.get(url=url).content
-    import time
-    stamp = time.strftime('%Y%m%d%H%M%S')
-    with open(flie + stamp + '.jpg', 'wb')as fp:
-        fp.write(data)
-    return stamp + '.jpg'
-
-
 class QQLogin:
-    __app_id = '101974593'
+    __app_id = settings.QQ_APPID
     __app_key = settings.QQ_KEY
-    __redirect_url = 'http://qq.fengfengzhidao.com/login/index.html?state=qq'
+    __redirect_url = settings.QQ_REDIRECT
 
     def __init__(self, code):
         self._code = code
         self._access_token = self.get_access_token()
         self.open_id = self.get_open_id(self._access_token)
 
+    # 获取token
     def get_access_token(self):
         # 获取Access_token
         params = {
@@ -50,6 +30,7 @@ class QQLogin:
         # print('access_token：', access_token)
         return access_token
 
+    # 获取openid
     def get_open_id(self, access_token):
         # 获取openid
         response = requests.get(f'https://graph.qq.com/oauth2.0/me?access_token={access_token}')
@@ -57,6 +38,7 @@ class QQLogin:
         # print('openid：', openid)
         return openid
 
+    # 获取用户信息
     def __get_user_info(self, access_token, open_id):
         params = {
             'access_token': access_token,
@@ -75,7 +57,7 @@ class QQLogin:
 
 class GiteeLogin:
     __client_id = settings.GITEE_ID
-    __redirect_uri = "http://www.fengfengzhidao.com/login/?flag=gitee"
+    __redirect_uri = settings.GITEE_REDIRECT
     __client_secret = settings.GITEE_SECRET
 
     def __init__(self, code):
@@ -85,6 +67,7 @@ class GiteeLogin:
         self.get_user_info = (user_info['login'], user_info['avatar_url'])
         self.open_id = user_info['id']
 
+    # 获取token
     def get_token(self, code):
         data = {
             'grant_type': 'authorization_code',
@@ -94,11 +77,9 @@ class GiteeLogin:
             'client_secret': self.__client_secret,
         }
         res = requests.post(url='https://gitee.com/oauth/token', data=data).json()
-        if res.get('error') == 'invalid_grant':
-            data['redirect_uri'] = 'http://www.fengfengzhidao.com/backend/?flag=gitee'
-            res = requests.post(url='https://gitee.com/oauth/token', data=data).json()
         return res['access_token']
 
+    # 获取用户信息
     @property
     def __get_userinfo(self):
         params = {

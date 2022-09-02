@@ -77,6 +77,9 @@ class UserInfo(AbstractUser):
 
 # 用户头像表
 class Avatars(models.Model):
+    """
+    url: 头像的链接，完整url: .url
+    """
     nid = models.AutoField(primary_key=True)
     url = models.FileField(verbose_name='用户头像地址', upload_to='avatars/')
 
@@ -96,6 +99,27 @@ def avatar_delete(instance, **kwargs):  # 函数名随意
 
 # 文章表
 class Articles(models.Model):
+    """
+    title：文章标题
+    abstract：文章简介
+    content：文章内容
+    create_date：创建日期
+    change_date：编辑的最新日期
+    status：文章的状态，默认都是已发布
+    recommend：是否上推荐
+    cover：文章封面  一对多
+    look_count：浏览量
+    comment_count：评论数
+    digg_count：点赞数
+    collects_count：收藏数
+    category：文章分类
+    tag：文章标签 多对多
+    pwd：文章密码
+    author：文章的作者  后续可以做一对多，关联用户表
+    source：文章的来源
+    link：来源地址
+    word：文章字数
+    """
     nid = models.AutoField(primary_key=True)
     title = models.CharField(verbose_name='标题', max_length=32, null=True, blank=True)
     abstract = models.CharField(verbose_name='文章简介', max_length=128, null=True, blank=True)
@@ -145,6 +169,10 @@ class Articles(models.Model):
 
 # 项目分类
 class Project(models.Model):
+    """
+    title：项目的标题
+    article：项目关联的文章  多对多
+    """
     nid = models.AutoField(primary_key=True)
     title = models.CharField(verbose_name='标题', max_length=32, null=True, blank=True)
     article = models.ManyToManyField(
@@ -161,6 +189,16 @@ class Project(models.Model):
 
 # 评论表
 class Comment(models.Model):
+    """
+    digg_count：点赞数
+    article：关联的文章  一对多
+    user：关联的用户  一对多
+    content： 评论内容
+    comment_count： 子评论数
+    drawing：配图
+    create_time： 创建时间
+    parent_comment： 父评论，根评论的父评论为None
+    """
     nid = models.AutoField(primary_key=True)
     digg_count = models.IntegerField(verbose_name='点赞', default=0)
     article = models.ForeignKey(verbose_name='评论文章', to='Articles', to_field='nid', on_delete=models.CASCADE)

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-{% load my_filter %}
+{% load my_filter my_tag %}
 <head>
     <meta charset="UTF-8">
     <title>后台界面</title>
@@ -44,7 +44,10 @@
             <div class="user_info">
                 <div class="left">
                     <div class="avatar avatar_aside_method">
-                        <i class="{{ request.user|get_login }}" @click="reset_avatar('{{ request.user.sign_status }}')">重置头像</i>
+                        <!--
+                        <i class="{{ request.user|get_login }}"
+                           @click="reset_avatar('{% gen_setting_login_url request.user.sign_status %}')">重置头像</i>
+                        -->
                         <img src="{{ request.user|get_avatar }}" alt="">
                     </div>
 
@@ -611,13 +614,13 @@
                 this.select_list = eval(div)
             },
 
-            reset_avatar(flag) {
-                if (flag === '1') {
-                    window.open('https://graph.qq.com/oauth2.0/show?which=Login&display=pc&response_type=code&client_id=101974593&redirect_uri=http://www.fengfengzhidao.com/backend?flag=qq', name = 'self');
-                } else if (flag === '2') {
-                    window.open('https://gitee.com/oauth/authorize?client_id=adec8e0ff928a424939be43963c67a0db5da94b1085580c0df342401b287bc99&redirect_uri=http://www.fengfengzhidao.com/backend/?flag=gitee&response_type=code', name = 'self');
-                }
+            /*
+            reset_avatar(url) {
+                // 用户重置头像的话，应该是叫用户重新登录，重新去获取新的头像
+                window.open(url, name = 'self');
             }
+            // TODO：重置头像功能似乎不太好实现，而且各大网站也没有这个功能，就先这样吧
+             */
         }
     })
 </script>
