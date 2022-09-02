@@ -37,7 +37,7 @@ def upload_file(path, key=None, prefix='blog/'):
 
     put_file(token, key, path, version='v2')
 
-    return 'http://python.fengfengzhidao.com/' + key
+    return f'http://{settings.QINIU_DOMAIN}/{key}'
 
 
 def upload_data(file_data, key=None, suffix='.png', prefix='blog/'):

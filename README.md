@@ -46,6 +46,7 @@
 |      +---asgi.py  asgi部署使用
 |      +---wsgi.py  wsgi部署使用
 |      +---settings.py  配置文件，重要
+|      +---local_settings.py 本地运行时的配置
 |      +---urls.py  项目路由，重要
 |
 +---lib  一些工具模块都在这里
@@ -133,7 +134,7 @@
 
 ## 运行
 
-修改`v4_blog/setting.py` 修改数据库配置，如下所示：
+修改`Fengfengblog/setting.py` 修改数据库配置，如下所示：
 
 - 数据库修改
 

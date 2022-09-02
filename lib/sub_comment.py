@@ -2,6 +2,11 @@ from app01.models import Comment
 
 
 def find_root_sub_comment(root_comment, sub_comment_list):
+    """
+    获取某个根评论下的所有子评论
+    root_comment：根评论对象
+    sub_comment_list：将子评论放入的列表
+    """
     for sub_comment in root_comment.comment_set.all():
         # 找根评论的子评论
         sub_comment_list.append(sub_comment)
@@ -9,6 +14,10 @@ def find_root_sub_comment(root_comment, sub_comment_list):
 
 
 def sub_comment_list(nid):
+    """
+    获取某个文章下的所有评论
+    nid：文章id
+    """
     # 找到某个文章的所有评论
     comment_query = Comment.objects.filter(article_id=nid).order_by('-create_time')
     # 把评论存储到列表
@@ -28,6 +37,10 @@ def sub_comment_list(nid):
 
 
 def find_root_comment(comment):
+    """
+    查找评论的根评论
+    comment：评论对象
+    """
     # 找comment的最终根评论
     if comment.parent_comment:
         # 还不是根评论

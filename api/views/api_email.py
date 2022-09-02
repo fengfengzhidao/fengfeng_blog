@@ -10,7 +10,7 @@ from django.http import JsonResponse
 from django.views import View
 
 from api.models import Email
-from api.views.login import clean_form
+from api.forms import clean_form
 from app01.models import UserInfo
 
 

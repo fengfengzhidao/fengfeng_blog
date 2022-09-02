@@ -5,7 +5,7 @@ from django.db.models import F
 from django.http import JsonResponse
 from django.views import View
 
-from api.views.login import clean_form
+from api.forms import clean_form
 from lib.cache import frequency_limit_decorator
 from app01.models import Avatars, Moods, MoodComment
 from lib.get_user_info import get_ip, get_addr_info

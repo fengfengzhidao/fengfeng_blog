@@ -54,6 +54,14 @@ def frequency_limit_decorator(
         mode='cache',  # 默认使用缓存配置
         timeout=TIME_OUT,
         hook=default_hook_function):
+    """
+    key：
+    cache_id：
+    msg：显示的消息，{}中显示的是 timeout的差值
+    mode：cache or session
+    timeout：时间差
+    hook：钩子函数
+    """
     def frequency_decorator(fun):
 
         @functools.wraps(fun)

@@ -15,12 +15,6 @@ def get_ip(request):
     return ip
 
 
-# 获取用户信息
-def get_user_agent(request):
-    user_agent = request.META.get('HTTP_USER_AGENT', 'unknown')
-    return user_agent
-
-
 # 获取地址
 def get_addr_info(ip):
     if ip.startswith('10.') or ip.startswith('192') or ip.startswith('127'):
