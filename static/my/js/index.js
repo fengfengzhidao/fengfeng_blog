@@ -263,6 +263,9 @@ var vue = new Vue({
             // 持久化存储
             localStorage.setItem('theme', themeName)
         },
+        handleCommand(command) {
+            location.href = command
+        },
         nav_open() {
             $('nav, .my_header,main,footer').addClass('open')
         },

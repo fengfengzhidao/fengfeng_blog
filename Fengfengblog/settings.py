@@ -201,7 +201,16 @@ SITE_BEIAN = '湘ICP备2021010654号-1'
 
 
 # 是否显示广告位
-IS_ADVERTIS = False
+IS_ADVERTIS = True
+
+# 网站的一些信息
+SITE_INFO = {
+    'name': '枫枫知道',
+    'job': '前端开发',
+    'address': '湖南长沙',
+    'link': 'www.fengfengzhidao.com',
+    'date': '2021-12-29'
+}
 
 try:
     from .local_settings import *

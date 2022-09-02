@@ -106,11 +106,10 @@
         </el-drawer>
     {% endblock %}
 
-    <div id="editor">
+    <div id="editor" v-pre>
         {% block textarea %}
             <textarea style="display:none;"></textarea>
         {% endblock %}
-
     </div>
 {% endblock %}
 {% block js %}

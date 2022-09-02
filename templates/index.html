@@ -23,6 +23,8 @@
 <div id="app">
     <link rel="stylesheet" :href="'/static/my/css/theme/' + theme + '.css'">
     <el-scrollbar ref="scrollbar" style="height: 100vh">
+
+        <!--手机端展示的目录-->
         <el-drawer
                 style="display: none"
                 custom-class="nav_drawer_class"
@@ -37,13 +39,14 @@
             <div class="nav_content">
                 <div class="title">
                     <img src="/static/my/img/nav/avatar.jpeg" alt="">
-                    <h2>枫枫知道个人博客</h2>
+                    <h2>{{ SITE_TITLE }}</h2>
                 </div>
                 <div class="content">
                     {% dynamic_navigation request %}
                 </div>
             </div>
         </el-drawer>
+        <!-- 目录区域 -->
         <nav class="nav_bg">
             <div class="left" id="dynamic_nav">
                 {% dynamic_navigation request %}
@@ -56,8 +59,6 @@
                         <button @click="search()"><i class="fa fa-search"></i></button>
                     </div>
                 {% endblock %}
-
-
             </div>
             <div class="right">
                 <img v-show="theme === 'light'" src="/static/my/img/nav/light.svg" @click="setTheme('dark')" alt="">
@@ -65,18 +66,19 @@
 
                 {% if request.user.is_authenticated %}
                     <img src="{{ request.user|get_avatar }}" style="border-radius: 50%" class="avatar" alt="">
-                    <el-dropdown>
-                  <span class="el-dropdown-link">
-                    {{ request.user.nick_name }}<i class="el-icon-arrow-down el-icon--right"></i>
-                  </span>
+                    <el-dropdown @command="handleCommand">
+                        <span class="el-dropdown-link">
+                          {{ request.user.nick_name }}<i class="el-icon-arrow-down el-icon--right"></i>
+                        </span>
                         <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item><a href="/backend/">个人中心</a></el-dropdown-item>
-                            <el-dropdown-item><a href="/backend/edit_avatar/">修改头像</a></el-dropdown-item>
+                            <el-dropdown-item command="/backend/">个人中心</el-dropdown-item>
+                            <el-dropdown-item command="/backend/message/">消息通知</el-dropdown-item>
+                            <el-dropdown-item command="/backend/edit_avatar/">修改头像</el-dropdown-item>
                             {% if request.user.is_superuser %}
-                                <el-dropdown-item><a href="/backend/add_article/">发布文章</a></el-dropdown-item>
-                                <el-dropdown-item><a href="/admin/">后台管理</a></el-dropdown-item>
+                                <el-dropdown-item command="/backend/add_article/">发布文章</el-dropdown-item>
+                                <el-dropdown-item command="/admin/">后台管理</el-dropdown-item>
                             {% endif %}
-                            <el-dropdown-item><a href="/logout/">注销退出</a></el-dropdown-item>
+                            <el-dropdown-item divided command="/logout/">注销退出</el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
                 {% else %}
@@ -88,9 +90,11 @@
         {% block banner %}
             {% banner 'index' %}
         {% endblock %}
+        <!-- 中心区域 -->
         <main>
             {% csrf_token %}
             {% block main %}
+                <!-- 一般来说，下面会有一个main，用于居中对齐 -->
                 <div class="main">
                     <div class="left">
                         <div class="boutique_article card">
@@ -257,7 +261,7 @@
                         </div>
                     </div>
                     <div class="right">
-                        {% if advert_list.count %}
+                        {% if IS_ADVERTIS and advert_list.count %}
                             <div class="advertisement card">
                                 <div class="title">
                                     <h2>独家广告</h2>
@@ -291,11 +295,11 @@
                                 <img id="jieqiset" src="/static/my/img/24_hourse/0.png" alt="24节气">
                             </div>
                             <div class="footer">
-                                <p>NAME <span>枫枫知道</span></p>
-                                <p>JOB <span>全栈开发</span></p>
-                                <p>ADDR <span>湖南长沙</span></p>
+                                <p>NAME <span>{{ SITE_INFO.name }}</span></p>
+                                <p>JOB <span>{{ SITE_INFO.job }}</span></p>
+                                <p>ADDR <span>{{ SITE_INFO.address }}</span></p>
                                 <p>WEB <a target="_blank"
-                                          href="http://www.fengfengzhidao.com">www.fengfengzhidao.com</a>
+                                          href="//{{ SITE_INFO.link }}">{{ SITE_INFO.link }}</a>
                                 </p>
                             </div>
 
@@ -315,7 +319,7 @@
                                 <h2>站点信息</h2>
                             </div>
                             <div class="body">
-                                <div class="item"><b>建站时间:</b> <span>2021年12月29日</span></div>
+                                <div class="item"><b>建站时间:</b> <span>{{ SITE_INFO.date }}</span></div>
                                 <div class="item"><b>网站程序:</b> <span>Django+Vue.js</span></div>
                                 <div class="item"><b>在线人数:</b> <span>{{ online_count }}</span></div>
                                 <div class="item"><b>前端文章:</b> <span>{% calculation_category_count 1 %}</span></div>
@@ -342,7 +346,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="feedback card">
                             <div class="title">
                                 <h2>意见反馈</h2>
@@ -364,8 +367,6 @@
                                 <el-button type="primary" @click="feedback_add">确 定</el-button>
                             </div>
                         </div>
-
-
                         <div class="links card">
                             <el-dialog
                                     title="申请友链"
@@ -432,8 +433,6 @@
                                             <a href="{{ link.href }}" target="_blank">{{ link.title }}</a>
                                         </li>
                                     {% endfor %}
-
-
                                 </ul>
                             </div>
                         </div>
@@ -441,6 +440,7 @@
                 </div>
             {% endblock %}
         </main>
+        <!-- 尾部区域 -->
         <footer>
             <div class="left">
                 <p class="thank">Thank For</p>
@@ -454,9 +454,9 @@
                 </p>
                 <p class="version">
                     <span>version</span>
-                    <span>{% get_config 'VERSION' %}</span>
+                    <span>{{ VERSION }}</span>
                 </p>
-                <p>建站日期：2021-12-29</p>
+                <p>建站日期：{{ SITE_INFO.date }}</p>
                 <p class="beian">
                     <img src="/static/my/img/footer/badges.png" alt="">
                     <a href="https://beian.miit.gov.cn/">{{ SITE_BEIAN }}</a>
