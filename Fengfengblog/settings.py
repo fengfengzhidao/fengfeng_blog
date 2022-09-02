@@ -67,6 +67,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # 将一些常用的变量放入上下文中，在模板中就可以直接用了
+                'app01.context_processors.admin_media'
             ],
         },
     },
@@ -191,6 +193,12 @@ GITEE_REDIRECT = 'gitee登录之后的回调地址'
 
 # 网站版本从这里获取
 VERSION = '5.0.4'
+
+# 网站的一些基础信息
+SITE_TITLE = "枫枫知道个人博客"
+# 备案号
+SITE_BEIAN = '湘ICP备2021010654号-1'
+
 
 # 是否显示广告位
 IS_ADVERTIS = False

@@ -11,10 +11,10 @@ body #app {
 }
 
 main {
-  width: 600px;
+  width: 400px;
   min-height: 700px;
   background-color: white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
   position: relative;
   border-radius: 5px;
   display: flex;
@@ -64,9 +64,12 @@ main .top .login_forms .code {
   display: flex;
   width: 100%;
   justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 main .top .login_forms .code input {
-  width: 60%;
+  width: 48%;
+  margin-bottom: 0;
 }
 main .top .login_forms .code img {
   height: 42px;
@@ -96,7 +99,7 @@ main .top .other_login::before {
   position: absolute;
   content: "";
   display: block;
-  width: 200px;
+  width: 120px;
   height: 1px;
   background-color: #808595;
   left: 0;
@@ -106,7 +109,7 @@ main .top .other_login::after {
   position: absolute;
   content: "";
   display: block;
-  width: 200px;
+  width: 120px;
   height: 1px;
   background-color: #808595;
   right: 0;

@@ -17,7 +17,7 @@
 - 完整的评论功能，包括发表回复评论，支持`Markdown`。
 - 侧边栏功能，最新文章，最多阅读等。
 - 支持Oauth登陆，现已有QQ登录，gitee登录。
-- 集成了简单的图床功能。
+- 集成了七牛云的图床功能。
 - 网站异常邮件提醒，若有未捕捉到的异常会自动发送提醒邮件。
 
 ## 项目目录
@@ -211,6 +211,18 @@ pip freeze > requirements.txt
 ```bash
 mysqldump -u root -p blog > blog.sql
 ```
+
+## 项目截图
+
+![](http://python.fengfengzhidao.com/pic/20220902080859.png)
+
+![](http://python.fengfengzhidao.com/pic/20220902080924.png)
+
+![](http://python.fengfengzhidao.com/pic/20220902081114.png)
+
+![](http://python.fengfengzhidao.com/pic/20220902080954.png)
+
+![](http://python.fengfengzhidao.com/pic/20220902081050.png)
 
 ## 问题相关
 
