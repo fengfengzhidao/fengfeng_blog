@@ -34,6 +34,7 @@ urlpatterns = [
     path('project/', index.project),
 
     path('login/', index.login),
+    path('oauth/', index.oauth),  # 三方登录之后的回调
     path('login/random_code/', index.get_random_code),
     path('sign/', index.sign),
     path('logout/', index.logout),

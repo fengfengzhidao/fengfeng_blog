@@ -3,6 +3,10 @@ from urllib.parse import urlencode, parse_qs
 
 import requests
 from django.conf import settings
+from django.contrib import auth
+from django.db.models import Q
+
+from app01.models import UserInfo
 
 
 class QQLogin:
@@ -51,7 +55,7 @@ class QQLogin:
         return nick_name, figureurl_qq
 
     @property
-    def get_user_info(self):
+    def get_user_info(self) -> tuple:
         return self.__get_user_info(self._access_token, self.open_id)
 
 
@@ -88,6 +92,51 @@ class GiteeLogin:
         res = requests.get(url='https://gitee.com/api/v5/user', params=params).json()
 
         return res
+
+
+# 同一的登录处理
+class OAuthLogin:
+    def __init__(self, login_status, code):
+        auth_status = {
+            'qq': [QQLogin, 1],
+            'gitee': [GiteeLogin, 2]
+        }
+
+        auth_class = auth_status.get(login_status)
+        if not auth:
+            raise KeyError('暂无匹配的三方处理类')
+        auth_obj: QQLogin or GiteeLogin = auth_class[0](code)
+        self.sign_status = auth_class[1]
+        self.auth = auth_obj
+
+    def handler(self, request):
+        # 用户名和头像
+        self.user_info: tuple = self.auth.get_user_info  # 是一个列表  [nick_name, url]
+        # 唯一id
+        open_id = self.auth.open_id
+        # 先查询是否有这个用户
+        user = UserInfo.objects.filter(Q(username=open_id) | Q(token=open_id))
+        if user:
+            # 直接登录
+            return self.login(request, user.first())
+        # 注册
+        return self.register(request)
+
+    def login(self, request, user):
+        """登录"""
+        auth.login(request, user)
+
+    def register(self, request):
+        """注册"""
+        user = UserInfo.objects.create_user(
+            username=self.auth.open_id,
+            password='123456',  # 生成密码， 这里生成密码也无所谓，反正别人也不知道open_id
+            nick_name=self.user_info[0],
+            avatar_url=self.user_info[1],
+            token=self.auth.open_id,
+            sign_status=self.sign_status,
+        )
+        self.login(request, user)
 
 
 if __name__ == '__main__':

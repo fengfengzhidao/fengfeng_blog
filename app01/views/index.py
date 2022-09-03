@@ -6,6 +6,7 @@ from django.shortcuts import render, HttpResponse, redirect
 
 from app01.models import *
 from lib.pagination import Pagination
+from lib.qq_get_user import OAuthLogin
 from lib.random_code import random_code
 from lib.sub_comment import sub_comment_list
 
@@ -30,10 +31,13 @@ def index(request):
         per_page=10,
         pager_page_count=7
     )
+    # 文章列表
     article_list = article_list[pager.start:pager.end]
 
+    # 广告列表
     advert_list = Advert.objects.filter(is_show=True)
 
+    # 文章封面列表
     cover_list = Cover.objects.all()
 
     link_list = Navs.objects.filter(tag__title='博客')
@@ -185,51 +189,23 @@ def project(request):
     return render(request, 'blog.html', locals())
 
 
-# 登录
-def login(request):
-    # TODO：这里不太对了，不应该回调到登录页面了，而是 固定的一个地址，不然一个函数要处理很多逻辑
-    data = request.GET
-    if len(data) != 2:
-        return render(request, 'login.html')
+# 三方登录就写在这里
+def oauth(request):
     # 第三方登陆
+    data = request.GET
     flag = data.get('flag')
     code = data.get('code')
     if not flag or not code:
         return redirect('/login/')
-    from lib.qq_get_user import QQLogin, GiteeLogin
-    from django.db.models import Q
-    # 登录源
-    sign_status = 1
-    # 根据不同的三方登录去做相同的事情 拿到用户名和头像 唯一id
-    try:
-        if flag == 'qq':
-            other = QQLogin(code)
-        elif flag == 'gitee':
-            sign_status = 2
-            other = GiteeLogin(code)
-    except Exception as e:
-        return redirect('/login/')
-    # 用户名和头像
-    user_info = other.get_user_info
-    # 唯一id
-    open_id = other.open_id
-    # 先查询是否有这个用户
-    user = UserInfo.objects.filter(Q(username=open_id) | Q(token=open_id))
-    if user:
-        # 登录操作
-        auth.login(request, user.first())
-        return redirect('/')
-    # 注册用户
-    user = UserInfo.objects.create_user(
-        username=other.open_id,
-        password='123456',  # 生成密码， 这里生成密码也无所谓，反正别人也不知道open_id
-        nick_name=user_info[0],
-        avatar_url=user_info[1],
-        token=open_id,
-        sign_status=sign_status,
-    )
-    auth.login(request, user)
+
+    oauth = OAuthLogin(flag, code)
+    oauth.handler(request)
     return redirect('/')
+
+
+# 登录
+def login(request):
+    return render(request, 'login.html')
 
 
 # 注册
