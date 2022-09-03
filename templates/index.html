@@ -72,7 +72,6 @@
                         </span>
                         <el-dropdown-menu slot="dropdown">
                             <el-dropdown-item command="/backend/">个人中心</el-dropdown-item>
-                            <el-dropdown-item command="/backend/message/">消息通知</el-dropdown-item>
                             <el-dropdown-item command="/backend/edit_avatar/">修改头像</el-dropdown-item>
                             {% if request.user.is_superuser %}
                                 <el-dropdown-item command="/backend/add_article/">发布文章</el-dropdown-item>

@@ -195,9 +195,9 @@ GITEE_REDIRECT = 'gitee登录之后的回调地址'  # http://xxx.com/oauth/?fla
 VERSION = '5.0.4'
 
 # 网站的一些基础信息
-SITE_TITLE = "枫枫知道个人博客"
+SITE_TITLE = "某某某的个人博客"
 # 备案号
-SITE_BEIAN = '湘ICP备2021010654号-3'
+SITE_BEIAN = '湘ICP备10001000100号'
 
 
 
@@ -206,9 +206,9 @@ IS_ADVERTIS = True
 
 # 网站的一些信息
 SITE_INFO = {
-    'name': '枫枫知道',
-    'job': '前端开发',
-    'address': '湖南长沙',
+    'name': '我是某某某',
+    'job': '我的工作',
+    'address': '我的地址',
     'link': 'www.fengfengzhidao.com',
     'date': '2021-12-29'
 }
