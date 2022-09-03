@@ -264,26 +264,29 @@ main.version .body .content .item .right .drawing img {
 }
 main.version .body .content .item .right .v {
   position: absolute;
-  padding: 2px 6px;
-  background-color: #f0eeee;
   right: 0;
   top: 0;
   font-size: 14px;
-  border-radius: 3px;
 }
-main.version .body .content .item .right .v.big {
+main.version .body .content .item .right .v span {
+  margin-left: 10px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  background-color: #f0eeee;
+}
+main.version .body .content .item .right .v .big {
   background-color: #ffbc00;
   color: white;
 }
-main.version .body .content .item .right .v.big::after {
+main.version .body .content .item .right .v .big::after {
   display: inline-block;
   content: "重大更新";
 }
-main.version .body .content .item .right .v.new {
+main.version .body .content .item .right .v .new {
   background-color: #009a61;
   color: white;
 }
-main.version .body .content .item .right .v.new::after {
+main.version .body .content .item .right .v .new::after {
   display: inline-block;
   content: "最新更新";
 }

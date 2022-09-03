@@ -123,40 +123,7 @@
         <div class="body">
             <h3>历史版本</h3>
             <div class="content">
-                <div class="item">
-                    <div class="left">
-                        <div class="max_circle">
-                            <div class="circle"></div>
-                        </div>
-                    </div>
-                    <div class="right">
-                        <div class="v new">
-                            v 5.0.1
-                        </div>
-                        <div class="date">
-                            4天前 <span>2022-03-14</span>
-                        </div>
-                        <ul class="info">
-                            <li>后台请求分离，模板与api分离</li>
-                            <li>文章悬浮目录全新升级</li>
-                            <li>新增获取用户ip功能</li>
-                            <li>心情可显示用户定位</li>
-                            <li>使用git部署项目，方便后期维护</li>
-                            <li>新增第三方登录功能</li>
-                            <li>配色统一</li>
-                        </ul>
-                        <div class="drawing">
-                            <img src="http://python.fengfengzhidao.com/pic/20220311222939.png" alt="">
-                            <img src="http://python.fengfengzhidao.com/pic/20220311223111.png" alt="">
-                            <img src="http://python.fengfengzhidao.com/pic/20220311223140.png" alt="">
-                            <img src="http://python.fengfengzhidao.com/pic/20220311223208.png" alt="">
-                            <img src="http://python.fengfengzhidao.com/pic/20220311223249.png" alt="">
-                            <img src="http://python.fengfengzhidao.com/pic/20220311223310.png" alt="">
-                            <img src="http://python.fengfengzhidao.com/pic/20220311223347.png" alt="">
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
+                <div class="item" v-for="item in version_list" :key="item.id">
                     <div class="left">
                         <div class="max_circle">
                             <div class="circle"></div>
@@ -164,128 +131,17 @@
                     </div>
                     <div class="right">
                         <div class="v">
-                            v 4.0.3
+                            <span>v [[ item.version ]]</span>
+                            <span v-for="v in item.version_str" :key="v" :class="v"></span>
                         </div>
                         <div class="date">
-                            [[ getDateDiff('2022-3-11 13:12:21') ]] <span>2022-3-11</span>
+                            [[ date_diff( item.date ) ]] <span>[[ item.date|get_date ]]</span>
                         </div>
                         <ul class="info">
-                            <li>修复了新闻无法获取的问题</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="left">
-                        <div class="max_circle">
-                            <div class="circle"></div>
-                        </div>
-                    </div>
-                    <div class="right">
-                        <div class="v">
-                            v 4.0.2
-                        </div>
-                        <div class="date">
-                            [[ getDateDiff('2022-2-12') ]] <span>2022-2-12</span>
-                        </div>
-                        <ul class="info">
-                            <li>取消音乐播放功能</li>
-                            <li>添加打字机效果</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="left">
-                        <div class="max_circle">
-                            <div class="circle"></div>
-                        </div>
-                    </div>
-                    <div class="right">
-                        <div class="v big">
-                            v 4.0.1
-                        </div>
-                        <div class="date">
-                            [[ getDateDiff('2021-12-29') ]] <span>2021-12-29</span>
-                        </div>
-                        <ul class="info">
-                            <li>四代博客开发上线</li>
-                            <li>最新一代的视图，新的验证机制</li>
-                            <li>新增主题切换功能</li>
+                            <li v-for="c in item.content" :key="c">[[ c ]]</li>
                         </ul>
                         <div class="drawing">
-                            <img src="http://python.fengfengzhidao.com/023/20220311163603.png" alt="">
-                            <img src="http://python.fengfengzhidao.com/023/20220311163627.png" alt="">
-                            <img src="http://python.fengfengzhidao.com/023/20220311163726.png" alt="">
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="left">
-                        <div class="max_circle">
-                            <div class="circle"></div>
-                        </div>
-                    </div>
-                    <div class="right">
-                        <div class="v big">
-                            v 3.0.1
-                        </div>
-                        <div class="date">
-                            [[ getDateDiff('2021-11-12') ]] <span>2021-11-12</span>
-                        </div>
-                        <ul class="info">
-                            <li>三代个人博客</li>
-                            <li>前后端分离</li>
-                            <li>banner轮播图</li>
-                            <li>Vue+Django DRF</li>
-                        </ul>
-                        <div class="drawing">
-                            <img src="http://python.fengfengzhidao.com/023/20220311163418.png" alt="">
-                            <img src="http://python.fengfengzhidao.com/023/20220311163503.png" alt="">
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="left">
-                        <div class="max_circle">
-                            <div class="circle"></div>
-                        </div>
-                    </div>
-                    <div class="right">
-                        <div class="v big">
-                            v 2.0.1
-                        </div>
-                        <div class="date">
-                            [[ getDateDiff('2021-10-05') ]] <span>2021-10-05</span>
-                        </div>
-                        <ul class="info">
-                            <li>界面美化</li>
-                            <li>首页banner大图</li>
-                        </ul>
-                        <div class="drawing">
-                            <img src="http://python.fengfengzhidao.com/023/20220311163050.png" alt="">
-                            <img src="http://python.fengfengzhidao.com/023/20220311163123.png" alt="">
-                            <img src="http://python.fengfengzhidao.com/023/20220311163216.png" alt="">
-                            <img src="http://python.fengfengzhidao.com/023/20220311163305.png" alt="">
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="left">
-                        <div class="max_circle">
-                            <div class="circle"></div>
-                        </div>
-                    </div>
-                    <div class="right">
-                        <div class="v big">
-                            v 1.0.1
-                        </div>
-                        <div class="date">
-                            [[ getDateDiff('2021-7-25') ]] <span>2021-7-25</span>
-                        </div>
-                        <ul class="info">
-                            <li>首次使用django完成开发</li>
-                        </ul>
-                        <div class="drawing">
-                            <img src="http://python.fengfengzhidao.icu/img/20211012083635.png" alt="">
+                            <img v-for="c in item.cover_list" :key="c" :src="c" alt="">
                         </div>
                     </div>
                 </div>
@@ -301,6 +157,53 @@
 <script src="/static/viewer/js/viewer.js"></script>
 
 <script>
+
+    let version_list = [
+        {
+            id: 2,
+            version: '5.0.2',
+            version_str: ['new'],
+            date: '2022-09-03 16:50:21',
+            content: [
+                '优化第三方登录',
+                '优化文档，增加项目注释',
+                '0904开源',
+            ],
+            cover_list: [
+                "http://python.fengfengzhidao.com/pic/20220902080859.png",
+                "http://python.fengfengzhidao.com/pic/20220902080924.png",
+                "http://python.fengfengzhidao.com/pic/20220902081114.png",
+                "http://python.fengfengzhidao.com/pic/20220902080954.png",
+                "http://python.fengfengzhidao.com/pic/20220902081050.png",
+                "http://python.fengfengzhidao.com/pic/20220902100521.png",
+                "http://python.fengfengzhidao.com/pic/20220902100616.png",
+            ]
+        },
+        {
+            id: 1,
+            version: '5.0.1',
+            version_str: ['new', 'big'],
+            date: '2022-03-14 13:12:21',
+            content: [
+                '后台请求分离，模板与api分离',
+                '文章悬浮目录全新升级',
+                '新增获取用户ip功能',
+                '心情可显示用户定位',
+                '使用git部署项目，方便后期维护',
+                '新增第三方登录功能',
+                '配色统一',
+            ],
+            cover_list: [
+                "http://python.fengfengzhidao.com/pic/20220311222939.png",
+                "http://python.fengfengzhidao.com/pic/20220311223111.png",
+                "http://python.fengfengzhidao.com/pic/20220311223140.png",
+                "http://python.fengfengzhidao.com/pic/20220311223208.png",
+                "http://python.fengfengzhidao.com/pic/20220311223249.png",
+                "http://python.fengfengzhidao.com/pic/20220311223310.png",
+                "http://python.fengfengzhidao.com/pic/20220311223347.png",
+            ]
+        }
+    ]
 
     function randomNum(minNum, maxNum) {
         switch (arguments.length) {
@@ -418,39 +321,20 @@
             },
             // 按钮是否可点击
             btn_status: true,
-            // 获取时间距离现在的时间 几天前
-            getDateDiff(date) {
-                let dateTimeStamp = new Date(date).getTime()
-                let result = ''
-                let minute = 1000 * 60
-                let hour = minute * 60
-                let day = hour * 24
-                let month = day * 30
-                let now = new Date().getTime()
-                let diffValue = now - dateTimeStamp
-                if (diffValue < 0) return
-                let monthC = diffValue / month
-                let weekC = diffValue / (7 * day)
-                let dayC = diffValue / day
-                let hourC = diffValue / hour
-                let minC = diffValue / minute
-                if (monthC >= 1) {
-                    result = "" + parseInt(monthC) + "个月前"
-                } else if (weekC >= 1) {
-                    result = "" + parseInt(weekC) + "周前"
-                } else if (dayC >= 1) {
-                    result = "" + parseInt(dayC) + "天前"
-                } else if (hourC >= 1) {
-                    result = "" + parseInt(hourC) + "小时前"
-                } else if (minC >= 1) {
-                    result = "" + parseInt(minC) + "分钟前"
-                } else {
-                    result = "刚刚"
-                }
-                return result
-            },
-
             online_count: 1,
+            version_list: version_list,
+        },
+        filters: {
+            get_date(date) {
+                let obj = new Date(date)
+
+                function fill_zero(number) {
+                    return number < 10 ? '0' + number : number
+                }
+
+                return `${obj.getFullYear()}-${fill_zero(obj.getMonth() + 1)}-${fill_zero(obj.getDate())}`
+
+            }
         },
         created() {
             // 调用诗句
@@ -517,6 +401,37 @@
                 this.get_online()
                 timer = setInterval(this.get_online, 8000)
             },
+
+            date_diff(date) {
+                let dateTimeStamp = new Date(date).getTime()
+                let result = ''
+                let minute = 1000 * 60
+                let hour = minute * 60
+                let day = hour * 24
+                let month = day * 30
+                let now = new Date().getTime()
+                let diffValue = now - dateTimeStamp
+                if (diffValue < 0) return
+                let monthC = diffValue / month
+                let weekC = diffValue / (7 * day)
+                let dayC = diffValue / day
+                let hourC = diffValue / hour
+                let minC = diffValue / minute
+                if (monthC >= 1) {
+                    result = "" + parseInt(monthC) + "个月前"
+                } else if (weekC >= 1) {
+                    result = "" + parseInt(weekC) + "周前"
+                } else if (dayC >= 1) {
+                    result = "" + parseInt(dayC) + "天前"
+                } else if (hourC >= 1) {
+                    result = "" + parseInt(hourC) + "小时前"
+                } else if (minC >= 1) {
+                    result = "" + parseInt(minC) + "分钟前"
+                } else {
+                    result = "刚刚"
+                }
+                return result
+            }
         },
     })
     $(function () {

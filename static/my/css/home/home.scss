@@ -315,14 +315,19 @@ main.version {
 
           .v {
             position: absolute;
-            padding: 2px 6px;
-            background-color: #f0eeee;
             right: 0;
             top: 0;
             font-size: 14px;
-            border-radius: 3px;
 
-            &.big {
+
+            span {
+              margin-left: 10px;
+              padding: 2px 6px;
+              border-radius: 3px;
+              background-color: #f0eeee;
+            }
+
+            .big {
               background-color: #ffbc00;
               color: white;
 
@@ -332,7 +337,7 @@ main.version {
               }
             }
 
-            &.new {
+            .new {
               background-color: #009a61;
               color: white;
 

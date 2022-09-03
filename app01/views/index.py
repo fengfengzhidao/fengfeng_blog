@@ -11,7 +11,7 @@ from lib.random_code import random_code
 from lib.sub_comment import sub_comment_list
 
 
-# Create your views here.
+
 # 首页
 def index(request):
     """

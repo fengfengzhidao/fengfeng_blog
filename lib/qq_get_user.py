@@ -7,6 +7,7 @@ from django.contrib import auth
 from django.db.models import Q
 
 from app01.models import UserInfo
+from .get_user_info import get_ip, get_addr_info
 
 
 class QQLogin:
@@ -135,6 +136,8 @@ class OAuthLogin:
             avatar_url=self.user_info[1],
             token=self.auth.open_id,
             sign_status=self.sign_status,
+            ip=get_ip(request),
+            addr=get_addr_info(get_ip(request))
         )
         self.login(request, user)
 
