@@ -184,12 +184,12 @@ QINIU_DOMAIN = 'xxx.xxx.xxx'  # 访问的域名，按照这样的格式
 # QQ登录
 QQ_APPID = '你的QQ appid'
 QQ_KEY = '你的QQ_KEY'
-QQ_REDIRECT = 'QQ登录之后的回调地址'
+QQ_REDIRECT = 'QQ登录之后的回调地址'  # http://xxx.com/oauth?flag=qq
 
 # gitee登录
 GITEE_ID = 'GiteeID'
 GITEE_SECRET = 'GiteeSECRET'
-GITEE_REDIRECT = 'gitee登录之后的回调地址'
+GITEE_REDIRECT = 'gitee登录之后的回调地址'  # http://xxx.com/oauth/?flag=gitee
 
 # 网站版本从这里获取
 VERSION = '5.0.4'
@@ -197,7 +197,7 @@ VERSION = '5.0.4'
 # 网站的一些基础信息
 SITE_TITLE = "枫枫知道个人博客"
 # 备案号
-SITE_BEIAN = '湘ICP备2021010654号-1'
+SITE_BEIAN = '湘ICP备2021010654号-3'
 
 
 # 是否显示广告位
