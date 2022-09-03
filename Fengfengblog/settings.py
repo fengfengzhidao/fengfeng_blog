@@ -200,6 +200,7 @@ SITE_TITLE = "枫枫知道个人博客"
 SITE_BEIAN = '湘ICP备2021010654号-3'
 
 
+
 # 是否显示广告位
 IS_ADVERTIS = True
 
