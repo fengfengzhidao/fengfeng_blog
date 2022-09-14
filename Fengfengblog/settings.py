@@ -199,10 +199,12 @@ SITE_TITLE = "某某某的个人博客"
 # 备案号
 SITE_BEIAN = '湘ICP备10001000100号'
 
-
-
 # 是否显示广告位
 IS_ADVERTIS = True
+
+# 网易云的分组id，写了就是要在前台页面展示音乐，不显示就留空
+MUSIC_GROUP_ID = ''
+
 
 # 网站的一些信息
 SITE_INFO = {

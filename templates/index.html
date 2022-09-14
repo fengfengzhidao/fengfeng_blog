@@ -17,6 +17,10 @@
     {% endblock %}
     <link rel="stylesheet" href="/static/my/css/match/notebook.css">
     <link rel="stylesheet" href="/static/my/css/match/phone.css">
+    {% if MUSIC_GROUP_ID %}
+        <link rel="stylesheet" href="/static/aplayer/aplayer.css">
+    {% endif %}
+
 
 </head>
 <body>
@@ -495,6 +499,12 @@
         </footer>
     </el-scrollbar>
 </div>
+{% if MUSIC_GROUP_ID %}
+    <div id="aplayer"></div>
+{% endif %}
+
+
+</body>
 <script src="/static/vue/vue.js"></script>
 <script src="/static/jquery/jquery.min.js"></script>
 <!-- 引入组件库 -->
@@ -502,6 +512,7 @@
 <script src="/static/axios/axios.min.js"></script>
 <script src="/static/my/js/vendor.js"></script>
 <script src="/static/my/js/index.js"></script>
+
 {% block js %}
     <script>
         // 获取需要轮播的div
@@ -560,5 +571,55 @@
 {% block article_js %}
 
 {% endblock %}
-</body>
+
+{% if MUSIC_GROUP_ID %}
+    <script src="/static/aplayer/APlayer.min.js" class="apJs" data-id="{{ MUSIC_GROUP_ID }}"></script>
+    <script>
+        async function aplayer_main() {
+            let apJs = document.querySelector('.apJs')
+            let id = apJs.getAttribute('data-id')
+            let res = await axios.get(`https://api.i-meto.com/meting/api?server=netease&type=playlist&id=${id}`)
+            console.log(res)
+            const ap = new APlayer({
+                container: document.getElementById('aplayer'),
+                theme: '#409eff',
+                fixed: true,
+                listFolded: true,
+                preload: 'auto',
+                listMaxHeight: 10,
+                storageName: 'aplayer-setting',
+                lrcType: 3,
+                volume: 0.7,
+                audio: res
+            });
+            let play = localStorage.getItem('music_play')
+            let music_index = localStorage.getItem('music_index')
+            let time = localStorage.getItem('music_time')
+
+            // 现在播放到第几首歌
+            ap.list.switch(music_index);
+
+            // 将进度拖动到对应位置，必须要用定时器
+            setTimeout(() => {
+                ap.seek(parseInt(time) + 1);
+            }, 300)
+
+            //判断是否播放
+            if (play === "false") {
+                ap.play();
+            }
+
+            window.onbeforeunload = (e) => {
+                //监听是否刷新，然后将音乐的索引和时间写入本地
+                localStorage.setItem('music_play', ap.audio.paused)//离开前记录的音乐状态
+                localStorage.setItem('music_time', ap.audio.currentTime)//离开前记录的音乐时间
+                localStorage.setItem('music_index', ap.list.index)//离开前记录的音乐
+            };
+        }
+
+        aplayer_main()
+    </script>
+{% endif %}
+
+
 </html>
