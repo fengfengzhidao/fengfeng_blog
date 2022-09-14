@@ -1,7 +1,16 @@
 from django.urls import path, re_path
-from api.views import login, \
-    article, comment, mood, user, \
-    file, api_email, history, sites, admin_data, news
+
+from api.views import admin_data
+from api.views import api_email
+from api.views import article
+from api.views import comment
+from api.views import file
+from api.views import history
+from api.views import login
+from api.views import mood
+from api.views import news
+from api.views import sites
+from api.views import user
 
 urlpatterns = [
     path('login/', login.LoginView.as_view()),  # 登录
@@ -20,8 +29,6 @@ urlpatterns = [
     re_path(r'article/(?P<nid>\d+)/', article.ArticleView.as_view()),  # 修改文章
 
     re_path(r'article_pwd/(?P<nid>\d+)/', article.ArticlePwdView.as_view()),  # 查看加密文章
-
-
 
     re_path(r'comment/digg/(?P<nid>\d+)/', comment.CommentDiggView.as_view()),  # 评论点赞
 
