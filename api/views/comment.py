@@ -2,7 +2,7 @@ from django.db.models import F
 from django.http import JsonResponse
 from django.views import View
 
-from app01.models import Comment, Articles
+from page.models import Comment, Articles
 from lib.cache import frequency_limit_decorator
 from lib.permissions_control import is_super_method
 from lib.sub_comment import find_root_comment

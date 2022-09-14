@@ -11,7 +11,7 @@ from django.views import View
 
 from api.models import Email
 from api.forms import clean_form
-from app01.models import UserInfo
+from page.models import UserInfo
 
 
 class EmailForm(forms.Form):

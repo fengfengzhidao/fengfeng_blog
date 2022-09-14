@@ -2,7 +2,7 @@ import datetime
 
 from django.http import JsonResponse
 
-from app01.models import UserInfo
+from page.models import UserInfo
 
 
 # 获取在线人数

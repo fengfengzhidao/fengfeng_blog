@@ -4,7 +4,7 @@ import pendulum
 from django import template
 from django.utils.safestring import mark_safe
 
-from app01.models import Avatars, Cover, UserInfo
+from page.models import Avatars, Cover, UserInfo
 
 # 注册
 register = template.Library()

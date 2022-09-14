@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app01.apps.App01Config',
+    'page.apps.App01Config',
     'api.apps.ApiConfig',
 ]
 
@@ -49,8 +49,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'app01.MyMiddleware.DecodeBodyDataMiddleware',  # 解析body的中间件
-    'app01.MyMiddleware.StatisticalMiddleware',  # 在线人数统计的中间件
+    'page.MyMiddleware.DecodeBodyDataMiddleware',  # 解析body的中间件
+    'page.MyMiddleware.StatisticalMiddleware',  # 在线人数统计的中间件
 ]
 
 ROOT_URLCONF = 'Fengfengblog.urls'
@@ -68,7 +68,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 # 将一些常用的变量放入上下文中，在模板中就可以直接用了
-                'app01.context_processors.admin_media'
+                'page.context_processors.admin_media'
             ],
         },
     },
@@ -116,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTHENTICATION_BACKENDS = (
-    'app01.valid.auth.CustomBackend',
+    'page.valid.auth.CustomBackend',
 )
 
 # Internationalization
@@ -154,7 +154,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # 用户扩展第三张表
 # 自己创建第三张表
-AUTH_USER_MODEL = "app01.UserInfo"
+AUTH_USER_MODEL = "page.UserInfo"
 
 #######  simepui  ####
 

@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.views import View
 
 from api.forms import clean_form
-from app01.models import NavTags, Navs
+from page.models import NavTags, Navs
 from lib.cache import frequency_limit_decorator
 from lib.permissions_control import is_super_method
 

@@ -3,7 +3,7 @@ import re
 from django import template
 from django.utils.safestring import mark_safe
 
-from app01.models import Tags, Menu, Articles
+from page.models import Tags, Menu, Articles
 from lib.search import Search
 
 # 注册

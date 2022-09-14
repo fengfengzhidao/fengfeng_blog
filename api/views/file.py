@@ -6,8 +6,8 @@ from django.db.models import Q
 from django.http import JsonResponse
 from django.views import View
 
-from app01.models import Avatars, Cover, UserInfo
-from app01.models import avatar_delete, cover_delete
+from page.models import Avatars, Cover, UserInfo
+from page.models import avatar_delete, cover_delete
 from lib.api_qiniu import upload_data
 from lib.permissions_control import is_super_method
 

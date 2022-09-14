@@ -5,7 +5,7 @@ from django import forms
 from markdown import markdown
 from pyquery import PyQuery
 import random
-from app01.models import Cover
+from page.models import Cover
 
 
 class AddArticleForm(forms.Form):

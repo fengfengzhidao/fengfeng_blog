@@ -5,7 +5,7 @@ from django.views import View
 
 from api.forms import clean_form
 from api.forms.user_form import *
-from app01.models import Avatars, UserInfo, Feedback
+from page.models import Avatars, UserInfo, Feedback
 from lib.qq_get_user import QQLogin
 
 

@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.views import View
 from api.forms.article_form import AddArticleForm
 from api.forms import clean_form
-from app01.models import Tags, Articles, Cover, Project
+from page.models import Tags, Articles, Cover, Project
 from lib.permissions_control import is_super_method
 from lib.cache import frequency_limit_decorator
 

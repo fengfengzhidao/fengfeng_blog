@@ -6,7 +6,7 @@ from django.views import View
 
 from api.forms import clean_form
 from api.forms.login_form import LoginForm, SignForm
-from app01.models import UserInfo, Avatars
+from page.models import UserInfo, Avatars
 
 
 # CBV

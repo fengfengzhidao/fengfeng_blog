@@ -4,7 +4,7 @@ from django.contrib import auth
 from django.db.models import F
 from django.shortcuts import render, HttpResponse, redirect
 
-from app01.models import *
+from page.models import *
 from lib.pagination import Pagination
 from lib.qq_get_user import OAuthLogin
 from lib.random_code import random_code

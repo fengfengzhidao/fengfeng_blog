@@ -6,7 +6,7 @@
 from django import forms
 from django.contrib import auth
 
-from app01.models import UserInfo
+from page.models import UserInfo
 
 
 class LoginBaseForm(forms.Form):

@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include, re_path
-from app01.views import index, backend
+from page.views import index, backend
 from django.conf import settings  ##新增
 from django.views.static import serve
 

@@ -3,9 +3,9 @@ import datetime
 from django.shortcuts import render, redirect
 
 from api.models import *
-from app01.models import *
+from page.models import *
 from lib.permissions_control import is_super_fun
-from app01.models import UserInfo
+from page.models import UserInfo
 
 
 # 后台

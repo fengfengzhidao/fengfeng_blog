@@ -6,7 +6,7 @@ from django.conf import settings
 from django.contrib import auth
 from django.db.models import Q
 
-from app01.models import UserInfo
+from page.models import UserInfo
 from .get_user_info import get_ip, get_addr_info
 
 

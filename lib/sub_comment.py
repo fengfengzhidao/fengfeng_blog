@@ -1,4 +1,4 @@
-from app01.models import Comment
+from page.models import Comment
 
 
 def find_root_sub_comment(root_comment, sub_comment_list):
