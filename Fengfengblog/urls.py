@@ -25,27 +25,41 @@ urlpatterns = [
     path('admin_home/', backend.admin_home),
 
     path('', index.index),
+
     path('news/', index.news),
+
     path('about/', index.about),
+
     path('sites/', index.sites),
+
     path('moods/', index.moods),
+
     path('history/', index.history),
+
     path('search/', index.search),
+
     path('project/', index.project),
 
     path('login/', index.login),
+
     path('oauth/', index.oauth),  # 三方登录之后的回调
+
     path('login/random_code/', index.get_random_code),
+
     path('sign/', index.sign),
+
     path('logout/', index.logout),
 
     re_path(r'^article/(?P<nid>\d+)/', index.article),  # 文章详情页
 
     path('backend/', backend.backend),  # 后台个人中心
+
     path('backend/add_article/', backend.add_article),  # 后台添加文章
+
     path('backend/edit_avatar/', backend.edit_avatar),  # 后台修改头像
 
     path('backend/cover_list/', backend.cover_list),  # 文章封面
+
     path('backend/avatar_list/', backend.avatar_list),  # 头像列表
 
     re_path(r'^backend/edit_article/(?P<nid>\d+)/', backend.edit_article),  # 编辑文章
