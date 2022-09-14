@@ -14,11 +14,14 @@ urlpatterns = [
 
     path('article/', article.ArticleView.as_view()),  # 发布文章
 
+    # 注意这里的顺序，这个要在修改文章的前面，不然会被他捕获到
+    re_path(r'article/(?P<nid>\d+)/comment/', comment.CommentView.as_view()),  # 发布评论
+
     re_path(r'article/(?P<nid>\d+)/', article.ArticleView.as_view()),  # 修改文章
 
     re_path(r'article_pwd/(?P<nid>\d+)/', article.ArticlePwdView.as_view()),  # 查看加密文章
 
-    re_path(r'article/comment/(?P<nid>\d+)/', comment.CommentView.as_view()),  # 发布评论
+
 
     re_path(r'comment/digg/(?P<nid>\d+)/', comment.CommentDiggView.as_view()),  # 评论点赞
 

@@ -263,19 +263,24 @@ var vue = new Vue({
             // 持久化存储
             localStorage.setItem('theme', themeName)
         },
+
         handleCommand(command) {
             location.href = command
         },
+
         nav_open() {
             $('nav, .my_header,main,footer').addClass('open')
         },
+
         nav_close() {
             $('nav, .my_header,main,footer').removeClass('open')
         },
+
         // 图片加载失败
         img_error(e) {
             e.target.style.display = 'none'
         },
+
         // 监听方向键
         keyDown() {
             // 监听键盘
@@ -295,6 +300,7 @@ var vue = new Vue({
                 }
             }
         },
+
         // 滚动条初始化
         init_scrollbar() {
             let bar = this.$refs.scrollbar.wrap
@@ -332,6 +338,7 @@ var vue = new Vue({
                 }
             }
         },
+
         // 选择分类
         switch_article_category(categoryName) {
             this.this_category = categoryName
@@ -340,7 +347,7 @@ var vue = new Vue({
         // 发布评论
         add_comment(nid) {
             let content = AnalyticMarkDown(this.comment_content)
-            axios.post(`/api/article/comment/${nid}/`, {content}).then(res => {
+            axios.post(`/api/article/${nid}/comment/`, {content}).then(res => {
                 if (res.code) {
                     if (res.self) {
                         this.$refs[`comment_${res.self}`].focus();
@@ -483,6 +490,7 @@ var vue = new Vue({
                 dom.classList.remove('show')
             })
         },
+
         // 回到顶部
         go_to_top() {
             let bar = this.$refs.scrollbar.wrap
@@ -516,6 +524,7 @@ var vue = new Vue({
                 })
             }
         },
+
         // 悬浮目录是否显示
         sliderChange(val) {
             /*
@@ -626,6 +635,7 @@ var vue = new Vue({
             // 打开标签页
             window.open(path + '?key=' + this.search_key, name = target)
         },
+
         // 初始化搜索词
         init_search_key() {
             let dom = document.querySelector('.search_key_input')
@@ -654,6 +664,7 @@ var vue = new Vue({
                 this.news_list = res.data
             })
         },
+
         // 初始化新闻，获取加密头
         news_init_method(size) {
             setTimeout(() => {
@@ -674,6 +685,7 @@ var vue = new Vue({
             let div = $(e.target).parent().parent().next()
             div.slideToggle()
         },
+
         // 发布心情
         mood_add_method() {
             axios.post('/api/moods/', this.mood_add).then(res => {
@@ -689,6 +701,7 @@ var vue = new Vue({
 
             })
         },
+
         // 删除心情
         mood_delete(nid, e) {
             this.$confirm('此操作将永久删除该心情, 是否继续?', '提示', {
@@ -782,11 +795,13 @@ var vue = new Vue({
             })
         },
 
+
         uploadImgFromPaste(file) {
             axios.post('/api/paste_upload/', {image: file}).then(res => {
                 this.history.drawing += res.url + '\n'
             })
         },
+
 
         history_add_edit_method(nid) {
             axios.post('/api/history/' + nid, this.history).then(res => {
@@ -799,6 +814,7 @@ var vue = new Vue({
                 location.reload()
             })
         },
+
         history_add_method(nid) {
             if (!nid) {
                 // 添加事件
@@ -914,11 +930,13 @@ var vue = new Vue({
             this.site_title.title = title
             this.site_dialogVisible = true
         },
+
         site_tag_handleClose(done) {
             this.site_add_edit_tag = false
             this.site_title.title = ''
             done()
         },
+
         site_tag_remove(e, nid) {
             this.$confirm('此操作将永久删除该标签, 是否继续?', '提示', {
                 confirmButtonText: '确定',
@@ -958,6 +976,7 @@ var vue = new Vue({
 
             })
         },
+
         init_site() {
             this.site_get_list(this.site_tab_tag, this.site_order)
         },
@@ -1025,6 +1044,7 @@ var vue = new Vue({
             }
 
         },
+
         site_remove(e, nid) {
             this.$confirm('此操作将永久删除该网站, 是否继续?', '提示', {
                 confirmButtonText: '确定',
@@ -1046,6 +1066,7 @@ var vue = new Vue({
                 });
             });
         },
+
         site_order_method(order) {
             this.site_order = order
             this.site_get_list(this.site_tab_tag, this.site_order)
@@ -1067,6 +1088,7 @@ var vue = new Vue({
                 }, 2000)
             })
         },
+
         site_coll(e, item) {
             axios.post(`/api/site_coll/${item.nid}/`).then(res => {
                 if (res.code) {
@@ -1083,6 +1105,7 @@ var vue = new Vue({
 
             })
         },
+
         friend_link_add() {
             axios.post('/api/friends_links/', this.site).then(res => {
                 if (res.code) {
@@ -1119,6 +1142,7 @@ var vue = new Vue({
 
             })
         },
+
         show_edit_cover(aid, nid) {
             this.edit_cover.nid = nid
             this.edit_cover.aid = aid
@@ -1139,6 +1163,7 @@ var vue = new Vue({
             this.project.article = eval(lis)
             this.project_dialog = true
         },
+
         project_handleClose(done) {
             done()
             this.project_dialog = false
@@ -1147,6 +1172,7 @@ var vue = new Vue({
             this.project.article = []
 
         },
+
         project_add(nid) {
             if (nid) {
                 axios.put(`/api/projects/${nid}/`, this.project).then(res => {
