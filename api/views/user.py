@@ -1,12 +1,17 @@
+import time
+
 from django.core.handlers.wsgi import WSGIRequest
+from django.db.models import F
+from django.db.models.query import QuerySet
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.views import View
 
 from api.forms import clean_form
 from api.forms.user_form import *
-from page.models import Avatars, UserInfo, Feedback
 from lib.qq_get_user import QQLogin
+from page.models import Articles
+from page.models import Avatars, UserInfo, Feedback
 
 
 # 修改密码
@@ -97,7 +102,10 @@ class EditUserInfoView(View):
 class CancelCollection(View):
     def post(self, request):
         nid_list = request.POST.getlist('nid')
+        # 这里有个bug，取消收藏，对应文章的收藏数也要-1
         request.user.collects.remove(*nid_list)
+        article_query: QuerySet = Articles.objects.filter(nid__in=nid_list)
+        article_query.update(collects_count=F('collects_count') - 1)
         return redirect('/backend/')
 
 
