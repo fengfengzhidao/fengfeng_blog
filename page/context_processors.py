@@ -11,4 +11,5 @@ def admin_media(request):
         'SITE_INFO': settings.SITE_INFO,
         'VERSION': settings.VERSION,
         'MUSIC_GROUP_ID': settings.MUSIC_GROUP_ID,
+        'ONLINE_CHAT': settings.ONLINE_CHAT,
     }

@@ -205,6 +205,8 @@ IS_ADVERTIS = True
 # 网易云的分组id，写了就是要在前台页面展示音乐，不显示就留空
 MUSIC_GROUP_ID = ''
 
+# 网站在线聊天功能
+ONLINE_CHAT = False
 
 # 网站的一些信息
 SITE_INFO = {
@@ -212,7 +214,7 @@ SITE_INFO = {
     'job': '我的工作',
     'address': '我的地址',
     'link': 'www.fengfengzhidao.com',
-    'date': '2021-12-29'
+    'date': '2021-12-29'  # 建站日期
 }
 
 try:
