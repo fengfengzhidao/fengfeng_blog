@@ -217,6 +217,10 @@ SITE_INFO = {
     'date': '2021-12-29'  # 建站日期
 }
 
+# 文章日历功能
+CALENDAR = True
+
+
 try:
     from .local_settings import *
 except:

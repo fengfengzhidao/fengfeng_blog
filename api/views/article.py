@@ -1,4 +1,4 @@
-from django.db.models import F
+from django.db.models import F, Count
 from django.http import JsonResponse
 from django.views import View
 from api.forms.article_form import AddArticleForm
@@ -6,6 +6,7 @@ from api.forms import clean_form
 from page.models import Tags, Articles, Cover, Project
 from lib.permissions_control import is_super_method
 from lib.cache import frequency_limit_decorator
+from datetime import datetime, timedelta
 
 
 # 给文章添加标签
@@ -21,6 +22,31 @@ def add_article_tags(tags, article_obj):
 
 # 文章
 class ArticleView(View):
+    # 文章日历
+    def get(self, request):
+        """
+        TODO:缓存后面记得加上
+        """
+        now = datetime.now()
+
+        article_data = Articles.objects.extra(
+            select={'date': 'date_format(create_date, "%%Y-%%m-%%d")'}
+        ).values_list('date').annotate(Count('pk'))
+
+        date_dict = {}
+        for i in range(365, -1, -1):
+            yesterday = now - timedelta(days=i)
+            date_dict[f'{yesterday.strftime("%Y-%m-%d")}'] = 0
+        for data in article_data:
+            if date_dict.get(data[0]) == 0:
+                date_dict[data[0]] = data[1]
+        article_date_list = list(date_dict.items())
+        article_date_range = [article_date_list[0][0], article_date_list[-1][0]]
+        return JsonResponse({'code': 0, 'data': {
+            "article_date_list": article_date_list,
+            "article_date_range": article_date_range,
+        }})
+
     # 添加文章
     @is_super_method
     def post(self, request):
