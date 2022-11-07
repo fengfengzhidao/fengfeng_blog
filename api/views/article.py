@@ -33,6 +33,7 @@ class ArticleView(View):
             select={'date': 'date_format(create_date, "%%Y-%%m-%%d")'}
         ).values_list('date').annotate(Count('pk'))
 
+
         date_dict = {}
         for i in range(365, -1, -1):
             yesterday = now - timedelta(days=i)
