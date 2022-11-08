@@ -59,7 +59,6 @@ class CommentView(View):
         res['code'] = 0
         return JsonResponse(res)
 
-    @is_super_method
     def delete(self, request, nid):
         # 自己发布的评论才能删除， 或者是超级管理员
         res = {
