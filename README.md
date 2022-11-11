@@ -276,6 +276,10 @@ mysqldump -u root -p blog > blog.sql
 <a href="https://www.jetbrains.com/?from=DjangoBlog"><img src="https://resource.lylinux.net/image/2020/07/01/logo.png" width="150" height="150"></a>
 </div>
 
+## TODO
+1. 全文搜索功能
+2. golang专区
+
 ## 更新历史
 
 ### 2022 年 09 月 02 日
