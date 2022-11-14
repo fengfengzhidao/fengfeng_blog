@@ -5,7 +5,7 @@
 
 基于`python3.6.8`和`Django3.2.10`的博客。
 
-![image](https://img.shields.io/badge/blog-5.0.1-yellow.svg) [![image](https://img.shields.io/badge/fengfengblog-枫枫知道-orange.svg)](http://www.fengfengzhidao.com/) ![image](https://img.shields.io/badge/license-Mysql5.7.26-blue.svg)
+[![image](https://img.shields.io/badge/fengfengblog-枫枫知道-orange.svg)](http://www.fengfengzhidao.com/) ![image](https://img.shields.io/badge/blog-5.0.1-yellow.svg)  ![image](https://img.shields.io/badge/license-Mysql5.7.26-blue.svg)
 
 ## 主要功能：
 
