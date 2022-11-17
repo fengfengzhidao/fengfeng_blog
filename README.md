@@ -280,6 +280,7 @@ mysqldump -u root -p blog > blog.sql
 1. 全文搜索功能
 2. golang专区
 3. TODO专区
+4. 插件功能
 
 ## 更新历史
 
