@@ -20,6 +20,8 @@
 ## 线上版本新功能
 
 - 网站异常告警，出现无法处理的异常将会自动发送提醒邮件或短信。
+- 文章日历功能
+- 网站更新历史
 - 接入企业微信API，实时掌握用户动态
 - es全文搜索，文章搜索功能更加强大
 - 首页全文搜索，主打文章内容搜索，点击可直接跳转至对应位置
@@ -46,6 +48,21 @@
 5. 主题功能并不完善，后续打算在个人中心处做一个类似主题商店的东西（先画个饼）
 6. 没有插件系统，后期做不了生态
 7. 前后端不分离的项目，适合个人产品，开发虽然快，但非原作者对后期维护相对麻烦
+## 捐赠
+
+如果您觉得本项目对您有所帮助，欢迎您请我喝杯咖啡，您的支持是我最大的动力，您可以扫描下方二维码为我付款，谢谢。
+
+### 支付宝：
+
+<div>    
+<img src="https://python.fengfengzhidao.com/pic/zhifubao_pay.jpg" width="150" height="150" />
+</div>  
+
+### 微信：
+
+<div>    
+<img src="http://python.fengfengzhidao.com/pic/weixin_pay.jpg" width="150" height="150" />
+</div>
 
 ## 项目目录
 
@@ -242,19 +259,32 @@ mysqldump -u root -p blog > blog.sql
 
 ## 项目截图
 
+### 首页
 ![](http://python.fengfengzhidao.com/pic/20220902080859.png)
 
-![](http://python.fengfengzhidao.com/pic/20220902080924.png)
+![](http://python.fengfengzhidao.com/pic/20221120134737.png)
 
-![](http://python.fengfengzhidao.com/pic/20220902081114.png)
-
+### 新闻
 ![](http://python.fengfengzhidao.com/pic/20220902080954.png)
 
+### 心情
+![](http://python.fengfengzhidao.com/pic/20221120135040.png)
+
+### 文章搜索
+![](http://python.fengfengzhidao.com/pic/20220902081114.png)
+![](http://python.fengfengzhidao.com/pic/20221120135237.png)
+
+### 网站导航
 ![](http://python.fengfengzhidao.com/pic/20220902081050.png)
 
+### 登录注册
 ![](http://python.fengfengzhidao.com/pic/20220902100521.png)
 
+### 个人中心
 ![](http://python.fengfengzhidao.com/pic/20220902100616.png)
+
+### 后台系统
+![](http://python.fengfengzhidao.com/pic/20221120135342.png)
 
 ## 问题相关
 
@@ -262,28 +292,8 @@ mysqldump -u root -p blog > blog.sql
 
 公测阶段遇到的任何项目相关的问题，都可以反馈于我。
 
-## 捐赠
-
-如果您觉得本项目对您有所帮助，欢迎您请我喝杯咖啡，您的支持是我最大的动力，您可以扫描下方二维码为我付款，谢谢。
-
-### 支付宝：
-
-<div>    
-<img src="https://python.fengfengzhidao.com/pic/zhifubao_pay.jpg" width="150" height="150" />
-</div>  
-
-### 微信：
-
-<div>    
-<img src="http://python.fengfengzhidao.com/pic/weixin_pay.jpg" width="150" height="150" />
-</div>
 
 ---
-
-感谢jetbrains
-<div>    
-<a href="https://www.jetbrains.com/?from=DjangoBlog"><img src="https://resource.lylinux.net/image/2020/07/01/logo.png" width="150" height="150"></a>
-</div>
 
 ## TODO
 1. 全文搜索功能
