@@ -220,6 +220,12 @@ SITE_INFO = {
 # 文章日历功能
 CALENDAR = True
 
+# 日志配置
+LOGGER_CONFIG = {
+    "log_dir": "logs",  # 日志的存放路径
+    "prefix": "[fengfeng]",  # 日志消息的前缀
+    "level": "info",  # 日志消息的等级
+}
 
 try:
     from .local_settings import *
