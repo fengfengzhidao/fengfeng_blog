@@ -35,52 +35,29 @@ from page.views.front_desk.logout import logout
 from page.views.front_desk.get_random_code import get_random_code
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-
-    path('admin_home/', backend.admin_home),
-
-    path('', index),
-
-    path('news/', news),
-
-    path('about/', about),
-
-    path('sites/', sites),
-
-    path('moods/', moods),
-
-    path('history/', history),
-
-    path('search/', search),
-
-    path('project/', project),
-
-    path('login/', login),
-
+    path('admin/', admin.site.urls),  # 后台
+    path('admin_home/', backend.admin_home),  # 后台的看板
+    path('', index),  # 首页
+    path('news/', news),  # 新闻
+    path('about/', about),  # 关于
+    path('sites/', sites),  # 网站导航
+    path('moods/', moods),  # 心情
+    path('history/', history),  # 网站历史
+    path('search/', search),  # 搜索
+    path('project/', project),  # 项目
+    path('login/', login),  # 登录
     path('oauth/', oauth),  # 三方登录之后的回调
-
-    path('login/random_code/', get_random_code),
-
-    path('sign/', sign),
-
-    path('logout/', logout),
-
+    path('login/random_code/', get_random_code),  # 图片验证码
+    path('sign/', sign),  # 注册
+    path('logout/', logout),  # 注销
     re_path(r'^article/(?P<nid>\d+)/', article),  # 文章详情页
-
     path('backend/', backend.backend),  # 后台个人中心
-
     path('backend/add_article/', backend.add_article),  # 后台添加文章
-
     path('backend/edit_avatar/', backend.edit_avatar),  # 后台修改头像
-
     path('backend/cover_list/', backend.cover_list),  # 文章封面
-
     path('backend/avatar_list/', backend.avatar_list),  # 头像列表
-
     re_path(r'^backend/edit_article/(?P<nid>\d+)/', backend.edit_article),  # 编辑文章
-
     re_path(r'^api/', include('api.urls')),  # 路由分发  将所有已api开头的请求分发到api这个urls.py中
-
     re_path(r'media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),  # 用户上传文件路由配置
 
 ]
