@@ -13,44 +13,59 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings  ##新增
 from django.contrib import admin
 from django.urls import path, include, re_path
-from page.views import index, backend
-from django.conf import settings  ##新增
 from django.views.static import serve
+
+from page.views import backend
+from page.views.front_desk.article import article
+from page.views.front_desk.history import history
+from page.views.front_desk.index import index
+from page.views.front_desk.moods import moods
+from page.views.front_desk.news import news
+from page.views.front_desk.oauth import oauth
+from page.views.front_desk.search import search
+from page.views.front_desk.sign import sign
+from page.views.front_desk.sites import sites
+from page.views.front_desk.about import about
+from page.views.front_desk.project import project
+from page.views.front_desk.login import login
+from page.views.front_desk.logout import logout
+from page.views.front_desk.get_random_code import get_random_code
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('admin_home/', backend.admin_home),
 
-    path('', index.index),
+    path('', index),
 
-    path('news/', index.news),
+    path('news/', news),
 
-    path('about/', index.about),
+    path('about/', about),
 
-    path('sites/', index.sites),
+    path('sites/', sites),
 
-    path('moods/', index.moods),
+    path('moods/', moods),
 
-    path('history/', index.history),
+    path('history/', history),
 
-    path('search/', index.search),
+    path('search/', search),
 
-    path('project/', index.project),
+    path('project/', project),
 
-    path('login/', index.login),
+    path('login/', login),
 
-    path('oauth/', index.oauth),  # 三方登录之后的回调
+    path('oauth/', oauth),  # 三方登录之后的回调
 
-    path('login/random_code/', index.get_random_code),
+    path('login/random_code/', get_random_code),
 
-    path('sign/', index.sign),
+    path('sign/', sign),
 
-    path('logout/', index.logout),
+    path('logout/', logout),
 
-    re_path(r'^article/(?P<nid>\d+)/', index.article),  # 文章详情页
+    re_path(r'^article/(?P<nid>\d+)/', article),  # 文章详情页
 
     path('backend/', backend.backend),  # 后台个人中心
 
