@@ -88,8 +88,15 @@ def get_avatar(user: UserInfo):
 # 获取用户地址信息
 @register.filter
 def get_addr(addr: str):
+    # return addr
     addr = eval(addr)
-    return f"{addr['prov']} · {addr['city']}"
+    if type(addr) is tuple:
+        if addr[1] == "":
+            return addr[0]
+        return f"{addr[0]} · {addr[1]}"
+    if type(addr) is dict:
+        return f"{addr['prov']} · {addr['city']}"
+    return ""
 
 
 @register.filter
