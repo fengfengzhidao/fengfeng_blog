@@ -116,6 +116,7 @@
     <script src="/static/editor-md/lib/marked.min.js"></script>
     <script src="/static/editor-md/lib/prettify.min.js"></script>
     <script src="/static/jquery/jquery.min.js"></script>
+    <script src="/static/editor-md/upload_img.js"></script>
     <script src="/static/editor-md/editormd.min.js"></script>
     <script>
 
@@ -130,7 +131,6 @@
                     path: "/static/editor-md/lib/",
                     htmlDecode: true,
                     codeFold: true,
-
                     theme: "dark",
                     previewTheme: "dark",
                 });
@@ -142,6 +142,12 @@
                     path: "/static/editor-md/lib/",
                     htmlDecode: true,
                     codeFold: true,
+                    imageUpload: true,
+                    imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp", "txt", "pdf"],
+                    imageUploadURL: "/api/image/",
+                    onload: function () {
+                        initPasteDragImg(this); //必须
+                    }
                 });
             }
 

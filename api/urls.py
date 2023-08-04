@@ -11,6 +11,7 @@ from api.views import mood
 from api.views import news
 from api.views import sites
 from api.views import user
+from api.views import image
 
 urlpatterns = [
     path('login/', login.LoginView.as_view()),  # 登录
@@ -91,5 +92,7 @@ urlpatterns = [
     path('feedback/', user.FeedBackView.as_view()),  # 意见反馈
 
     path('news/', news.NewsView.as_view()),  # 新闻
+
+    path('image/', image.ImageView.as_view()),  # 图片相关
 
 ]
