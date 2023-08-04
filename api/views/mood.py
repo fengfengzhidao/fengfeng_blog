@@ -10,6 +10,7 @@ from lib.cache import frequency_limit_decorator
 from page.models import Avatars, Moods, MoodComment
 from lib.get_user_info import get_ip, get_addr_info
 from lib.permissions_control import is_super_method
+from lib.response.response import *
 
 
 # 添加心情或 编辑心情的验证
@@ -30,15 +31,10 @@ class AddMoodsForm(forms.Form):
 
 
 def mood_digg(model_obj, nid):
-    res = {
-        'msg': '感谢点赞！',
-        "code": 412,
-    }
     mood_query = model_obj.objects.filter(nid=nid)
     mood_query.update(digg_count=F('digg_count') + 1)
-    res['data'] = mood_query.first().digg_count
-    res['code'] = 0
-    return JsonResponse(res)
+    digg_count = mood_query.first().digg_count
+    return ok(digg_count, "感谢点赞")
 
 
 class MoodsView(View):
@@ -68,22 +64,13 @@ class MoodsView(View):
 
     @is_super_method
     def delete(self, request, nid):
-
-        res = {
-            'msg': '心情删除成功！',
-            "code": 412,
-        }
         if not request.user.is_superuser:
-            res['msg'] = '用户验证失败'
-            return JsonResponse(res)
+            return fail("用户验证失败")
         mood_query = Moods.objects.filter(nid=nid)
         if not mood_query:
-            res['msg'] = '该心情不存在'
-            return JsonResponse(res)
-
+            return fail("该心情不存在")
         mood_query.delete()
-        res['code'] = 0
-        return JsonResponse(res)
+        return ok_msg("心情删除成功")
 
     # 点赞
     @frequency_limit_decorator()
@@ -120,25 +107,16 @@ class MoodCommentsView(View):
 
     @is_super_method
     def delete(self, request, nid):
-        res = {
-            'msg': '评论删除成功！',
-            "code": 412,
-            "data": 0
-        }
         if not request.user.is_superuser:
-            res['msg'] = '用户验证失败'
-            return JsonResponse(res)
+            return fail("用户验证失败")
         mood_id = request.data.get('mood_id')
         MoodComment.objects.filter(nid=nid).delete()
 
         mood_query = Moods.objects.filter(nid=mood_id)
         mood_query.update(comment_count=F('comment_count') - 1)
+        comment_count = mood_query.first().comment_count
 
-        res['data'] = mood_query.first().comment_count
-
-        res['code'] = 0
-
-        return JsonResponse(res)
+        return ok(comment_count, "评论删除成功！")
 
     # 点赞
     @frequency_limit_decorator()

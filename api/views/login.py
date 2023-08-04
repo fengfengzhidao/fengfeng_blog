@@ -7,6 +7,7 @@ from django.views import View
 from api.forms import clean_form
 from api.forms.login_form import LoginForm, SignForm
 from page.models import UserInfo, Avatars
+from lib.response import response
 
 
 # CBV
