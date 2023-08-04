@@ -86,7 +86,7 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': 'root',
         'HOST': '127.0.0.1',
-        'PORT': 3306
+        'PORT': 3307
     }
 }
 # 缓存配置，使用的是内存缓存

@@ -1,8 +1,8 @@
 /venv/
 /*venv/
 .idea
-*/测试
-*/评论测试
 local_settings.py
 __pycache__
 .vscode
+init/mysql/*
+!init/mysql/blog.sql
