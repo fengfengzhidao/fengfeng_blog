@@ -17,6 +17,18 @@
 - 支持Oauth登陆，现已有QQ登录，gitee登录。
 - 集成了七牛云的图床功能。
 
+
+## gin-vue-blog
+
+基于go+vue3的前后端分离博客
+
+[gin-vue-blog后端教程部分](https://www.bilibili.com/video/BV1f24y1G72C)  
+[gin-vue-blog前端教程部分](https://www.bilibili.com/video/BV1Fj411u7yk)  
+
+完整教程请联系我
+
+官方指定QQ：2974771769（枫枫知道）
+
 ## 线上版本新功能
 
 - 网站异常告警，出现无法处理的异常将会自动发送提醒邮件或短信。
@@ -68,13 +80,13 @@ password: root
 ### 支付宝：
 
 <div>    
-<img src="http://image.fengfengzhidao.com/pic/zhifubao_pay.jpg" width="150" height="150" />
+<img src="./doc/img.png" width="150" height="150" />
 </div>  
 
 ### 微信：
 
 <div>    
-<img src="http://image.fengfengzhidao.com/pic/weixin_pay.jpg" width="150" height="150" />
+<img src="./doc/img_1.png" width="150" height="150" />
 </div>
 
 
@@ -82,35 +94,29 @@ password: root
 ## 项目截图
 
 ### 首页
-![](http://image.fengfengzhidao.com/pic/20220902080859.png)
+![](./doc/1.png)
 
-![](http://image.fengfengzhidao.com/pic/20221120134737.png)
+![](./doc/2.png)
 
 ### 新闻
-![](http://image.fengfengzhidao.com/pic/20220902080954.png)
+![](./doc/3.png)
 
 ### 心情
-![](http://image.fengfengzhidao.com/pic/20221120135040.png)
+![](./doc/20221120135040.png)
 
 ### 文章搜索
-![](http://image.fengfengzhidao.com/pic/20220902081114.png)
+![](./doc/20220902081114.png)
 
-![](http://image.fengfengzhidao.com/pic/20221120135237.png)
+![](./doc/20221120135237.png)
 
 ### 网站导航
-![](http://image.fengfengzhidao.com/pic/20220902081050.png)
+![](./doc/20220902081050.png)
 
 ### 登录注册
-![](http://image.fengfengzhidao.com/pic/20220902100521.png)
+![](./doc/20220902100521.png)
 
 ### 个人中心
-![](http://image.fengfengzhidao.com/pic/20220902100616.png)
+![](./doc/20220902100616.png)
 
 ### 后台系统
-![](http://image.fengfengzhidao.com/pic/20221120135342.png)
-
-## 问题相关
-
-有任何问题欢迎提Issue,或者添加我的联系方式 2974771769（qq）.我会尽快解答.推荐提交Issue方式.
-
-公测阶段遇到的任何项目相关的问题，都可以反馈于我。
+![](./doc/img_2.png)
