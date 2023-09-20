@@ -14,6 +14,17 @@ def is_super_fun(fun):
     return inner
 
 
+def is_login_fun(fun):
+    def inner(*args, **kwargs):
+        request = args[0]
+        if not request.user.is_authenticated:
+            return redirect('/')
+        res = fun(*args, **kwargs)
+        return res
+
+    return inner
+
+
 # api权限验证
 def is_super_method(fun):
     def inner(*args, **kwargs):
